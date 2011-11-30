@@ -10,7 +10,6 @@ Nous sommes des étudiants de la HES-SO en Ingénierie. Dans le cadre du Projet 
 Celle-ci ayant pour objectif principal de recevoir des valeurs d'un pointeur d'étoiles via un cable RS232 et d'afficher les informations concernant l'étoile pointé dans l'interface.
 
 L'appareil sera quant à lui réaliser pour un autre groupe. 
-
 == Qt ==
 
 === Introduction ===
