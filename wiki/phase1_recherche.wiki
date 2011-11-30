@@ -3,19 +3,26 @@
 = Skyguide = 
 
 == Table des matières ==
-<wiki:toc max_depth="1" />
-  * [Intro Introduction]
-    * [ArticlesXSS Web security]
-    * [ArticlesDom DOM manipulation]
-    * [ArticlesStyle CSS and style]
-    * [ArticlesTips Tips and tricks]
-  * [DOMReference DOM reference]
-  * [HTMLElements HTML reference]
-  * [CSSReference CSS reference]
+<wiki:toc max_depth="100" />
 == Introduction ==
+Nous sommes des étudiants de la HES-SO en Ingénierie. Dans le cadre du Projet P1, nous avons été mandaté à réaliser une application.
 
-#sidebar Intro
+Celle-ci ayant pour objectif principal de recevoir des valeurs d'un pointeur d'étoiles via un cable RS232 et d'afficher les informations concernant l'étoile pointé dans l'interface.
 
-Nous sommes des étudiants de la HES-SO en Ingénierie. Dans le cadre du Projet P1, comptant pour le passage en seconde année, nous avons été mandaté à réaliser une application recevant des valeurs à l'aide d'un appareil, créé par un groupe, étudiant l'Informatique Industriel Embarqué, interfacé par un cable série RS232.
+L'appareil sera quant à lui réaliser pour un autre groupe. 
 
-Notre travail en tant qu'étudiants en développement logiciel et multimédia est de créer une interface graphique.
+== Qt ==
+
+=== Introduction ===
+
+Qt est un framework orienté objet et développé en C++. C’est une filiale de Nokia qui développe et améliore le framework. Qt est un projet open source, il est disponible avec différentes licences comme GNU GPL v3 et GNU LGPL 2.1. Autres caractéristiques importante de Qt, c’est qu’il est multiplateforme, il fonctionne aussi bien sous Windows, GNU/Linux que MacOS. 
+Le framework Qt est divisé en plusieurs modules, dont voici les principaux :
+* QtCore : fonctionnalités de base du framwork
+* QtGui : pour les composants graphiques
+* QtNetwork : pour la communication réseau
+* QtOpenGL : pour utiliser la bibliothèque OpenGL
+* QtSql : pour l’utilisation de base de données SQL
+*QtXml : pour manipuler des fichiers XML
+*QtDesigner : pour étendre les fonctionnalités de Qt Designer
+*QtAssitant : pour utiliser l’aide de Qt
+*Qt3Support : pour assurer la compatibilité avec Qt 3
