@@ -3,7 +3,7 @@
 = Skyguide = 
 
 == Table des matières ==
-<wiki:toc max_depth="100" />
+<wiki:toc max_depth="10" />
 == Introduction ==
 Nous sommes des étudiants de la HES-SO en Ingénierie. Dans le cadre du Projet P1, nous avons été mandaté à réaliser une application.
 
