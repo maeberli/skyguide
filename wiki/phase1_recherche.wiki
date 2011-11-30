@@ -106,4 +106,4 @@ void MainWindow::pushButtonClicked()
 
 Capture d’écran de l’application sous Ubuntu. Ce qui prouve bien que Qt fonctionne bien sous GNU/Linux.
 
-https://code.google.com/p/skyguide/source/browse/wiki/img/capture.jpg
+https://code.google.com/p/skyguide/source/browse/wiki/img/cap.jpg
