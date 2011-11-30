@@ -2,19 +2,16 @@
 
 = technoloqy =
 == GUI ==
-* 
 
 || *description* || *link* ||
 || Qt painting System || [http://doc.qt.nokia.com/4.7-snapshot/gettingstarted-develop.html#qt-rendering-painting-system qt painting system]||
 
-= Introduction =
+== database ==
+|| *description* || *link* ||
+|| official webpage of sqllite || [http://www.sqlite.org/ SQLite Home Page]||
 
-Add your content here.
 
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+= data =
+== astronomical data ==
+|| *description* || *link* ||
+|| datasource for the approximately 1600 brightest stars || [http://cdsarc.u-strasbg.fr/viz-bin/Cat?cat=V%2F53&find=+ Catalogue of the Brightest Stars]||
