@@ -1,13 +1,21 @@
 #summary Recherche pour skyguide
+<wiki:toc max_depth="1" />
 
-= Introduction =
+= Skyguide = 
 
-Sur cette page, nous trouverons les différents éléments que nous avons testé ainsi que les éléments retenus pour la réalisation du projet.
+== Table des matières ==
+  * [Intro Introduction]
+    * [ArticlesXSS Web security]
+    * [ArticlesDom DOM manipulation]
+    * [ArticlesStyle CSS and style]
+    * [ArticlesTips Tips and tricks]
+  * [DOMReference DOM reference]
+  * [HTMLElements HTML reference]
+  * [CSSReference CSS reference]
+== Introduction ==
 
+#sidebar Intro
 
-= Details =
+Nous sommes des étudiants de la HES-SO en Ingénierie. Dans le cadre du Projet P1, comptant pour le passage en seconde année, nous avons été mandaté à réaliser une application recevant des valeurs à l'aide d'un appareil, créé par un groupe, étudiant l'Informatique Industriel Embarqué, interfacé par un cable série RS232.
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Notre travail en tant qu'étudiants en développement logiciel et multimédia est de créer une interface graphique.
