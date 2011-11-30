@@ -5,11 +5,13 @@
 == Table des matières ==
 <wiki:toc max_depth="10" />
 == Introduction ==
+
 Nous sommes des étudiants de la HES-SO en Ingénierie. Dans le cadre du Projet P1, nous avons été mandaté à réaliser une application.
 
 Celle-ci ayant pour objectif principal de recevoir des valeurs d'un pointeur d'étoiles via un cable RS232 et d'afficher les informations concernant l'étoile pointé dans l'interface.
 
-L'appareil sera quant à lui réaliser pour un autre groupe. 
+L'appareil sera quant à lui réaliser pour un autre groupe.
+
 == Qt ==
 
 === Introduction ===
@@ -25,3 +27,81 @@ Le framework Qt est divisé en plusieurs modules, dont voici les principaux :
  * qtDesigner: pour étendre les fonctionnalités de Qt Designer
  * qtAssitant: pour utiliser l’aide de Qt
  * qt3Support: pour assurer la compatibilité avec Qt
+
+=== Pourquoi avoir choisi le frameworkt Qt ===
+
+Notre projet nous demande de réaliser une interface graphique, une communication avec une base de données, de trouver un moyen d’afficher des étoiles sur une image ou dans une fenêtre et de pouvoir communiquer avec le port série entre deux machine. Le framework Qt contient toutes ces fonctionnalités dont nous avons besoin. Cette une des raisons de notre choix, mais pas seulement:
+ * C’est un framework open source
+ * C’est un framework multiplateforme
+ * Le module QtGui nous sera utile pour l’interface graphique
+ * Le module QtSql nous sera utile pour la communication avec notre base de données
+ * Qt propose une extension pour la communication RS232 : QExtSerialPort
+ * Qt permet de créer des images ou de dessiner n’importe quelle forme sur des fenêtres (module de dessin)
+
+=== Exemple d’interface graphique avec Qt ===
+
+==== Fichier main.cpp ====
+
+{{{
+#include <QtGui/QApplication> // include pour Qt
+#include "mainwindow.h" // include du fichier header de la fenêtre
+int main(int argc, char *argv[]) // point d’entrée du programme
+{
+    QApplication app(argc, argv); // toutes application Qt commence par cette ligne
+    MainWindow w; // création d’une fenêtre
+    w.show(); // affichage de la fenêtre
+    return app.exec(); // quitte le programme
+}
+}}}
+
+==== Fichier mainwindow.h ====
+
+{{{
+#ifndef MAINWINDOW_H // pour ne pas inclure plusieurs fois le fichier .h
+#define MAINWINDOW_H
+#include <QMainWindow>
+namespace Ui {
+    class MainWindow;
+}
+class MainWindow : public QMainWindow // déclaration de la classe
+{
+    Q_OBJECT // macro propre à Qt
+public:
+    explicit MainWindow(QWidget *parent = 0); // constructeur de l’objet
+    ~MainWindow();// destructeur de l’objet
+private:
+    Ui::MainWindow *ui; // objet fenêtre
+
+private slots:
+    void pushButtonClicked(); // méthode appelé quand on clique sur le bouton
+};
+#endif // MAINWINDOW_H
+
+}}}
+
+==== Fichier mainwindow.cpp ====
+
+{{{
+#include "mainwindow.h" // inclure le fichire de déclaration
+#include "ui_mainwindow.h"
+// définition de la classe qui érite de l’objet QMainWindow
+MainWindow::MainWindow(QWidget *parent):QMainWindow(parent), ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    // connecte le bouton à l’événement clique à la méthode pushButtonClicked()
+    connect(this->ui->pushButton, SIGNAL(clicked()), this, SLOT(pushButtonClicked()));
+}
+MainWindow::~MainWindow() // détruit l’objet à la fin du programme
+{
+    delete ui;
+}
+
+void MainWindow::pushButtonClicked()
+{
+    // code éxécuté quand on clique sur le bouton
+}
+}}}
+
+==== Capture d'écran du résultat ====
+
+Capture d’écran de l’application sous Ubuntu. Ce qui prouve bien que Qt fonctionne bien sous GNU/Linux.
