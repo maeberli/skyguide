@@ -16,12 +16,12 @@ L'appareil sera quant à lui réaliser pour un autre groupe.
 
 Qt est un framework orienté objet et développé en C++. C’est une filiale de Nokia qui développe et améliore le framework. Qt est un projet open source, il est disponible avec différentes licences comme GNU GPL v3 et GNU LGPL 2.1. Autres caractéristiques importante de Qt, c’est qu’il est multiplateforme, il fonctionne aussi bien sous Windows, GNU/Linux que MacOS. 
 Le framework Qt est divisé en plusieurs modules, dont voici les principaux :
- * QtCore : fonctionnalités de base du framwork
- * QtGui : pour les composants graphiques
- * QtNetwork : pour la communication réseau
- * QtOpenGL : pour utiliser la bibliothèque OpenGL
- * QtSql : pour l’utilisation de base de données SQL
- * QtXml : pour manipuler des fichiers XML
- * QtDesigner : pour étendre les fonctionnalités de Qt Designer
- * QtAssitant : pour utiliser l’aide de Qt
- * Qt3Support : pour assurer la compatibilité avec Qt 3
+ QtCore : fonctionnalités de base du framwork
+ QtGui : pour les composants graphiques
+ QtNetwork : pour la communication réseau
+ QtOpenGL : pour utiliser la bibliothèque OpenGL
+ QtSql : pour l’utilisation de base de données SQL
+ QtXml : pour manipuler des fichiers XML
+ QtDesigner : pour étendre les fonctionnalités de Qt Designer
+ QtAssitant : pour utiliser l’aide de Qt
+ Qt3Support : pour assurer la compatibilité avec Qt 3
