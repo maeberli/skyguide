@@ -165,3 +165,32 @@ else
 }
 db.close();
 }}}
+
+=Calculs astronométriques=
+
+==Introduction==
+
+Pour calculer la position des étoiles, nous avons écrit un programme en C++ pour convertir les valeurs reçues en valeurs utilisables pour déterminer les positions des étoiles.
+
+Comme le groupe IIE n’a pas encore commencé le travail sur le hardware,  nous ne sommes pas en position pour savoir quelles valeurs ils nous enverront. Nous avons donc essayé de deviner, de manière réaliste, quelles unités nous recevront.  Nous avons donc estimé que du GPS nous recevront la latitude et la longitude, et du pointeur, la déclinaison et l’ascension droite. A partir de ceux-ci nous sommes capables de calculer la hauteur et l’azimut, desquelles nous pouvons identifier une étoile. L’heure n’est pas difficile à trouver.
+
+==Expliquons rapidement ce que représentent ces différentes coordonnées==
+
+Les *latitudes* et les *longitudes* sont un système de coordonnées qui permettent de marquer un point sur la terre.
+
+La *longitude* est un angle calculé horizontalement depuis le centre de la terre, séparant la planète en quartiers, le point d’origine de son calcul est à Greenwich.
+
+La *latitude* est un angle calculé verticalement depuis le centre de la terre, divisant la planète en « tranches ».  Son origine est l’équateur.
+
+L’angle horaire est la différence entre le temps sidéral et son ascension droite. Le temps sidéral est calculé selon le point vernal moyen. Plus explicitement, un jour sidéral sur terre dure 4 minutes de moins qu’un jour comme nous les connaissons, soit  0,9972696 jour solaire.
+
+https://skyguide.googlecode.com/svn/wiki/img/calcul.png
+
+
+L’ascension droite et la déclinaison sont comparable à la latitude et la longitude, mais pour la sphère céleste et en utilisant comme point d’origine le point vernal. Ces valeurs nous sont données par le pointeur.
+
+https://skyguide.googlecode.com/svn/wiki/img/calcul1.png
+
+Encore une fois, *l’azimut* et la *hauteur* sont des angles calculés depuis le centre d’une sphère. Il est calculé dans le sens des aiguilles d’une montre et depuis le sud géographique, cela présente l’avantage d’avoir l’angle horaire et l’azimut nuls lors du passage de l’astre au méridien.
+
+https://skyguide.googlecode.com/svn/wiki/img/calcul2.png
