@@ -1,8 +1,11 @@
 # This site contains useful links for the project
 
 = technoloqy =
-== GUI ==
+== Design patterns ==
+|| *description* || *link* ||
+|| Private implementation (PIMPL) IDIOM || [http://www.gamedev.net/page/resources/_/technical/general-programming/the-c-pimpl-r1794 PIMPL Example]||
 
+== GUI ==
 || *description* || *link* ||
 || Qt painting System || [http://doc.qt.nokia.com/4.7-snapshot/gettingstarted-develop.html#qt-rendering-painting-system qt painting system]||
 
