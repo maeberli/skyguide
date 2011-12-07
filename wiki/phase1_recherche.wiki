@@ -189,11 +189,11 @@ https://skyguide.googlecode.com/svn/wiki/img/calcul.png
 
 L’ascension droite et la déclinaison sont comparable à la latitude et la longitude, mais pour la sphère céleste et en utilisant comme point d’origine le point vernal. Ces valeurs nous sont données par le pointeur.
 
-https://skyguide.googlecode.com/svn/wiki/img/calcul1.png
+https://skyguide.googlecode.com/svn/wiki/img/calcul2.png
 
 Encore une fois, *l’azimut* et la *hauteur* sont des angles calculés depuis le centre d’une sphère. Il est calculé dans le sens des aiguilles d’une montre et depuis le sud géographique, cela présente l’avantage d’avoir l’angle horaire et l’azimut nuls lors du passage de l’astre au méridien.
 
-https://skyguide.googlecode.com/svn/wiki/img/calcul2.png
+https://skyguide.googlecode.com/svn/wiki/img/calcul3.png
 
 ==Calcul de l'azimut et de la hauteur==
 
