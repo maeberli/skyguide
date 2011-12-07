@@ -139,3 +139,29 @@ Pour cela il faut utiliser le petit utilitaire sqlite3.exe dans une invite de co
 ===Exemple d’utilisation de sqlite3.exe===
 
 https://skyguide.googlecode.com/svn/wiki/img/sql.png
+
+Fichiers clients.bd créé:
+
+https://skyguide.googlecode.com/svn/wiki/img/outpud_sql.png
+
+==Exemple de code avec le framework Qt==
+{{{
+
+QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE"); // on choisit SQLite
+
+db.setDatabaseName("test.db"); // le nom de la base de donnée
+if (!db.open()) // ouverture de la base de donnée
+{
+  // erreur de connection
+}
+QSqlQuery query; // créer une requête
+if (query.exec("INSERT INTO clients(prenom_client, nom_client) VALUES(Matthieu, Rossier)"))
+{
+  // requête SQL bien exécuté
+}
+else
+{
+  // erreur dans la requête SQL
+}
+db.close();
+}}}
