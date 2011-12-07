@@ -106,3 +106,36 @@ Capture d’écran de l’application sous Ubuntu. Ce qui prouve bien que Qt fon
 https://skyguide.googlecode.com/svn/wiki/img/cap.jpg
 
 = Sqlite =
+
+== Introduction ==
+
+SQlLite est une bibliothèque écrite en langage C, qui propose un moteur de base de données relationnelle accessible par le langage SQL. SQLite implémente la majorité des fonctionnalités du standard : SQL2.
+
+SQLite est un projet open source, ce qui permet de l’utiliser aussi bien dans le développement de programme propriétaire que open source.
+
+Une des particularités majeures de SQLite est que contrairement aux bases de donnée traditionnels (MySQL, PostgreSQL, SQLServer, Oracle), SQLite n’utilise pas le schéma habituel client-serveur. En effet, SQLite est directement intégré dans l’application sous forme d’un fichier contenant : table, index, données, types, etc …).
+
+De nombreux logiciel grand public utilise SQLite, on peut citer par exemple : Firefox, Skype, produit d’Apple, d’Adobe ou de Google. Son utilisation est très appréciée aussi dans les systèmes embarqués de par sa légèreté (300 ko). Pour finir de nombreux, framework ou bibliothèque standard de différents langage implémente SQLite, on peut citer par exemple : PHP, Python, C#, Java ou Qt.
+
+==Pourquoi avoir choisi SQLite ?==
+
+Pour notre projet nous avons besoin de stocker différentes informations sur des étoiles. Notre choix c’est porté sur SQLite pour différentes raisons :
+ * C’est une technologie open source
+ * C’est une base de donnée "attaché à l’application" et non client-serveur
+ * C’est une base de données très simple à utiliser
+ * On peut interroger SQLite avec le langage SQL
+ *SQLite est directement intégré dans le framework Qt
+
+==Utilisation d’SQLite avec le framework Qt==
+
+===Prérequis===
+
+ * Le framework Qt (téléchargeable ici : http://www.sqlite.org/download.html)
+ * sqlite3.exe (téléchargeable ici : http://qt.nokia.com/downloads)
+
+===Création de la base de données===
+Pour cela il faut utiliser le petit utilitaire sqlite3.exe dans une invite de commande. Il permet de créer la base de données et d’y insérer des requêtes SQL.
+
+===Exemple d’utilisation de sqlite3.exe===
+
+https://skyguide.googlecode.com/svn/wiki/img/sql.png
