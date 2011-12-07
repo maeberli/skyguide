@@ -197,9 +197,6 @@ https://skyguide.googlecode.com/svn/wiki/img/calcul2.png
 
 ==Calcul de l'azimut et de la hauteur==
 
-
 On commence par calculer l’heure sidérale à partir de l’heure, la date et de l’ascension droite.
 
 La hauteur peut être trouvée grâce à la déclinaison, la latitude et l’angle horaire. Les calculs sont effectués en radians.
-
-Hauteur = 
