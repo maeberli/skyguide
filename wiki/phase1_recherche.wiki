@@ -279,9 +279,13 @@ La première partie de QSerialDevice est utile pour énumèrer tous les Serial I
 Site d’internet: http://qt-apps.org/content/show.php?content=112039
 6.3	Exemple d’utilisation
 Pour comprendre comment la communication fonctionne entre deux terminaux par RS232, nous avons développé un petit logiciel pour communiquer entre deux ordinateurs. Pour connecter les deux ordinateurs nous avons utilisé une file null-modem (les deux ordinateurs étaient des maître).
+
+https://skyguide.googlecode.com/svn/wiki/img/rs2322.png
  
 ===Screenshot====
- 
+
+https://skyguide.googlecode.com/svn/wiki/img/rs232.png
+
 ===Code===
 {{{
 //open a connection to the serialport (CONTAINS PSEUDO CODE)
