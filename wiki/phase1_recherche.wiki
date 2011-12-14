@@ -233,3 +233,33 @@ Après quelques mois de recherches, aucun inconvénient n’a été constaté mi
 Après diverses recherches sur les différents outils disponibles, nous avons retenu Google Code car il nous offrait une grande panoplie d’outils pour la gestion de notre projet et que beaucoup de développeurs utilisait également cette forge sur le web.
 
 https://skyguide.googlecode.com/svn/wiki/img/version2.png
+
+=TortoiseSVN=
+
+TortoiseSVN est un des logiciels client de SVN les plus populaires1.
+C'est un logiciel libre distribué selon les termes de la licence GNU GPL.
+En s'intégrant dans l'explorateur de Windows, il offre aux utilisateurs de Windows une interface graphique permettant de réaliser la plupart des tâches qu'offre SVN en ligne de commande.
+
+==Les fonctionnalités de TortoiseSVN==
+
+Voici une courte liste des fonctionnalités  qui propose le client Subversion TortoiseSVN :
+ * Intégration dans le shell
+ * Recouvrement d'icônes
+ * Interface Utilisateur
+ * Accès facile aux commandes de Subversion
+ * Répertoires versionnés
+ * Livraisons atomiques
+ * Metadonnées versionnées
+ * Gestion cohérente des données
+ * Embranchements et étiquetages efficaces
+
+==Recouvrement d'icônes==
+
+Une des fonctionnalités les plus visibles de TortoiseSVN sont les recouvrements d'icônes qui apparaissent sur les fichiers de votre copie de travail. Celles-ci vous montrent en un clin d'œil quels fichiers ont été modifiés.
+Figure 1.0 L'Explorateur montrant le recouvrement d'icônes 
+TortoiseSVN ajoute une icône de recouvrement à chaque icône de fichier chevauchant l'icône de fichier original. Selon le statut Subversion du fichier, l'icône de recouvrement est différente. Voici quelques exemples :
+ * https://skyguide.googlecode.com/svn/wiki/img/i.png : Cela signifie que le statut Subversion est normal.
+ * https://skyguide.googlecode.com/svn/wiki/img/i2.png : Dès que vous commencez à éditer un fichier, le statut change en modifié et l'icône de recouvrement devient alors un point d'exclamation rouge.
+ * https://skyguide.googlecode.com/svn/wiki/img/i3.png : Si un conflit se produit lors d'une mise à jour alors l'icône de recouvrement devient un point d'exclamation jaune.
+ * https://skyguide.googlecode.com/svn/wiki/img/i4.png : Si vous avez verrouillé un fichier et que le statut de Subversion est normal, cette icône de recouvrement vous rappelle que vous devriez relâcher le verrou si vous ne l'utilisez pas pour permettre aux autres utilisateurs de livrer leurs changements.
+Et bien d’autres icônes encore comme c’est mentionnée la dessus.
