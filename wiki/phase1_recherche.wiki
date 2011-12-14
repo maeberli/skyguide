@@ -1,7 +1,8 @@
 #summary Document de recherche
 = Table des matières ==
 <wiki:toc max_depth="10" />
-== Introduction ==
+=Skyguide=
+==Introduction==
 
 Nous sommes des étudiants de la HES-SO en Ingénierie. Dans le cadre du Projet P1, nous avons été mandaté à réaliser une application.
 
@@ -9,9 +10,9 @@ Celle-ci ayant pour objectif principal de recevoir des valeurs d'un pointeur d'�
 
 L'appareil sera quant à lui réaliser pour un autre groupe.
 
-= Qt =
+=Qt=
 
-== Introduction ==
+==Introduction==
 
 Qt est un framework orienté objet et développé en C++. C’est une filiale de Nokia qui développe et améliore le framework. Qt est un projet open source, il est disponible avec différentes licences comme GNU GPL v3 et GNU LGPL 2.1. Autres caractéristiques importante de Qt, c’est qu’il est multiplateforme, il fonctionne aussi bien sous Windows, GNU/Linux que MacOS. 
 Le framework Qt est divisé en plusieurs modules, dont voici les principaux :
@@ -25,7 +26,7 @@ Le framework Qt est divisé en plusieurs modules, dont voici les principaux :
  * qtAssitant: pour utiliser l’aide de Qt
  * qt3Support: pour assurer la compatibilité avec Qt
 
-== Pourquoi avoir choisi le frameworkt Qt ==
+==Pourquoi avoir choisi le frameworkt Qt==
 
 Notre projet nous demande de réaliser une interface graphique, une communication avec une base de données, de trouver un moyen d’afficher des étoiles sur une image ou dans une fenêtre et de pouvoir communiquer avec le port série entre deux machine. Le framework Qt contient toutes ces fonctionnalités dont nous avons besoin. Cette une des raisons de notre choix, mais pas seulement:
  * C’est un framework open source
@@ -35,9 +36,9 @@ Notre projet nous demande de réaliser une interface graphique, une communicatio
  * Qt propose une extension pour la communication RS232 : QExtSerialPort
  * Qt permet de créer des images ou de dessiner n’importe quelle forme sur des fenêtres (module de dessin)
 
-== Exemple d’interface graphique avec Qt ==
+==Exemple d’interface graphique avec Qt==
 
-=== Fichier main.cpp ===
+===Fichier main.cpp===
 
 {{{
 #include <QtGui/QApplication> // include pour Qt
@@ -51,7 +52,7 @@ int main(int argc, char *argv[]) // point d’entrée du programme
 }
 }}}
 
-=== Fichier mainwindow.h ===
+===Fichier mainwindow.h===
 
 {{{
 #ifndef MAINWINDOW_H // pour ne pas inclure plusieurs fois le fichier .h
