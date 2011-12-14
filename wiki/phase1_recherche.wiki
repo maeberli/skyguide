@@ -202,3 +202,34 @@ On commence par calculer l’heure sidérale à partir de l’heure, la date et 
 La hauteur peut être trouvée grâce à la déclinaison, la latitude et l’angle horaire. Les calculs sont effectués en radians.
 
 https://skyguide.googlecode.com/svn/wiki/img/calcul4.png
+
+
+=Versionning=
+
+==Introduction==
+
+Dans le cadre du Projet P1, nous avons dû choisir une forge ainsi qu’un outil de subversion. Nous avons effectué plusieurs recherches mais notre intention s’est tout particulièrement orientée vers Google Code et TortoiseSVN.
+
+==Google Code==
+
+Google Code est une application web fourni par google permettant l’hébergement de projet. C’est-à-dire qu’ils offrent l’opportunité à tout chef de projet de publier l’avancement de son projet ainsi que ces codes sources. C’est également dans ce site que sont publiés la majeure partie des API de Google comme Google Maps ou encore Google Earth.
+
+https://skyguide.googlecode.com/svn/wiki/img/version.png
+
+===Avantages===
+
+Les avantages constatés lors de la préparation sont les suivants :
+ * Google Code étant une application Web de Versionning offrant la possibilité aux utilisateurs, l’emploi d’un outil de Subversion tels que TortoiseSVN pour la publication des fichiers sources.
+ * Les backups sont gérés par le site, c’est-à-dire qu’à chaque nouveau chargement d’un fichier, les versions ultérieures sont gardées dans l’espace de travail.
+ * Il y a également la possibilité de créer un wiki pour publier de la documentation concernant le projet ainsi que son développement.
+ * Un suivi des modifications est directement affiché sur l’accueil de l’espace de travail, car à chaque téléchargement de fichiers, une description des modifications est demandée à l’utilisateur.
+
+===Les inconvénients===
+
+Après quelques mois de recherches, aucun inconvénient n’a été constaté mis à part l’obligation d’avoir un compte Gmail pour accéder et modérer l’espace de travail.
+
+==Conclusion==
+
+Après diverses recherches sur les différents outils disponibles, nous avons retenu Google Code car il nous offrait une grande panoplie d’outils pour la gestion de notre projet et que beaucoup de développeurs utilisait également cette forge sur le web.
+
+https://skyguide.googlecode.com/svn/wiki/img/version2.png
