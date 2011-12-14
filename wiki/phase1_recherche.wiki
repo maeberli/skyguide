@@ -264,3 +264,50 @@ TortoiseSVN ajoute une icône de recouvrement à chaque icône de fichier chevau
  * https://skyguide.googlecode.com/svn/wiki/img/i3.png : Si un conflit se produit lors d'une mise à jour alors l'icône de recouvrement devient un point d'exclamation jaune.
  * https://skyguide.googlecode.com/svn/wiki/img/i4.png : Si vous avez verrouillé un fichier et que le statut de Subversion est normal, cette icône de recouvrement vous rappelle que vous devriez relâcher le verrou si vous ne l'utilisez pas pour permettre aux autres utilisateurs de livrer leurs changements.
 Et bien d’autres icônes encore comme c’est mentionnée la dessus.
+
+
+=Communication par RS232=
+
+==Problématique==
+
+Les différents systèmes d’exploitation implémentent la plupart des accès aux interfaces RS232. La communication par RS232 à besoins de beaucoup paramètres différents (start/stopbit, baudrate, flowcontrol, etc.), tous ses paramètres doivent configurer manuellement.
+
+==Solution==
+
+Marco Aeberli a déjà travaillé avec RS232 en combinaison avec Qt. Il apporte la component QSerialDevice, qui est développé avec Qt et sous une licence open source. La component possède une interface en style de Qt, avec signal et slots. QSerialDevice est disponible pour les système exploitation suivre: Win 2K/XP/Vista/7, GNU/Linux distributions, MacOSX .
+La première partie de QSerialDevice est utile pour énumèrer tous les Serial Interface qui sont disponible sur l’ordinateur. L’énumération des interfaces sous MacOSx n’est pas encore implémentée. La deuxième partie contient l’interface pour accéder et configurer un port série. Cette partie fonctionne sur toutes les plateformes.
+Site d’internet: http://qt-apps.org/content/show.php?content=112039
+6.3	Exemple d’utilisation
+Pour comprendre comment la communication fonctionne entre deux terminaux par RS232, nous avons développé un petit logiciel pour communiquer entre deux ordinateurs. Pour connecter les deux ordinateurs nous avons utilisé une file null-modem (les deux ordinateurs étaient des maître).
+ 
+===Screenshot====
+ 
+===Code===
+{{{
+//open a connection to the serialport (CONTAINS PSEUDO CODE)
+this->serialPort->setDeviceName(SERIALPORT_CONFIGURATION);
+
+if(this->serialPort->open(QIODevice::ReadWrite))
+{
+	this->serialPort->setBaudRate([BAUDRATE_CONFIGURATION]);
+	this->serialPort->setParity([PARITIY_CONFIGURATION]);
+	this->serialPort->setDataBits(DATABITS_CONFIGURATION);
+	this->serialPort->setFlowControl(FLOWCONTROL_CONFIGURATION);
+}
+
+//send an bytearray over the serialport (CONTAINS PSEUDO CODE)
+this->serialPort->write(BYTEARRAY2SEND);
+
+//receive a bytearray (CONTAINS PSEUDO CODE)
+
+//connect signal on a slot
+connect(this->serialPort, SIGNAL(readyRead()),
+		this, SLOT(readIncommingData()));
+
+
+void readIncommingData()
+{
+	QByteArray ba = this->serialPort->readAll();
+	qDebug(QString::fromUtf8(ba.data()));
+}
+}}}
