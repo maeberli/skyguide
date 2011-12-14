@@ -284,7 +284,7 @@ https://skyguide.googlecode.com/svn/wiki/img/rs2322.png
  
 ===Screenshot====
 
-https://skyguide.googlecode.com/svn/wiki/img/rs232.png
+https://skyguide.googlecode.com/svn/wiki/img/rs232.jpg
 
 ===Code===
 {{{
