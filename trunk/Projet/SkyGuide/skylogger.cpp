@@ -26,13 +26,13 @@ SKYLOGGER::SkyLogger::~SkyLogger()
     delete p_file;
 }
 
-void SKYLOGGER::SkyLogger::logMessage(SkyLoggerTypes type, const QString & message)
+void SKYLOGGER::SkyLogger::logMessage(SKYLOGGER::SkyLoggerTypes type, const QString & message)
 {
     this->consoleLog(type, message);
     this->fileLog(type, message);
 }
 
-void SKYLOGGER::SkyLogger::consoleLog(SkyLoggerTypes type, const QString & message)
+void SKYLOGGER::SkyLogger::consoleLog(SKYLOGGER::SkyLoggerTypes type, const QString & message)
 {
     switch(type)
     {
@@ -59,7 +59,7 @@ void SKYLOGGER::SkyLogger::consoleLog(SkyLoggerTypes type, const QString & messa
     }
 }
 
-void SKYLOGGER::SkyLogger::fileLog(SkyLoggerTypes type, const QString & message)
+void SKYLOGGER::SkyLogger::fileLog(SKYLOGGER::SkyLoggerTypes type, const QString & message)
 {
     if(p_fileOut->status() ==  QTextStream::Ok)
     {

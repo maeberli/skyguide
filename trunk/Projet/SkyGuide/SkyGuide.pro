@@ -17,9 +17,23 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     skycore.cpp \
-    skylogger.cpp
+    skylogger.cpp \
+    skydatabase.cpp \
+    skyrange.cpp \
+    skyelement.cpp \
+    skycalculator.cpp \
+    skyguielement.cpp \
+    skyexternaldevice.cpp \
+    skycomponent.cpp
 
 HEADERS += \
     skycore.h \
     skylogger.h \
-    skyloggertypes.h
+    skyloggertypes.h \
+    skycomponent.h \
+    skydatabase.h \
+    skyrange.h \
+    skyelement.h \
+    skycalculator.h \
+    skyguielement.h \
+    skyexternaldevice.h

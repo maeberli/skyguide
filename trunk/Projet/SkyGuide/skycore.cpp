@@ -1,16 +1,29 @@
 #include "skycore.h"
 
-//todo: remove include
-#include "skylogger.h"
+using namespace SKYLOGGER;
 
 SkyCore::SkyCore(QObject *parent) :
     QObject(parent)
 {
-    SKYLOGGER::SkyLogger tmp;
+    p_logger = new SkyLogger(parent);
+    p_database = new SkyDatabase(parent);
+    p_calculator = new SkyCalculator(parent);
+    p_externalDevice = new SkyExternalDevice(parent);
 
-    tmp.logMessage(SKYLOGGER::INFO, QString("asdfjladfjlkasd"));
+    connect(p_database, SIGNAL(logMessage(SKYLOGGER::SkyLoggerTypes,QString)),
+            p_logger, SLOT(logMessage(SKYLOGGER::SkyLoggerTypes,QString)));
 
-    tmp.logMessage(SKYLOGGER::WARNING, QString("asdfjladfjlkasd"));
-    tmp.logMessage(SKYLOGGER::VERBOSE, QString("asdfjladfjlkasd"));
-    tmp.logMessage(SKYLOGGER::DEBUG, QString("asdfjladfjlkasd"));
+    connect(p_calculator, SIGNAL(logMessage(SKYLOGGER::SkyLoggerTypes,QString)),
+            p_logger, SLOT(logMessage(SKYLOGGER::SkyLoggerTypes,QString)));
+
+    connect(p_externalDevice, SIGNAL(logMessage(SKYLOGGER::SkyLoggerTypes,QString)),
+            p_logger, SLOT(logMessage(SKYLOGGER::SkyLoggerTypes,QString)));
+}
+
+SkyCore::~SkyCore()
+{
+    delete p_database;
+    delete p_logger;
+    delete p_calculator;
+    delete p_externalDevice;
 }

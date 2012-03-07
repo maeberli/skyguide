@@ -23,11 +23,11 @@ signals:
     void receivedInfo(const QString & message);
 
 public slots:
-    void logMessage(SkyLoggerTypes type, const QString & message);
+    void logMessage(SKYLOGGER::SkyLoggerTypes type, const QString & message);
 
 private:
-    void consoleLog(SkyLoggerTypes type, const QString & message);
-    void fileLog(SkyLoggerTypes type, const QString & message);
+    void consoleLog(SKYLOGGER::SkyLoggerTypes type, const QString & message);
+    void fileLog(SKYLOGGER::SkyLoggerTypes type, const QString & message);
 
     QFile* p_file;
     QTextStream* p_fileOut;
