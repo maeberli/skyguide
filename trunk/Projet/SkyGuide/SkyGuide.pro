@@ -24,7 +24,8 @@ SOURCES += main.cpp \
     skycalculator.cpp \
     skyguielement.cpp \
     skyexternaldevice.cpp \
-    skycomponent.cpp
+    skycomponent.cpp \
+    skygui.cpp
 
 HEADERS += \
     skycore.h \
@@ -36,4 +37,5 @@ HEADERS += \
     skyelement.h \
     skycalculator.h \
     skyguielement.h \
-    skyexternaldevice.h
+    skyexternaldevice.h \
+    skygui.h

@@ -6,13 +6,13 @@ SkyDatabase::SkyDatabase(QObject *parent) :
     emit logMessage(SKYLOGGER::VERBOSE, tr("Constructor SkyDatabase"));
 }
 
-QList<SkyElement*> SkyDatabase::getSkyElements(const SkyRange & range)
+QList<SkyElement>& SkyDatabase::getSkyElements(const SkyRange & range)
 {
-    emit logMessage(SKYLOGGER::VERBOSE, tr("getSkyElements SkyDatabase"));
+    emit logMessage(SKYLOGGER::VERBOSE, tr("getSkyElements SkyDatabase -> not implemented"));
 
-    QList<SkyElement*> list;
+    QList<SkyElement> *list = new QList<SkyElement>();
 
-    return list;
+    return *list;
 }
 
 void SkyDatabase::start()

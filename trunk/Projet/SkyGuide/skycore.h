@@ -7,6 +7,7 @@
 #include <skylogger.h>
 #include <skycalculator.h>
 #include <skyexternaldevice.h>
+#include <skygui.h>
 
 class SkyCore : public QObject
 {
@@ -24,6 +25,7 @@ private:
     SkyDatabase* p_database;
     SkyCalculator* p_calculator;
     SkyExternalDevice* p_externalDevice;
+    SkyGui* p_gui;
 
 };
 

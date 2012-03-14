@@ -1,17 +1,34 @@
 #ifndef SKYELEMENT_H
 #define SKYELEMENT_H
 
-#include <QObject>
+#include <QString>
 
-class SkyElement : public QObject
+class SkyElement
 {
-    Q_OBJECT
 public:
-    explicit SkyElement(QObject *parent = 0);
+    SkyElement(
+        double rightAscension,
+        double declinasion,
+        QString greekLetter,
+        QString constellation,
+        int distancelightYears,
+        double magnitude);
 
-signals:
+    double getRightAscension();
+    double getDeclinasion();
+    QString getGreekLetter();
+    QString getConstellation();
+    int getDistanceLightYears();
+    double getMagnitude();
 
-public slots:
+
+private:
+    double p_rightAscension;
+    double p_declinasion;
+    QString p_greekLetter;
+    QString p_constellation;
+    int p_distanceLightYears;
+    double p_magnitude;
 
 };
 

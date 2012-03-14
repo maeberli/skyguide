@@ -13,7 +13,7 @@ SkyExternalDevice::~SkyExternalDevice()
 
 void SkyExternalDevice::start()
 {
-    emit logMessage(SKYLOGGER::VERBOSE, tr("star SkyExternalDevice -> not implemented"));
+    emit logMessage(SKYLOGGER::VERBOSE, tr("start SkyExternalDevice -> not implemented"));
 }
 
 void SkyExternalDevice::stop()
