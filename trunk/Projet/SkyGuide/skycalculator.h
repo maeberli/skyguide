@@ -12,8 +12,8 @@ class SkyCalculator : public SkyComponent
 public:
     SkyCalculator(QObject *parent = 0);
 
-    void getSkyRange(int positionData, int direction, int slope, int inclLefRight);
-    QList<SkyGuiElement*> convert2GuiElements(const QList<SkyElement*> & elements);
+    SkyRange getSkyRange(int positionData, int direction, int slope, int inclLefRight);
+    QList<SkyGuiElement*>* convert2GuiElements(const QList<SkyElement*> & elements);
 signals:
 
 public slots:

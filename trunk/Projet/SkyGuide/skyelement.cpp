@@ -1,9 +1,11 @@
 #include "skyelement.h"
 
+using namespace std;
+
 SkyElement::SkyElement(double rightAscension,
                        double declinasion,
-                       QString greekLetter,
-                       QString constellation,
+                       string greekLetter,
+                       string constellation,
                        int distancelightYears,
                        double magnitude)
 {
@@ -13,6 +15,18 @@ SkyElement::SkyElement(double rightAscension,
     this->p_constellation = constellation;
     this->p_distanceLightYears = distancelightYears;
     this->p_magnitude = magnitude;
+}
+
+SkyElement::SkyElement(const SkyElement& skyelement)
+{
+    SkyElement(
+                skyelement.p_rightAscension,
+                skyelement.p_declinasion,
+                skyelement.p_greekLetter,
+                skyelement.p_constellation,
+                skyelement.p_distanceLightYears,
+                skyelement.p_magnitude
+                );
 }
 
 double SkyElement::getRightAscension()
@@ -25,12 +39,12 @@ double SkyElement::getDeclinasion()
     return this->p_declinasion;
 }
 
-QString SkyElement::getGreekLetter()
+string SkyElement::getGreekLetter()
 {
     return this->p_greekLetter;
 }
 
-QString SkyElement::getConstellation()
+string SkyElement::getConstellation()
 {
     return this->p_constellation;
 }

@@ -1,18 +1,17 @@
 #ifndef SKYRANGE_H
 #define SKYRANGE_H
 
-#include <QObject>
 
-class SkyRange : public QObject
+class SkyRange
 {
-    Q_OBJECT
 public:
-    explicit SkyRange(QObject *parent = 0);
-    explicit SkyRange(const SkyRange & skyrange);
+    SkyRange(int azimut, int inclinasion);
 
-signals:
-
-public slots:
+    int getAzimut();
+    int getInclinasion();
+private:
+    int p_azimut;
+    int p_inclinasion;
 
 };
 

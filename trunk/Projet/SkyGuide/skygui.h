@@ -22,7 +22,7 @@ public slots:
     void showWarning(const QString & message);
     void showError(const QString & message);
     void showInfo(const QString & message);
-    void updateAffichage(QList<SkyGuiElement*> elements);
+    void updateAffichage(const QList<SkyGuiElement*>& elements);
 };
 
 #endif // SKYGUI_H

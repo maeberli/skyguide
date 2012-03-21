@@ -37,7 +37,7 @@ void SkyGui::showInfo(const QString &message)
     emit logMessage(SKYLOGGER::VERBOSE, tr("showInfo slot SkyGui. Message: %1").arg(message));
 }
 
-void SkyGui::updateAffichage(QList<SkyGuiElement *> elements)
+void SkyGui::updateAffichage(const QList<SkyGuiElement*>& elements)
 {
     emit logMessage(SKYLOGGER::VERBOSE, tr("updateAffichage slot SkyGui -> not implemented"));
 }

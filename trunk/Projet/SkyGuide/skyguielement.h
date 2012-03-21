@@ -1,18 +1,21 @@
 #ifndef SKYGUIELEMENT_H
 #define SKYGUIELEMENT_H
 
-#include <QObject>
+#include <skyelement.h>
 
-class SkyGuiElement : public QObject
+class SkyGuiElement : public SkyElement
 {
-    Q_OBJECT
 public:
-    explicit SkyGuiElement(QObject *parent = 0);
+    explicit SkyGuiElement(const SkyElement& skyelement, int positionX, int positionY);
 
-signals:
+    int getPositionX();
+    int getPositionY();
 
-public slots:
+private:
+    SkyGuiElement(const SkyElement& skyelement);
 
+    int p_positionX;
+    int p_positionY;
 };
 
 #endif // SKYGUIELEMENT_H

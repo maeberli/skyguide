@@ -5,16 +5,23 @@ SkyCalculator::SkyCalculator(QObject *parent) :
 {
 }
 
-void SkyCalculator::getSkyRange(int positionData, int direction, int slope, int inclLefRight)
+SkyRange SkyCalculator::getSkyRange(int positionData, int direction, int slope, int inclLefRight)
 {
-    emit logMessage(SKYLOGGER::VERBOSE, tr("getSkyRange SkyCalculator"));
+    emit logMessage(SKYLOGGER::VERBOSE, tr("getSkyRange SkyCalculator -> not implemented"));
+
+    return SkyRange(0,0);
 }
 
-QList<SkyGuiElement*> SkyCalculator::convert2GuiElements(const QList<SkyElement *> &elements)
+QList<SkyGuiElement*>* SkyCalculator::convert2GuiElements(const QList<SkyElement*> &elements)
 {
-    emit logMessage(SKYLOGGER::VERBOSE, tr("convert2GuiElements SkyCalculator"));
+    emit logMessage(SKYLOGGER::VERBOSE, tr("convert2GuiElements SkyCalculator -> not implemented"));
 
-    QList<SkyGuiElement*> guiElements;
+    QList<SkyGuiElement*>* guiElements =  new QList<SkyGuiElement*>();
+
+    foreach(SkyElement* element, elements)
+    {
+        guiElements->append(new SkyGuiElement(*element,0,0));
+    }
 
     return guiElements;
 }
