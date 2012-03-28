@@ -1,7 +1,7 @@
 #include "skycalculator.h"
 
-SkyCalculator::SkyCalculator(QObject *parent) :
-    SkyComponent(parent)
+SkyCalculator::SkyCalculator(SkyConfiguration* config, QObject *parent) :
+    SkyComponent(config, parent)
 {
 }
 

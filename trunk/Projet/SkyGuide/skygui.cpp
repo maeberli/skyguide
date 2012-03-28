@@ -1,7 +1,7 @@
 #include "skygui.h"
 
-SkyGui::SkyGui(QObject *parent) :
-    SkyComponent(parent)
+SkyGui::SkyGui(SkyConfiguration* config, QObject *parent) :
+    SkyComponent(config, parent)
 {
     emit logMessage(SKYLOGGER::VERBOSE, tr("Constructor SkyGui"));
 }

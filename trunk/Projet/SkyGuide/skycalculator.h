@@ -10,7 +10,7 @@ class SkyCalculator : public SkyComponent
 {
     Q_OBJECT
 public:
-    SkyCalculator(QObject *parent = 0);
+    SkyCalculator(SkyConfiguration* config, QObject *parent = 0);
 
     SkyRange getSkyRange(int positionData, int direction, int slope, int inclLefRight);
     QList<SkyGuiElement*>* convert2GuiElements(const QList<SkyElement*> & elements);

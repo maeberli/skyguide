@@ -1,7 +1,7 @@
 #include "skyexternaldevice.h"
 
-SkyExternalDevice::SkyExternalDevice(QObject *parent) :
-    SkyComponent(parent)
+SkyExternalDevice::SkyExternalDevice(SkyConfiguration* config, QObject *parent) :
+    SkyComponent(config, parent)
 {
     emit logMessage(SKYLOGGER::VERBOSE, tr("Constructor SkyExternalDevice"));
 }

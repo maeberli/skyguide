@@ -11,7 +11,7 @@ class SkyDatabase : public SkyComponent
 {
     Q_OBJECT
 public:
-    explicit SkyDatabase(QObject *parent = 0);
+    explicit SkyDatabase(SkyConfiguration* config, QObject *parent = 0);
 
     QList<SkyElement*>* getSkyElements(const SkyRange & range);
 

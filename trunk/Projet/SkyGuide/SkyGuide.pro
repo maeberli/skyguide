@@ -26,7 +26,8 @@ SOURCES += main.cpp \
     skyexternaldevice.cpp \
     skycomponent.cpp \
     skygui.cpp \
-    skyextdevdatahandler.cpp
+    skyextdevdatahandler.cpp \
+    skyconfiguration.cpp
 
 HEADERS += \
     skycore.h \
@@ -40,4 +41,5 @@ HEADERS += \
     skyguielement.h \
     skyexternaldevice.h \
     skygui.h \
-    skyextdevdatahandler.h
+    skyextdevdatahandler.h \
+    skyconfiguration.h

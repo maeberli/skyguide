@@ -1,7 +1,7 @@
 #include "skydatabase.h"
 
-SkyDatabase::SkyDatabase(QObject *parent) :
-    SkyComponent(parent)
+SkyDatabase::SkyDatabase(SkyConfiguration* config, QObject *parent) :
+    SkyComponent(config, parent)
 {
     emit logMessage(SKYLOGGER::VERBOSE, tr("Constructor SkyDatabase"));
 }

@@ -7,7 +7,7 @@ class SkyExternalDevice : public SkyComponent
 {
     Q_OBJECT
 public:
-    SkyExternalDevice(QObject *parent = 0);
+    SkyExternalDevice(SkyConfiguration* config, QObject *parent = 0);
     ~SkyExternalDevice();
 
 signals:

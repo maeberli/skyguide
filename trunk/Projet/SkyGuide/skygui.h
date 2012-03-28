@@ -8,7 +8,7 @@ class SkyGui : public SkyComponent
 {
     Q_OBJECT
 public:
-    SkyGui(QObject *parent = 0);
+    SkyGui(SkyConfiguration* config, QObject *parent = 0);
     ~SkyGui();
 
 signals:

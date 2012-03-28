@@ -24,6 +24,7 @@ public slots:
 
 private:
     SKYLOGGER::SkyLogger* p_logger;
+    SkyConfiguration* p_config;
     SkyDatabase* p_database;
     SkyCalculator* p_calculator;
     SkyExternalDevice* p_externalDevice;

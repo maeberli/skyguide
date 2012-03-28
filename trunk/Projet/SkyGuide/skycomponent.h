@@ -4,13 +4,14 @@
 #include <QObject>
 
 #include <skyloggertypes.h>
+#include <skyconfiguration.h>
 
 
 class SkyComponent : public QObject
 {
     Q_OBJECT
 public:
-    SkyComponent(QObject *parent = 0);
+    SkyComponent(SkyConfiguration* config, QObject *parent = 0);
 
 signals:
     void logMessage(SKYLOGGER::SkyLoggerTypes type, const QString & message);
@@ -18,6 +19,9 @@ signals:
 public slots:
     virtual void start() = 0;
     virtual void stop() = 0;
+
+protected:
+    SkyConfiguration* p_config;
 
 };
 

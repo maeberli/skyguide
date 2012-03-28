@@ -1,6 +1,7 @@
 #include "skycomponent.h"
 
-SkyComponent::SkyComponent(QObject *parent) :
-    QObject(parent)
+SkyComponent::SkyComponent(SkyConfiguration* config, QObject *parent) :
+    QObject(parent),
+    p_config(config)
 {
 }

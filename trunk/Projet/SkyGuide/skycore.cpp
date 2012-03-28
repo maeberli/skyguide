@@ -3,13 +3,14 @@
 using namespace SKYLOGGER;
 
 SkyCore::SkyCore(QObject *parent) :
-    SkyComponent(parent)
+    SkyComponent(p_config, parent)
 {
     p_logger = new SkyLogger(this);
-    p_database = new SkyDatabase(this);
-    p_calculator = new SkyCalculator(this);
-    p_externalDevice = new SkyExternalDevice(this);
-    p_gui = new SkyGui(this);
+    p_config = new SkyConfiguration(this);
+    p_database = new SkyDatabase(p_config, this);
+    p_calculator = new SkyCalculator(p_config, this);
+    p_externalDevice = new SkyExternalDevice(p_config, this);
+    p_gui = new SkyGui(p_config, this);
     p_extDevDataHandler = new SkyExtDevDataHandler(this);
 
     // connect logging slots of each component with signal of logger
@@ -72,6 +73,8 @@ SkyCore::~SkyCore()
     delete p_calculator;
     delete p_externalDevice;
     delete p_gui;
+
+    delete p_config;
 
     //delete logger as last element.
     delete p_logger;
