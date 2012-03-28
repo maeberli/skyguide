@@ -9,6 +9,7 @@
 #include <skycalculator.h>
 #include <skyexternaldevice.h>
 #include <skygui.h>
+#include <skyextdevdatahandler.h>
 
 class SkyCore : SkyComponent
 {
@@ -21,17 +22,13 @@ public slots:
     virtual void start();
     virtual void stop();
 
-private slots:
-    void handleReceivedDirectinoData(int direction);
-    void handleReceivedPositionData(int position);
-    void handleReceivedOrientationData(int slope, int inclLeftRigth);
-
 private:
     SKYLOGGER::SkyLogger* p_logger;
     SkyDatabase* p_database;
     SkyCalculator* p_calculator;
     SkyExternalDevice* p_externalDevice;
     SkyGui* p_gui;
+    SkyExtDevDataHandler* p_extDevDataHandler;
 
 };
 

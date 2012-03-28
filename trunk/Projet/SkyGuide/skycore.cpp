@@ -5,11 +5,12 @@ using namespace SKYLOGGER;
 SkyCore::SkyCore(QObject *parent) :
     SkyComponent(parent)
 {
-    p_logger = new SkyLogger(parent);
-    p_database = new SkyDatabase(parent);
-    p_calculator = new SkyCalculator(parent);
-    p_externalDevice = new SkyExternalDevice(parent);
-    p_gui = new SkyGui(parent);
+    p_logger = new SkyLogger(this);
+    p_database = new SkyDatabase(this);
+    p_calculator = new SkyCalculator(this);
+    p_externalDevice = new SkyExternalDevice(this);
+    p_gui = new SkyGui(this);
+    p_extDevDataHandler = new SkyExtDevDataHandler(this);
 
     // connect logging slots of each component with signal of logger
     connect(this, SIGNAL(logMessage(SKYLOGGER::SkyLoggerTypes,QString)),
@@ -55,11 +56,13 @@ SkyCore::SkyCore(QObject *parent) :
     //connect the signals for the received informations of the externalDevice object
     //to the local slots
     connect(p_externalDevice, SIGNAL(receivedDirectionData(int)),
-            this, SLOT(handleReceivedDirectinoData(int)));
+            p_extDevDataHandler, SLOT(setDirectionData(int)));
     connect(p_externalDevice, SIGNAL(receivedOrientationData(int,int)),
-            this, SLOT(handleReceivedOrientationData(int, int)));
+            p_extDevDataHandler, SLOT(setOrientationData(int,int)));
     connect(p_externalDevice, SIGNAL(receivedPositionData(int)),
-            this, SLOT(handleReceivedPositionData(int)));
+            p_extDevDataHandler, SLOT(setPositionData(int)));
+    connect(p_extDevDataHandler, SIGNAL(newExtDataAvailable(QList<SkyGuiElement*>)),
+            p_gui, SLOT(updateAffichage(QList<SkyGuiElement*>)));
 
 }
 
@@ -82,23 +85,4 @@ void SkyCore::start()
 void SkyCore::stop()
 {
     emit logMessage(SKYLOGGER::VERBOSE, tr("Stop SkyCore -> not implemented"));
-}
-
-
-void SkyCore::handleReceivedDirectinoData(int direction)
-{
-    emit logMessage(SKYLOGGER::VERBOSE, tr("handleReceivedDirectinoData SkyCore -> not yet implemented"));
-    //TODO: implement this function
-}
-
-void SkyCore::handleReceivedPositionData(int position)
-{
-    emit logMessage(SKYLOGGER::VERBOSE, tr("handleReceivedPositionData SkyCore -> not yet implemented"));
-    //TODO: implement this function
-}
-
-void SkyCore::handleReceivedOrientationData(int slope, int inclLeftRigth)
-{
-    emit logMessage(SKYLOGGER::VERBOSE, tr("handleReceivedOrientationData SkyCore -> not yet implemented"));
-    //TODO: implement this function
 }
