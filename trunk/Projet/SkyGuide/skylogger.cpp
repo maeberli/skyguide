@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <QTime>
+#include <QtCore/QCoreApplication>
 
 #define PREFIX QTime::currentTime().toString("hh:mm:ss.zzz")
 #define FILENAME "SkyGuide.log"
@@ -11,7 +12,7 @@ SKYLOGGER::SkyLogger::SkyLogger(QObject *parent) :
     QObject(parent)
 {
 
-    this->p_file = new QFile(FILENAME);
+    this->p_file = new QFile(QCoreApplication::applicationDirPath()+"/"+FILENAME);
 
     if(p_file->open(QIODevice::Append |  QIODevice::Text))
         this->p_fileOut = new QTextStream(p_file);

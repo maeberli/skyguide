@@ -62,8 +62,8 @@ SkyCore::SkyCore(QObject *parent) :
             p_extDevDataHandler, SLOT(setOrientationData(int,int)));
     connect(p_externalDevice, SIGNAL(receivedPositionData(int)),
             p_extDevDataHandler, SLOT(setPositionData(int)));
-    connect(p_extDevDataHandler, SIGNAL(newExtDataAvailable(QList<SkyGuiElement*>)),
-            p_gui, SLOT(updateAffichage(QList<SkyGuiElement*>)));
+    connect(p_extDevDataHandler, SIGNAL(newExtDataAvailable(int,int,int,int)),
+            this, SLOT(calculateRange(int,int,int,int)));
 
 }
 
@@ -78,6 +78,12 @@ SkyCore::~SkyCore()
 
     //delete logger as last element.
     delete p_logger;
+}
+
+void SkyCore::calculateRange(int slope, int inclLeftRight, int direction, int positionData)
+{
+    emit logMessage(SKYLOGGER::VERBOSE, tr("calculate range in SkyCore --> not implemented"));
+
 }
 
 void SkyCore::start()

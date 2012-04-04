@@ -22,6 +22,9 @@ public slots:
     virtual void start();
     virtual void stop();
 
+private slots:
+    void calculateRange(int slope, int inclLeftRight, int direction, int positionData);
+
 private:
     SKYLOGGER::SkyLogger* p_logger;
     SkyConfiguration* p_config;

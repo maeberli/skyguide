@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QTimer>
 #include <QList>
-#include <skyguielement.h>
 
 //Intervall for checking updates in miliseconds
 #define CHECKFORUPDATESINTERVAL 3000
@@ -17,7 +16,7 @@ public:
     ~SkyExtDevDataHandler();
 
 signals:
-    void newExtDataAvailable(const QList<SkyGuiElement*>& elements);
+    void newExtDataAvailable(int slope, int inclLeftRight, int direction, int positionData);
 
 public slots:
     void setOrientationData(int slope, int inclLeftRight);

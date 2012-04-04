@@ -1,8 +1,10 @@
 #include "skyconfiguration.h"
 
+#include <QtCore/QCoreApplication>
+
 SkyConfiguration::SkyConfiguration(QObject *parent) :
     QObject(parent),
-    p_setObj(INIFILENAME, QSettings::IniFormat)
+    p_setObj(QCoreApplication::applicationDirPath()+"/"+INIFILENAME, QSettings::IniFormat)
 {
 }
 
