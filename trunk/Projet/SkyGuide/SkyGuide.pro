@@ -27,7 +27,15 @@ SOURCES += main.cpp \
     skycomponent.cpp \
     skygui.cpp \
     skyextdevdatahandler.cpp \
-    skyconfiguration.cpp
+    skyconfiguration.cpp \
+    ExternalDeviceImpl/command.cpp \
+    ExternalDeviceImpl/cmdpointermode.cpp \
+    ExternalDeviceImpl/cmdping.cpp \
+    ExternalDeviceImpl/cmdguidemode.cpp \
+    ExternalDeviceImpl/cmdgps.cpp \
+    ExternalDeviceImpl/cmdaccelerometer.cpp \
+    ExternalDeviceImpl/cmdmagnetometer.cpp \
+    ExternalDeviceImpl/cmdpicstatus.cpp
 
 HEADERS += \
     skycore.h \
@@ -42,4 +50,12 @@ HEADERS += \
     skyexternaldevice.h \
     skygui.h \
     skyextdevdatahandler.h \
-    skyconfiguration.h
+    skyconfiguration.h \
+    ExternalDeviceImpl/command.h \
+    ExternalDeviceImpl/cmdpointermode.h \
+    ExternalDeviceImpl/cmdping.h \
+    ExternalDeviceImpl/cmdguidemode.h \
+    ExternalDeviceImpl/cmdgps.h \
+    ExternalDeviceImpl/cmdaccelerometer.h \
+    ExternalDeviceImpl/cmdmagnetometer.h \
+    ExternalDeviceImpl/cmdpicstatus.h
