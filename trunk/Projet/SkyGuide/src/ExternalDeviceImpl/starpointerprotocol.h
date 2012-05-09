@@ -2,7 +2,7 @@
 #define STARPOINTERPROTOCOL_H
 
 #include <QObject>
-//#include "../lib/libqserialdevice/abstractserial.h"
+#include "abstractserial.h"
 
 
 class StarPointerProtocol : public QObject
@@ -10,11 +10,13 @@ class StarPointerProtocol : public QObject
     Q_OBJECT
 public:
     explicit StarPointerProtocol(QObject *parent = 0);
-    
-signals:
-    
-public slots:
-    
+    ~StarPointerProtocol();
+
+private slots:
+        void incommingData();
+
+private:
+    AbstractSerial *m_conn;
 };
 
 #endif // STARPOINTERPROTOCOL_H

@@ -5,13 +5,12 @@
 #-------------------------------------------------
 
 QT       += core
-
 QT       -= gui
 
-#CONFIG   += console
-#CONFIG   -= app_bundle
+OBJECTS_DIR = obj
+MOC_DIR = moc
+INCLUDEPATH += ../lib/libqserialdevice/qserialdevice/
 
-#TEMPLATE = app
 
 SOURCES += main.cpp \
     skycore.cpp \
