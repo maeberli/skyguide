@@ -1,4 +1,4 @@
-#include "cmdguidemode.h"s
+#include "cmdguidemode.h"
 
 namespace ExternalDeviceImpl {
 
