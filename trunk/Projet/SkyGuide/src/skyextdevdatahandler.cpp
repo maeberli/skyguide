@@ -35,10 +35,10 @@ SkyExtDevDataHandler::~SkyExtDevDataHandler()
 
 void SkyExtDevDataHandler::timerTimeout()
 {
-    int diffSlope = std::abs(p_lSlope-p_slope);
-    int diffInclLeftRight = std::abs(p_lInclLefRight-p_inclLefRight);
-    int diffDirection = std::abs(p_lDirection-p_direction);
-    int diffPositionData = std::abs(p_lPositionData-p_positionData);
+    int diffSlope = std::fabs(p_lSlope-p_slope);
+    int diffInclLeftRight = std::fabs(p_lInclLefRight-p_inclLefRight);
+    int diffDirection = std::fabs(p_lDirection-p_direction);
+    int diffPositionData = std::fabs(p_lPositionData-p_positionData);
 
     if(     diffSlope>MINDIFFSLOPE
             || diffInclLeftRight>MINDIFFINCLLEFTRIGHT

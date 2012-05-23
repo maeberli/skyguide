@@ -4,20 +4,20 @@
 #include <QDebug>
 #include <QMessageBox>
 
-#include "SkyField.h"
-#include "BrighStars.h"
-#include "Star.h"
-#include "Place.h"
-#include "Position.h"
+// #include "SkyField.h"
+// #include "BrighStars.h"
+// #include "Star.h"
+// #include "Place.h"
+// #include "Position.h"
 
-#define P1X 110
+/*#define P1X 110
 #define P1Y 78
 #define P2X 45
 #define P2Y 100
 #define P3X 78
-#define P3Y 200
+#define P3Y 200*/
 
-SkyField::SkyField(QWidget *parent) : QWidget(parent)
+/*SkyField::SkyField(QWidget *parent) : QWidget(parent)
 {
     setPalette(QPalette(Qt::black));
     setAutoFillBackground(true);
@@ -36,7 +36,7 @@ void SkyField::drawSky(Star* starsSky, Place* where)
     update();
 }
 
-void SkyField::paintEvent(QPaintEvent * /* event */)
+void SkyField::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
 
@@ -51,8 +51,8 @@ void SkyField::paintEvent(QPaintEvent * /* event */)
         {
             if (starsProj[i]._x != 0.0 && starsProj[i]._y != 0.0)
             {
-                // painter.drawLine(starsProj[i]._x, starsProj[i]._y - 3, starsProj[i]._x, starsProj[i]._y + 3);
-                // painter.drawLine(starsProj[i]._x - 3, starsProj[i]._y, starsProj[i]._x + 3, starsProj[i]._y);
+                painter.drawLine(starsProj[i]._x, starsProj[i]._y - 3, starsProj[i]._x, starsProj[i]._y + 3);
+                painter.drawLine(starsProj[i]._x - 3, starsProj[i]._y, starsProj[i]._x + 3, starsProj[i]._y);
                 painter.drawPoint(starsProj[i]._x, starsProj[i]._y);
                 ++counter;
                 if (starsProj[i]._x > max_x) max_x = starsProj[i]._x;
@@ -68,4 +68,4 @@ void SkyField::paintEvent(QPaintEvent * /* event */)
 SkyField::~SkyField()
 {
     delete[] starsProj;
-}
+}*/

@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    SkyCore *tmp = new SkyCore();
+    //SkyCore *tmp = new SkyCore();
 
     QTimer::singleShot(2000, &a, SLOT(quit())); //stop after 5 seconds
 

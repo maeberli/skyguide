@@ -3,6 +3,7 @@
 
 #include <skycomponent.h>
 #include <skyguielement.h>
+#include "GuiImpl/mainwindow.h"
 
 class SkyGui : public SkyComponent
 {
@@ -10,6 +11,7 @@ class SkyGui : public SkyComponent
 public:
     SkyGui(SkyConfiguration* config, QObject *parent = 0);
     ~SkyGui();
+    void showWindow();
 
 signals:
     void startAffichage();
@@ -23,6 +25,8 @@ public slots:
     void showError(const QString & message);
     void showInfo(const QString & message);
     void updateAffichage(const QList<SkyGuiElement*>& elements);
+private:
+    MainWindow *p_win;
 };
 
 #endif // SKYGUI_H

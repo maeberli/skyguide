@@ -33,9 +33,8 @@ SOURCES += main.cpp \
     ExternalDeviceImpl/cmdmagnetometer.cpp \
     ExternalDeviceImpl/cmdpicstatus.cpp \
     ExternalDeviceImpl/starpointerprotocol.cpp \
-    GuiImpl/SkyField.cpp \
-    GuiImpl/mainwindow.cpp \
-    GuiImpl/test.cpp
+    # GuiImpl/SkyField.cpp \
+    GuiImpl/mainwindow.cpp
 
 HEADERS += \
     skycore.h \
@@ -60,9 +59,11 @@ HEADERS += \
     ExternalDeviceImpl/cmdmagnetometer.h \
     ExternalDeviceImpl/cmdpicstatus.h \
     ExternalDeviceImpl/starpointerprotocol.h \
-    GuiImpl/SkyField.h \
-    GuiImpl/mainwindow.h \
-    GuiImpl/test.h
+    # GuiImpl/SkyField.h \
+    GuiImpl/mainwindow.h
+
+FORMS += \
+    GuiImpl/mainwindow.ui
 
 CONFIG(debug, debug|release) {
     QMAKE_LIBDIR += ../lib/libqserialdevice/build/debug
@@ -87,7 +88,4 @@ macx {
     LIBS += -framework IOKit -framework CoreFoundation
 }
 
-FORMS += \
-    GuiImpl/mainwindow.ui \
-    GuiImpl/test.ui
 

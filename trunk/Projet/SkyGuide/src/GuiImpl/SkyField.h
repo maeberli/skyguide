@@ -3,12 +3,12 @@
 
 #include <QWidget>
 
-#include "BrighStars.h"
-#include "Star.h"
-#include "Place.h"
-#include "Position.h"
+// #include "BrighStars.h"
+// #include "Star.h"
+// #include "Place.h"
+// #include "Position.h"
 
-class SkyField : public QWidget
+/*class SkyField : public QWidget
 {
     Q_OBJECT
 
@@ -27,6 +27,6 @@ class SkyField : public QWidget
     protected:
 
     void paintEvent(QPaintEvent *event);
-};
+};*/
 
 #endif // SKYFIELD_H

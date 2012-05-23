@@ -1,14 +1,22 @@
 #include "skygui.h"
+#include "GuiImpl/mainwindow.h"
 
 SkyGui::SkyGui(SkyConfiguration* config, QObject *parent) :
     SkyComponent(config, parent)
 {
     emit logMessage(SKYLOGGER::VERBOSE, tr("Constructor SkyGui"));
+    p_win = new MainWindow();
 }
 
 SkyGui::~SkyGui()
 {
     emit logMessage(SKYLOGGER::VERBOSE, tr("Deconstructor SkyGui"));
+    delete p_win;
+}
+
+void SkyGui::showWindow()
+{
+    p_win->show();
 }
 
 void SkyGui::start()
@@ -25,6 +33,7 @@ void SkyGui::stop()
 void SkyGui::showWarning(const QString &message)
 {
     emit logMessage(SKYLOGGER::VERBOSE, tr("showWarning slot SkyGui. Message: %1").arg(message));
+
 }
 
 void SkyGui::showError(const QString &message)
