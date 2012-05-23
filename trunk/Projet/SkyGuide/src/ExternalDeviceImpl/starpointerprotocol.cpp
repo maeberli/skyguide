@@ -3,7 +3,10 @@
 #include <QByteArray>
 #include <QString>
 
-StarPointerProtocol::StarPointerProtocol(QObject *parent) :
+
+namespace ExternalDeviceImpl {
+
+StarPointerCommunication::StarPointerCommunication(QObject *parent) :
     QObject(parent)
 {
     m_conn = new AbstractSerial(this);
@@ -22,13 +25,13 @@ StarPointerProtocol::StarPointerProtocol(QObject *parent) :
 }
 
 
-StarPointerProtocol::~StarPointerProtocol()
+StarPointerCommunication::~StarPointerCommunication()
 {
     m_conn->close();
     delete m_conn;
 }
 
-void StarPointerProtocol::incommingData()
+void StarPointerCommunication::incommingData()
 {
     QByteArray ba = m_conn->readAll();
     QString test = QString::fromAscii(ba.data(), ba.length());
@@ -40,3 +43,14 @@ void StarPointerProtocol::incommingData()
 
     //search the command and parse it
 }
+
+
+void StarPointerCommunication::checkCRC()
+{
+}
+
+Command* StarPointerCommunication::getCommandObject()
+{
+}
+
+} // namespace ExternalDeviceImpl

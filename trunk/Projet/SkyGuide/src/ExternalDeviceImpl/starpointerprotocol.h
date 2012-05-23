@@ -3,20 +3,27 @@
 
 #include <QObject>
 #include "abstractserial.h"
+#include "command.h"
 
+namespace ExternalDeviceImpl {
 
-class StarPointerProtocol : public QObject
+class StarPointerCommunication : public QObject
 {
     Q_OBJECT
 public:
-    explicit StarPointerProtocol(QObject *parent = 0);
-    ~StarPointerProtocol();
+    explicit StarPointerCommunication(QObject *parent = 0);
+    ~StarPointerCommunication();
 
 private slots:
         void incommingData();
 
 private:
     AbstractSerial *m_conn;
+
+    static void checkCRC();
+    static Command* getCommandObject();
 };
+
+} // namespace ExternalDeviceImpl
 
 #endif // STARPOINTERPROTOCOL_H
