@@ -4,8 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core
-QT       -= gui
+QT       += core, gui
 
 OBJECTS_DIR = obj
 MOC_DIR = moc
@@ -33,7 +32,10 @@ SOURCES += main.cpp \
     ExternalDeviceImpl/cmdaccelerometer.cpp \
     ExternalDeviceImpl/cmdmagnetometer.cpp \
     ExternalDeviceImpl/cmdpicstatus.cpp \
-    ExternalDeviceImpl/starpointerprotocol.cpp
+    ExternalDeviceImpl/starpointerprotocol.cpp \
+    GuiImpl/SkyField.cpp \
+    GuiImpl/mainwindow.cpp \
+    GuiImpl/test.cpp
 
 HEADERS += \
     skycore.h \
@@ -57,7 +59,10 @@ HEADERS += \
     ExternalDeviceImpl/cmdaccelerometer.h \
     ExternalDeviceImpl/cmdmagnetometer.h \
     ExternalDeviceImpl/cmdpicstatus.h \
-    ExternalDeviceImpl/starpointerprotocol.h
+    ExternalDeviceImpl/starpointerprotocol.h \
+    GuiImpl/SkyField.h \
+    GuiImpl/mainwindow.h \
+    GuiImpl/test.h
 
 CONFIG(debug, debug|release) {
     QMAKE_LIBDIR += ../lib/libqserialdevice/build/debug
@@ -81,4 +86,8 @@ unix:!macx {
 macx {
     LIBS += -framework IOKit -framework CoreFoundation
 }
+
+FORMS += \
+    GuiImpl/mainwindow.ui \
+    GuiImpl/test.ui
 
