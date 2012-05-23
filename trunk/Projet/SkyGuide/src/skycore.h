@@ -18,6 +18,8 @@ public:
     explicit SkyCore(QObject *parent = 0);
     ~SkyCore();
 
+    void startGui();
+
 public slots:
     virtual void start();
     virtual void stop();

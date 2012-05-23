@@ -80,6 +80,11 @@ SkyCore::~SkyCore()
     delete p_logger;
 }
 
+void SkyCore::startGui()
+{
+    p_gui->showWindow();
+}
+
 void SkyCore::calculateRange(int slope, int inclLeftRight, int direction, int positionData)
 {
     emit logMessage(SKYLOGGER::VERBOSE, tr("calculate range in SkyCore --> not implemented"));

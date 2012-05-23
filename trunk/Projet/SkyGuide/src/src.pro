@@ -4,7 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core, gui
+QT       += core
+QT       += gui
+QT       += sql
 
 OBJECTS_DIR = obj
 MOC_DIR = moc
@@ -69,12 +71,12 @@ CONFIG(debug, debug|release) {
     QMAKE_LIBDIR += ../lib/libqserialdevice/build/debug
     LIBS += -lqserialdeviced
     DESTDIR = debug
-    TARGET = TARGET = SkyGuide
+    TARGET = SkyGuideDebug
 } else {
     QMAKE_LIBDIR += ../lib/libqserialdevice/build/release
     LIBS += -lqserialdevice
     DESTDIR = release
-    TARGET = TARGET = SkyGuide
+    TARGET = SkyGuide
 }
 
 

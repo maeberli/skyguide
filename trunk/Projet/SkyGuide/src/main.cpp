@@ -1,4 +1,4 @@
-#include <QtCore/QCoreApplication>
+#include <QApplication>
 
 #include "skycore.h"
 
@@ -7,11 +7,10 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    QApplication a(argc, argv);
 
-    //SkyCore *tmp = new SkyCore();
-
-    QTimer::singleShot(2000, &a, SLOT(quit())); //stop after 5 seconds
+    SkyCore *tmp = new SkyCore();
+    tmp->startGui();
 
     return a.exec();
 }
