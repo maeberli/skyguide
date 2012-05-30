@@ -82,6 +82,8 @@ SkyCore::~SkyCore()
 
 void SkyCore::startGui()
 {
+    // pour tester l'affichage
+    // p_gui->updateAffichage();
     p_gui->showWindow();
 }
 
