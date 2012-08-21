@@ -2,6 +2,7 @@
 #define SKYCORE_H
 
 #include <QObject>
+#include <QList>
 
 #include <skycomponent.h>
 #include <skydatabase.h>
@@ -45,6 +46,8 @@ private:
     SkyCalculator* p_calculator;
     SkyExternalDevice* p_externalDevice;
     SkyGui* p_gui;
+    QList<SkyElement* >* allStars;
+    QList<SkyGuiElement* >* guiList;
 
     static Vect3D crossProduct(const Vect3D& v1, const Vect3D& v2)
     {

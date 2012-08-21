@@ -1,22 +1,47 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QWidget>
+#include <QPushButton>
+#include <QGridLayout>
+#include <QVBoxLayout>
+#include <QGroupBox>
+#include <QTextEdit>
+#include <QLabel>
+#include <QScrollArea>
+#include <QScrollBar>
+#include <QList>
 
-namespace Ui {
-class MainWindow;
-}
+#include "GuiImpl/skystarfield.h"
+#include "skyguielement.h"
 
-class MainWindow : public QMainWindow
+class MainWindow : public QWidget
 {
     Q_OBJECT
     
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+public slots:
+    void repaintSky(QList<SkyGuiElement *> *stars);
+    void updateInfo(QList<int> selections, QList<SkyGuiElement *> *stars);
+    void clearText();
+
+signals:
+    void resetSelection();
     
 private:
-    Ui::MainWindow *ui;
+    QHBoxLayout *p_mainLayout;
+    SkyStarField *p_sky;
+    QVBoxLayout *p_rightLayout;
+    QPushButton *p_mainButton;
+    QGroupBox *p_logBox;
+    QVBoxLayout *p_logLayout;
+    QTextEdit *p_log;
+    QPushButton *p_logClear;
+    QLabel *p_note;
+    QScrollArea * p_zoom;
 };
 
 #endif // MAINWINDOW_H

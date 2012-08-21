@@ -35,7 +35,10 @@ SOURCES += main.cpp \
     ExternalDeviceImpl/cmdpicstatus.cpp \
     ExternalDeviceImpl/cmdunknown.cpp \
     ExternalDeviceImpl/starpointercommunication.cpp \
-    GuiImpl/mainwindow.cpp
+    GuiImpl/mainwindow.cpp \
+    GuiImpl/skystarfield.cpp \
+    skyposition.cpp \
+    skytransformation.cpp
 
 HEADERS += \
     skycore.h \
@@ -60,10 +63,11 @@ HEADERS += \
     ExternalDeviceImpl/cmdpicstatus.h \
     ExternalDeviceImpl/cmdunknown.h \
     ExternalDeviceImpl/starpointercommunication.h \
-    GuiImpl/mainwindow.h
+    GuiImpl/mainwindow.h \
+    GuiImpl/skystarfield.h \
+    skyposition.h \
+    skytransformation.h
 
-FORMS += \
-    GuiImpl/mainwindow.ui
 
 CONFIG(debug, debug|release) {
     QMAKE_LIBDIR += ../lib/libqserialdevice/build/debug

@@ -1,4 +1,9 @@
+#include <QDebug>
+#include <QList>
+
 #include "skycore.h"
+#include "skyposition.h"
+#include "skytransformation.h"
 
 using namespace SKYLOGGER;
 
@@ -77,13 +82,49 @@ SkyCore::~SkyCore()
 
     //delete logger as last element.
     delete p_logger;
+
+    int count = 0;
+    allStars->count();
+    for (int i = 0; i < count; ++i)
+        delete allStars->at(i);
+    delete allStars;
+    count = guiList->count();
+    for (int i = 0; i < count; ++i)
+        delete guiList->at(i);
+    delete guiList;
 }
 
 void SkyCore::startGui()
 {
-    // pour tester l'affichage
-    // p_gui->updateAffichage();
     p_gui->showWindow();
+
+    allStars = p_database->getSkyElements();
+
+    int count = allStars->count();
+
+    // Transformation (site bleu) + projection (x et y)
+    SkyPosition *here = new SkyPosition(46.992181, 6.915894);
+
+    guiList = new QList<SkyGuiElement *>();
+
+    double angle = SkyTransformation::getAngle();
+
+    for (int i = 0; i < count; ++i)
+        SkyTransformation::transformation(allStars->at(i), here, angle);
+
+    delete here;
+
+    double x = 0.0, y = 0.0;
+    for (int i = 0; i < count; ++i)
+    {
+        if (allStars->at(i)->getHeight() > 0.0)
+        {
+            SkyTransformation::projection(allStars->at(i), &x, &y, 500);
+            guiList->append(new SkyGuiElement(*(allStars->at(i)), x, y));
+        }
+    }
+
+    p_gui->updateAffichage(guiList);
 }
 
 void SkyCore::calculateRange(QString longitude, char longSide, QString latitude, char latSide,

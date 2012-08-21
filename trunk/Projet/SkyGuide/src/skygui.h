@@ -3,7 +3,10 @@
 
 #include <skycomponent.h>
 #include <skyguielement.h>
+#include <QList>
 #include "GuiImpl/mainwindow.h"
+#include "GuiImpl/skystarfield.h"
+#include "skyguielement.h"
 
 class SkyGui : public SkyComponent
 {
@@ -17,6 +20,8 @@ signals:
     void startAffichage();
     void stopAffichage();
 
+    void startRepaintSky(QList<SkyGuiElement *> *stars);
+
 public slots:
     virtual void start();
     virtual void stop();
@@ -24,7 +29,7 @@ public slots:
     void showWarning(const QString & message);
     void showError(const QString & message);
     void showInfo(const QString & message);
-    void updateAffichage(const QList<SkyGuiElement*>& elements);
+    void updateAffichage(QList<SkyGuiElement *> *elements);
 private:
     MainWindow *p_win;
 };

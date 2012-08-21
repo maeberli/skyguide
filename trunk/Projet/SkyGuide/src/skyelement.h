@@ -1,7 +1,7 @@
 #ifndef SKYELEMENT_H
 #define SKYELEMENT_H
 
-#include <string>
+#include <QString>
 
 class SkyElement
 {
@@ -9,28 +9,34 @@ public:
     SkyElement(
         double rightAscension,
         double declinasion,
-        std::string greekLetter,
-        std::string constellation,
+        QString greekLetter,
+        QString constellation,
         int distancelightYears,
         double magnitude);
-    SkyElement(const SkyElement& skyelement);
+    SkyElement(SkyElement& skyelement);
 
 
     double getRightAscension();
     double getDeclinasion();
-    std::string getGreekLetter();
-    std::string getConstellation();
+    QString getGreekLetter();
+    QString getConstellation();
     int getDistanceLightYears();
     double getMagnitude();
+    double getAzimuth();
+    double getHeight();
+    void setAzimuth(double azimuth);
+    void setHeight(double height);
 
 
-private:
+protected:
     double p_rightAscension;
     double p_declinasion;
-    std::string p_greekLetter;
-    std::string p_constellation;
+    QString p_greekLetter;
+    QString p_constellation;
     int p_distanceLightYears;
     double p_magnitude;
+    double p_azimuth;
+    double p_height;
 
 };
 

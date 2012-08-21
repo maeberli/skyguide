@@ -1,11 +1,18 @@
+#include <QObject>
+#include <QDebug>
+
 #include "skygui.h"
 #include "GuiImpl/mainwindow.h"
+#include "GuiImpl/skystarfield.h"
 
 SkyGui::SkyGui(SkyConfiguration* config, QObject *parent) :
     SkyComponent(config, parent)
 {
     emit logMessage(SKYLOGGER::VERBOSE, tr("Constructor SkyGui"));
+
     p_win = new MainWindow();
+
+    QObject::connect(this, SIGNAL(startRepaintSky(QList<SkyGuiElement *> *)), p_win, SLOT(repaintSky(QList<SkyGuiElement *> *)));
 }
 
 SkyGui::~SkyGui()
@@ -27,7 +34,6 @@ void SkyGui::start()
 void SkyGui::stop()
 {
     emit logMessage(SKYLOGGER::VERBOSE, tr("stop SkyGui -> not implemented"));
-
 }
 
 void SkyGui::showWarning(const QString &message)
@@ -46,7 +52,8 @@ void SkyGui::showInfo(const QString &message)
     emit logMessage(SKYLOGGER::VERBOSE, tr("showInfo slot SkyGui. Message: %1").arg(message));
 }
 
-void SkyGui::updateAffichage(const QList<SkyGuiElement*>& elements)
+void SkyGui::updateAffichage(QList<SkyGuiElement*> *elements)
 {
     emit logMessage(SKYLOGGER::VERBOSE, tr("updateAffichage slot SkyGui -> not implemented"));
+    emit startRepaintSky(elements);
 }

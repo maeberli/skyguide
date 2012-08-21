@@ -13,7 +13,7 @@ class SkyDatabase : public SkyComponent
 public:
     explicit SkyDatabase(SkyConfiguration* config, QObject *parent = 0);
 
-    QList<SkyElement*>* getSkyElements(const SkyRange & range);
+    QList<SkyElement*>* getSkyElements(/* const SkyRange & range */);
 
 public slots:
     virtual void start();

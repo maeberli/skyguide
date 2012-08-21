@@ -1,19 +1,27 @@
 #include "skyguielement.h"
 
-SkyGuiElement::SkyGuiElement(const SkyElement& skyelement, int positionX, int positionY):
-    SkyElement(skyelement)
+SkyGuiElement::SkyGuiElement(SkyElement& skyelement, double positionX, double positionY) : SkyElement(skyelement)
 {
     p_positionX = positionX;
     p_positionY = positionY;
 }
 
-
-int SkyGuiElement::getPositionX()
+double SkyGuiElement::getPositionX()
 {
     return this->p_positionX;
 }
 
-int SkyGuiElement::getPositionY()
+double SkyGuiElement::getPositionY()
 {
     return this->p_positionY;
+}
+
+void SkyGuiElement::setPositionX(double newX)
+{
+    this->p_positionX = newX;
+}
+
+void SkyGuiElement::setPositionY(double newY)
+{
+    this->p_positionY = newY;
 }

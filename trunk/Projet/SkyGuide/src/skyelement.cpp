@@ -1,32 +1,42 @@
+#include <QDebug>
+#include <QString>
 #include "skyelement.h"
-
-using namespace std;
 
 SkyElement::SkyElement(double rightAscension,
                        double declinasion,
-                       string greekLetter,
-                       string constellation,
+                       QString greekLetter,
+                       QString constellation,
                        int distancelightYears,
                        double magnitude)
 {
-    this->p_rightAscension = rightAscension;
-    this->p_declinasion = declinasion;
+    this->p_rightAscension = rightAscension * 3.14159265 / 180;
+    this->p_declinasion = declinasion * 3.14159265 / 180;
     this->p_greekLetter = greekLetter;
     this->p_constellation = constellation;
     this->p_distanceLightYears = distancelightYears;
     this->p_magnitude = magnitude;
+    p_azimuth = 0.0;
+    p_height = 0.0;
 }
 
-SkyElement::SkyElement(const SkyElement& skyelement)
+SkyElement::SkyElement(SkyElement& skyelement)
 {
-    SkyElement(
+    /*SkyElement(
                 skyelement.p_rightAscension,
                 skyelement.p_declinasion,
                 skyelement.p_greekLetter,
                 skyelement.p_constellation,
                 skyelement.p_distanceLightYears,
                 skyelement.p_magnitude
-                );
+                );*/
+    p_rightAscension = skyelement.p_rightAscension;
+    p_declinasion = skyelement.p_declinasion;
+    p_greekLetter = skyelement.p_greekLetter;
+    p_constellation = skyelement.p_constellation;
+    p_distanceLightYears = skyelement.p_distanceLightYears;
+    p_magnitude = skyelement.p_magnitude;
+    p_azimuth = skyelement.p_azimuth;
+    p_height = skyelement.p_height;
 }
 
 double SkyElement::getRightAscension()
@@ -39,12 +49,12 @@ double SkyElement::getDeclinasion()
     return this->p_declinasion;
 }
 
-string SkyElement::getGreekLetter()
+QString SkyElement::getGreekLetter()
 {
     return this->p_greekLetter;
 }
 
-string SkyElement::getConstellation()
+QString SkyElement::getConstellation()
 {
     return this->p_constellation;
 }
@@ -57,5 +67,21 @@ int SkyElement::getDistanceLightYears()
 double SkyElement::getMagnitude()
 {
     return this->p_magnitude;
+}
+double SkyElement::getAzimuth()
+{
+    return p_azimuth;
+}
+double SkyElement::getHeight()
+{
+    return p_height;
+}
+void SkyElement::setAzimuth(double azimuth)
+{
+    p_azimuth = azimuth;
+}
+void SkyElement::setHeight(double height)
+{
+    p_height = height;
 }
 
