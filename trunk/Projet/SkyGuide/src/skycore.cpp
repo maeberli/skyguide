@@ -2,6 +2,12 @@
 
 using namespace SKYLOGGER;
 
+QDebug operator<<(QDebug dbg, const Vect3D& v)
+{
+    dbg << "(" << v.x << "," << v.y << "," << v.z << ")";
+    return dbg;
+}
+
 SkyCore::SkyCore(QObject *parent) :
     SkyComponent(p_config, parent)
 {
@@ -11,7 +17,6 @@ SkyCore::SkyCore(QObject *parent) :
     p_calculator = new SkyCalculator(p_config, this);
     p_externalDevice = new SkyExternalDevice(p_config, this);
     p_gui = new SkyGui(p_config, this);
-    p_extDevDataHandler = new SkyExtDevDataHandler(this);
 
     // connect logging slots of each component with signal of logger
     connect(this, SIGNAL(logMessage(SKYLOGGER::SkyLoggerTypes,QString)),
@@ -56,14 +61,8 @@ SkyCore::SkyCore(QObject *parent) :
 
     //connect the signals for the received informations of the externalDevice object
     //to the local slots
-    connect(p_externalDevice, SIGNAL(receivedDirectionData(int)),
-            p_extDevDataHandler, SLOT(setDirectionData(int)));
-    connect(p_externalDevice, SIGNAL(receivedOrientationData(int,int)),
-            p_extDevDataHandler, SLOT(setOrientationData(int,int)));
-    connect(p_externalDevice, SIGNAL(receivedPositionData(int)),
-            p_extDevDataHandler, SLOT(setPositionData(int)));
-    connect(p_extDevDataHandler, SIGNAL(newExtDataAvailable(int,int,int,int)),
-            this, SLOT(calculateRange(int,int,int,int)));
+    connect(p_externalDevice, SIGNAL(newData(QString,char,QString,char,int,int,int,int,int,int)),
+            this, SLOT(calculateRange(QString,char,QString,char,int,int,int,int,int,int)));
 
 }
 
@@ -87,9 +86,36 @@ void SkyCore::startGui()
     p_gui->showWindow();
 }
 
-void SkyCore::calculateRange(int slope, int inclLeftRight, int direction, int positionData)
+void SkyCore::calculateRange(QString longitude, char longSide, QString latitude, char latSide,
+                             int accXComp, int accYComp, int accZComp,
+                             int magXComp, int magYComp, int magZComp)
 {
-    emit logMessage(SKYLOGGER::VERBOSE, tr("calculate range in SkyCore --> not implemented"));
+    Vect3D vectAcc;
+    vectAcc.x = accXComp;
+    vectAcc.y = accYComp;
+    vectAcc.z = accZComp;
+
+    Vect3D vectMag;
+    vectMag.x = magXComp;
+    vectMag.y = magYComp;
+    vectMag.z = magZComp;
+
+    vectAcc = getUnitVector( vectAcc );
+    vectMag = getUnitVector( vectMag );
+
+    //calculate vector north and east based on vector of magnetometer and accelerometer
+    Vect3D east = getUnitVector( crossProduct(vectMag,vectAcc) );
+    Vect3D north = getUnitVector( crossProduct(east,vectAcc) );
+
+    Vect3D vectP;
+    vectP.x = 0;
+    vectP.y = 0;
+    vectP.z = -1;
+
+    double incl = acos(scalarProduct(vectP,vectAcc) / (getNorm(vectP)*getNorm(vectAcc))) * (180/3.14159265)-90;
+    double dir = atan2(scalarProduct(vectP,east), scalarProduct(vectP,north)) * (180/3.14159265)+180;
+    qDebug() << "incl: " << incl;
+    qDebug() << "dir:  " << dir;
 
 }
 

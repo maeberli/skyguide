@@ -9,8 +9,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    SkyCore *tmp = new SkyCore();
-    tmp->startGui();
+    SkyCore tmp;
+    tmp.startGui();
 
     return a.exec();
 }

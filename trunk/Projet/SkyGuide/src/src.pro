@@ -24,7 +24,6 @@ SOURCES += main.cpp \
     skyexternaldevice.cpp \
     skycomponent.cpp \
     skygui.cpp \
-    skyextdevdatahandler.cpp \
     skyconfiguration.cpp \
     ExternalDeviceImpl/command.cpp \
     ExternalDeviceImpl/cmdpointermode.cpp \
@@ -34,8 +33,8 @@ SOURCES += main.cpp \
     ExternalDeviceImpl/cmdaccelerometer.cpp \
     ExternalDeviceImpl/cmdmagnetometer.cpp \
     ExternalDeviceImpl/cmdpicstatus.cpp \
-    ExternalDeviceImpl/starpointerprotocol.cpp \
-    # GuiImpl/SkyField.cpp \
+    ExternalDeviceImpl/cmdunknown.cpp \
+    ExternalDeviceImpl/starpointercommunication.cpp \
     GuiImpl/mainwindow.cpp
 
 HEADERS += \
@@ -50,7 +49,6 @@ HEADERS += \
     skyguielement.h \
     skyexternaldevice.h \
     skygui.h \
-    skyextdevdatahandler.h \
     skyconfiguration.h \
     ExternalDeviceImpl/command.h \
     ExternalDeviceImpl/cmdpointermode.h \
@@ -60,8 +58,8 @@ HEADERS += \
     ExternalDeviceImpl/cmdaccelerometer.h \
     ExternalDeviceImpl/cmdmagnetometer.h \
     ExternalDeviceImpl/cmdpicstatus.h \
-    ExternalDeviceImpl/starpointerprotocol.h \
-    # GuiImpl/SkyField.h \
+    ExternalDeviceImpl/cmdunknown.h \
+    ExternalDeviceImpl/starpointercommunication.h \
     GuiImpl/mainwindow.h
 
 FORMS += \

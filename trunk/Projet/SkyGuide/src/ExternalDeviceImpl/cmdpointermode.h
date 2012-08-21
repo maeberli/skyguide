@@ -9,6 +9,7 @@ class CmdPointerMode : public Command
 {
 public:
     CmdPointerMode(QString _data = "");
+    void decide(StarPointerCommunication& com) {};
 };
 
 } // namespace ExternalDeviceImpl

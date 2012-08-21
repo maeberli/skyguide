@@ -9,6 +9,14 @@ class CmdAccelerometer : public Command
 {
 public:
     CmdAccelerometer(QString _data = "");
+    virtual QString prepareForSend();
+    void analyzeData();
+    void decide(StarPointerCommunication& com);
+
+private:
+    int m_xComp;
+    int m_yComp;
+    int m_zComp;
 };
 
 } // namespace ExternalDeviceImpl

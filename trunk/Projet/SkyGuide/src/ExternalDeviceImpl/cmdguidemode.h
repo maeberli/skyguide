@@ -9,6 +9,12 @@ class CmdGuideMode : public Command
 {
 public:
     CmdGuideMode(QString _data = "");
+    virtual QString prepareForSend();
+    virtual void analyzeData();
+    void decide(StarPointerCommunication& com) {};
+
+private:
+    int m_flashDirection;
 };
 
 } // namespace ExternalDeviceImpl

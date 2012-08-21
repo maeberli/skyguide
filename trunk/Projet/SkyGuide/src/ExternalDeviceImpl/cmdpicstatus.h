@@ -9,6 +9,12 @@ class CmdPicStatus : public Command
 {
 public:
     CmdPicStatus(QString _data = "");
+    virtual QString prepareForSend();
+    void analyzeData();
+    void decide(StarPointerCommunication& com) {};
+
+private:
+    int m_status;
 };
 
 } // namespace ExternalDeviceImpl
