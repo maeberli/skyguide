@@ -10,7 +10,7 @@ class CmdPing : public Command
 public:
     CmdPing(QString _data = "");
 
-    virtual void decide(StarPointerCommunication& com);
+    void decide(StarPointerCommunication& com){};
 };
 
 } // namespace ExternalDeviceImpl

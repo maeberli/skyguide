@@ -9,8 +9,8 @@ class CmdMagnetometer : public Command
 {
 public:
     CmdMagnetometer(QString _data = "");
-    virtual QString prepareForSend();
-    void analyzeData();
+    QString prepareForSend() const;
+    bool analyzeData();
     void decide(StarPointerCommunication& com);
 
     //Composante X (0-5 car.),Composante Y (0-5 car.),Composante Z (0-5 car.)	Les composantes sont des valeurs entre 0 et 65535.	$05,126,008,056*3E\r\n

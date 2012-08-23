@@ -9,8 +9,8 @@ class CmdGuideMode : public Command
 {
 public:
     CmdGuideMode(QString _data = "");
-    virtual QString prepareForSend();
-    virtual void analyzeData();
+    QString prepareForSend() const;
+    bool analyzeData();
     void decide(StarPointerCommunication& com) {};
 
 private:

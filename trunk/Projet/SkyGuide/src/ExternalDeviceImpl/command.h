@@ -25,8 +25,8 @@ public:
 
     Command(Commands _type, QString _data);
 
-    virtual QString prepareForSend();
-    virtual void analyzeData();
+    virtual QString prepareForSend() const;
+    virtual bool analyzeData();
     virtual void decide(StarPointerCommunication& com) = 0;
 
 protected:

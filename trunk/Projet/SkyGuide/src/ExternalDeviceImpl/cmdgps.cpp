@@ -1,6 +1,7 @@
 #include "cmdgps.h"
 
 #include <QStringList>
+#include <QTextStream>
 
 #include "starpointercommunication.h"
 
@@ -11,28 +12,58 @@ CmdGPS::CmdGPS(QString _data)
 {
 }
 
-void CmdGPS::analyzeData()
+bool CmdGPS::analyzeData()
 {
-    QStringList list = m_data.split(",");
-    m_latitude = list[0];
-    m_latitudeSide = list[1].at(0).toAscii();
-    m_longitude = list[2];
-    m_longitudeSide = list[3].at(0).toAscii();
+
+    QRegExp reg("^[0-9]{4}\\.[0-9]{4},[NS],[0-9]{5}\\.[0-9]{4},[EW]$");
+    if(reg.indexIn(m_data) == 0)
+    {
+        QStringList list = m_data.split(",");
+        QString lat = list[0];
+        char latSide = list[1].at(0).toAscii();
+        QString longi = list[2];
+        char longiSide = list[3].at(0).toAscii();
+
+        m_latitude = lat.left(2).toInt() + lat.right(7).toDouble()/60;
+        m_latitude = (latSide == 'N' ? m_latitude : -m_latitude);
+
+        m_longitude = longi.left(3).toInt() + longi.right(7).toDouble()/60;
+        m_longitude = (longiSide == 'E' ? m_longitude : -m_longitude);
+
+
+        return true;
+    }
+    return false;
 }
 
-QString CmdGPS::prepareForSend()
+QString CmdGPS::prepareForSend() const
 {
-    return (this->m_type>9 ? QString("") : QString("0")) + m_type + ","
-            + m_latitude + ","
-            + m_latitudeSide + ","
-            + m_longitude + ","
-            + m_longitudeSide + ",";
+    double lati = (m_latitude < 0 ? m_latitude * (-1) : m_latitude);
+    double longi = (m_longitude < 0 ? m_longitude * (-1) : m_longitude);
+
+    int latiDeg = (int)lati;
+    double latiMin = (lati - latiDeg) * 60;
+
+    int longiDeg = (int)longi;
+    double longiMin = (longi - longiDeg) * 60;
+
+    QString rv = "";
+    QTextStream stream(&rv);
+    stream.setRealNumberPrecision(4);
+    stream.setRealNumberNotation(QTextStream::FixedNotation);
+    stream << (this->m_type>9 ? QString("") : QString("0")) << m_type << ","
+           << latiDeg << latiMin << ","
+           << ( m_latitude < 0 ? "S" : "N" ) << ","
+           << longiDeg << longiMin << ","
+           << ( m_longitude < 0 ? "W" : "E" );
+
+    return rv;
 
 }
 
 void CmdGPS::decide(StarPointerCommunication& com)
 {
-    emit com.receivedGPSData(this->m_latitude, this->m_latitudeSide, this->m_longitude, this->m_longitudeSide);
+    emit com.receivedGPSData(this->m_longitude, this->m_latitude);
 }
 
 } // namespace ExternalDeviceImpl

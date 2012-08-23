@@ -7,8 +7,4 @@ CmdPing::CmdPing(QString _data)
 {
 }
 
-void CmdPing::decide(StarPointerCommunication& com)
-{
-}
-
 } // namespace ExternalDeviceImpl

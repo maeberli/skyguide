@@ -16,7 +16,7 @@ public:
     ~SkyExternalDevice();
 
 signals:
-    void newData(QString longitude, char longSide, QString latitude, char latSide,
+    void newData(double longitude, double latitude,
                  int accXComp, int accYComp, int accZComp,
                  int magXComp, int magYComp, int magZComp);
 
@@ -25,7 +25,7 @@ public slots:
     virtual void stop();
 
 private slots:
-    void handleReceivedGPSData(QString,char,QString,char);
+    void handleReceivedGPSData(double longitude, double latitude);
     void handleReceivedAccelormeterData(int,int,int);
     void handleReceivedMagnetometerData(int,int,int);
 
@@ -35,10 +35,8 @@ private:
     ExternalDeviceImpl::StarPointerCommunication* m_com;
     QTimer* m_timer;
 
-    QString m_longitude;
-    char m_longSide;
-    QString m_latitude;
-    char m_latSide;
+    double m_longitude;
+    double m_latitude;
 
     int m_accXComp;
     int m_accYComp;

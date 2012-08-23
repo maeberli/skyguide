@@ -9,8 +9,8 @@ class CmdPicStatus : public Command
 {
 public:
     CmdPicStatus(QString _data = "");
-    virtual QString prepareForSend();
-    void analyzeData();
+    QString prepareForSend() const;
+    bool analyzeData();
     void decide(StarPointerCommunication& com) {};
 
 private:

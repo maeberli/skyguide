@@ -20,7 +20,12 @@
 
 namespace ExternalDeviceImpl {
 
-StarPointerCommunication::StarPointerCommunication(QObject *parent) :
+StarPointerCommunication::StarPointerCommunication(QString devName,
+                                                   AbstractSerial::BaudRate baudrate,
+                                                   AbstractSerial::Parity parity,
+                                                   AbstractSerial::DataBits dataBits,
+                                                   AbstractSerial::Flow flow,
+                                                   QObject *parent) :
     QObject(parent)
 {
 
@@ -35,16 +40,28 @@ StarPointerCommunication::StarPointerCommunication(QObject *parent) :
     connect(m_conn, SIGNAL(signalStatus(QString,QDateTime)),
             this, SLOT(signalStatusChanged(QString, QDateTime)));
 
+
     //open connection and configure it
     m_conn->enableEmitStatus(true);
-    m_conn->setDeviceName("/dev/ttyUSB0");
+    m_conn->setDeviceName(devName);
     if(m_conn->open(QIODevice::ReadWrite))
     {
-        m_conn->setBaudRate(AbstractSerial::BaudRate9600);
-        m_conn->setParity(AbstractSerial::ParityNone);
-        m_conn->setDataBits(AbstractSerial::DataBits8);
-        m_conn->setFlowControl(AbstractSerial::FlowControlOff);
+        m_conn->setBaudRate(baudrate);
+        m_conn->setParity(parity);
+        m_conn->setDataBits(dataBits);
+        m_conn->setFlowControl(flow);
     }
+
+//    //open connection and configure it
+//    m_conn->enableEmitStatus(true);
+//    m_conn->setDeviceName("/dev/ttyUSB0");
+//    if(m_conn->open(QIODevice::ReadWrite))
+//    {
+//        m_conn->setBaudRate( AbstractSerial::BaudRate9600);
+//        m_conn->setParity(AbstractSerial::ParityNone);
+//        m_conn->setDataBits(AbstractSerial::DataBits8);
+//        m_conn->setFlowControl(AbstractSerial::FlowControlOff);
+//    }
 
 
     //initialize connection
@@ -80,7 +97,7 @@ void StarPointerCommunication::incommingData()
         QString data = reg.cap();
         qDebug() << "data:" << data;
         data.remove(0,1);
-        data.chop(2);
+        data.chop(4);
 
         //check for each command crc
         if(checkCRC(data))
@@ -103,14 +120,15 @@ void StarPointerCommunication::signalStatusChanged(const QString &status, QDateT
 
 bool StarPointerCommunication::initConnection()
 {
-    return send(new CmdPing());
+    return send(CmdPing());
 }
 
-bool StarPointerCommunication::send(Command* cmd)
+bool StarPointerCommunication::send(const Command& cmd)
 {
-    QString tmp = cmd->prepareForSend();
+    QString tmp = cmd.prepareForSend();
     QString toSend = QString("$") + calculateCRC(tmp) + QString("\\r\\n");
-    m_conn->write(toSend.toAscii());
+
+    return (-1 != m_conn->write(toSend.toAscii()));
 }
 
 bool StarPointerCommunication::checkCRC(QString data)
@@ -185,7 +203,13 @@ Command* StarPointerCommunication::getCommandObject(QString data)
             rv = new CmdUnknwon();
             break;
         }
-        rv->analyzeData();
+
+        //analyze the data and if they arent correct destroy the object return NULL
+        if(!rv->analyzeData())
+        {
+            delete rv;
+            rv = NULL;
+        }
     }
 
     return rv;

@@ -9,8 +9,8 @@ class CmdAccelerometer : public Command
 {
 public:
     CmdAccelerometer(QString _data = "");
-    virtual QString prepareForSend();
-    void analyzeData();
+    QString prepareForSend() const;
+    bool analyzeData();
     void decide(StarPointerCommunication& com);
 
 private:

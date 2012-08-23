@@ -9,15 +9,13 @@ class CmdGPS : public Command
 {
 public:
     CmdGPS(QString _data = "");
-    virtual QString prepareForSend();
-    void analyzeData();
+    QString prepareForSend() const;
+    bool analyzeData();
     void decide(StarPointerCommunication& com);
 
 private:
-    QString m_longitude;
-    char m_longitudeSide;
-    QString m_latitude;
-    char m_latitudeSide;
+    double m_longitude;
+    double m_latitude;
 
 };
 

@@ -9,13 +9,20 @@ CmdGuideMode::CmdGuideMode(QString _data)
 {
 }
 
-void CmdGuideMode::analyzeData()
+bool CmdGuideMode::analyzeData()
 {
     QStringList list = m_data.split(_SEP_);
-    this->m_flashDirection = list[0].toInt();
+    if(list.size()==1)
+    {
+        this->m_flashDirection = list[0].toInt();
+
+        return true;
+    }
+
+    return false;
 }
 
-QString CmdGuideMode::prepareForSend()
+QString CmdGuideMode::prepareForSend() const
 {
     return (this->m_type>9 ? QString("") : QString("0")) + m_type + _SEP_
             + QString::number(m_flashDirection);

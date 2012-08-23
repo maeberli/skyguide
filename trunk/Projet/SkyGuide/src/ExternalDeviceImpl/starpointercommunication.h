@@ -20,11 +20,17 @@ public:
         ModePointer         = 01
     };
 
-    explicit StarPointerCommunication(QObject *parent = 0);
+    explicit StarPointerCommunication(
+            QString devName,
+            AbstractSerial::BaudRate baudrate,
+            AbstractSerial::Parity parity,
+            AbstractSerial::DataBits dataBits,
+            AbstractSerial::Flow flow,
+            QObject *parent = 0);
     ~StarPointerCommunication();
 
 signals:
-    void receivedGPSData(QString longitude, char logSide,QString lat,char latSide);
+    void receivedGPSData(double longitude, double latitude);
     void receivedAccelormeterData(int xComp, int yComp, int zComp);
     void receivedMagnetometerData(int xComp, int yComp, int zComp);
 
@@ -39,7 +45,7 @@ private:
     ProtocollStates m_actState;
     QTimer *m_pingTimer;
 
-    bool send(Command* cmd);
+    bool send(const Command &cmd);
 
     bool checkCRC(QString data);
     QString calculateCRC(const QString& data);

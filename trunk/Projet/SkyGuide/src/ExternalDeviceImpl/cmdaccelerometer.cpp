@@ -14,15 +14,22 @@ CmdAccelerometer::CmdAccelerometer(QString _data)
 }
 
 
-void CmdAccelerometer::analyzeData()
+bool CmdAccelerometer::analyzeData()
 {
     QStringList list = m_data.split(_SEP_);
-    m_xComp = list[0].toInt() - NULLPOINT_OFFSET;
-    m_yComp = list[1].toInt() - NULLPOINT_OFFSET;
-    m_zComp = list[2].toInt() - NULLPOINT_OFFSET;
+    if(list.size()==3)
+    {
+        m_xComp = list[0].toInt() - NULLPOINT_OFFSET;
+        m_yComp = list[1].toInt() - NULLPOINT_OFFSET;
+        m_zComp = list[2].toInt() - NULLPOINT_OFFSET;
+
+        return true;
+    }
+
+    return false;
 }
 
-QString CmdAccelerometer::prepareForSend()
+QString CmdAccelerometer::prepareForSend() const
 {
     return (this->m_type>9 ? QString("") : QString("0")) + m_type + _SEP_
             + QString::number(m_xComp + NULLPOINT_OFFSET) + _SEP_

@@ -8,15 +8,16 @@ Command::Command(Commands _type, QString _data)
 {
 }
 
-void Command::analyzeData()
+bool Command::analyzeData()
 {
+    return true;
 }
 
 void Command::decide(StarPointerCommunication& com)
 {
 }
 
-QString Command::prepareForSend()
+QString Command::prepareForSend() const
 {
     return (this->m_type>9 ? QString("") : QString("0")) + QString::number(m_type) + QString(_SEP_);
 }

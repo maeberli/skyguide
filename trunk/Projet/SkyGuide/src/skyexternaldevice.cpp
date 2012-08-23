@@ -4,10 +4,8 @@ using namespace ExternalDeviceImpl;
 
 SkyExternalDevice::SkyExternalDevice(SkyConfiguration* config, QObject *parent) :
     SkyComponent(config, parent),
-    m_longitude(""),
-    m_longSide('N'),
-    m_latitude(""),
-    m_latSide('E'),
+    m_longitude(0.0),
+    m_latitude(0.0),
     m_accXComp(0),
     m_accYComp(0),
     m_accZComp(0),
@@ -17,12 +15,23 @@ SkyExternalDevice::SkyExternalDevice(SkyConfiguration* config, QObject *parent) 
 {
     emit logMessage(SKYLOGGER::VERBOSE, tr("Constructor SkyExternalDevice"));
 
-    m_com = new StarPointerCommunication();
+
+//    AbstractSerial::BaudRate baudrate = (AbstractSerial::BaudRate)p_config->getConfItem("baudrate", AbstractSerial::BaudRate9600).toInt();
+//    m_com = new StarPointerCommunication("/dev/ttyUSB0",AbstractSerial::BaudRate9600, AbstractSerial::ParityNone, AbstractSerial::DataBits8, AbstractSerial::FlowControlOff);
+
+    m_com = new StarPointerCommunication(
+                p_config->getConfItem("comPort", "/dev/ttyUSB0").toString(),
+                (AbstractSerial::BaudRate)p_config->getConfItem("baudrate", AbstractSerial::BaudRate9600).toInt(),
+                (AbstractSerial::Parity)p_config->getConfItem("parity", AbstractSerial::ParityNone).toInt(),
+                (AbstractSerial::DataBits)p_config->getConfItem("databits", AbstractSerial::DataBits8).toInt(),
+                (AbstractSerial::Flow)p_config->getConfItem("flow", AbstractSerial::FlowControlOff).toInt(),
+                this
+                );
     m_timer = new QTimer(this);
 
 
-    connect(m_com, SIGNAL(receivedGPSData(QString,char,QString,char)),
-            this, SLOT(handleReceivedGPSData(QString,char,QString,char)));
+    connect(m_com, SIGNAL(receivedGPSData(double,double)),
+            this, SLOT(handleReceivedGPSData(double,double)));
     connect(m_com, SIGNAL(receivedAccelormeterData(int,int,int)),
             this, SLOT(handleReceivedAccelormeterData(int,int,int)));
     connect(m_com, SIGNAL(receivedMagnetometerData(int,int,int)),
@@ -50,13 +59,11 @@ void SkyExternalDevice::stop()
     emit logMessage(SKYLOGGER::VERBOSE, tr("stop SkyExternalDevice -> not implemented"));
 }
 
-void SkyExternalDevice::handleReceivedGPSData(QString longitude, char longSide, QString latitude, char latSide)
+void SkyExternalDevice::handleReceivedGPSData(double longitude, double latitude)
 {
-    emit logMessage(SKYLOGGER::VERBOSE, tr("received GPS DATA(%1;%2;%3;%4)").arg(longitude).arg(longSide).arg(latitude).arg(latSide));
+    emit logMessage(SKYLOGGER::VERBOSE, tr("received GPS DATA(%1;%2)").arg(longitude).arg(latitude));
     m_longitude = longitude;
-    m_longSide = longSide;
     m_latitude = latitude;
-    m_latSide = latSide;
 }
 
 void SkyExternalDevice::handleReceivedAccelormeterData(int xComp, int yComp, int zComp)
@@ -77,7 +84,7 @@ void SkyExternalDevice::handleReceivedMagnetometerData(int xComp, int yComp, int
 
 void SkyExternalDevice::timerTimeout()
 {
-    emit newData(m_longitude, m_longSide, m_latitude, m_latSide,
+    emit newData(m_longitude, m_latitude,
                  m_accXComp, m_accYComp, m_accZComp,
                  m_magXComp, m_magYComp, m_magZComp);
 }
