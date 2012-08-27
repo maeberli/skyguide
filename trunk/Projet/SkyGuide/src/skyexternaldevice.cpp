@@ -84,7 +84,26 @@ void SkyExternalDevice::handleReceivedMagnetometerData(int xComp, int yComp, int
 
 void SkyExternalDevice::timerTimeout()
 {
-    emit newData(m_longitude, m_latitude,
-                 m_accXComp, m_accYComp, m_accZComp,
-                 m_magXComp, m_magYComp, m_magZComp);
+    if( m_longitude_lastSent != m_longitude
+            || m_latitude_lastSent != m_latitude
+            || m_accXComp_lastSent != m_accXComp
+            || m_accYComp_lastSent != m_accYComp
+            || m_accZComp_lastSent != m_accZComp
+            || m_magXComp_lastSent != m_magXComp
+            || m_magYComp_lastSent != m_magYComp
+            || m_magZComp_lastSent != m_magZComp)
+    {
+        m_longitude_lastSent = m_longitude;
+        m_latitude_lastSent = m_latitude;
+        m_accXComp_lastSent = m_accXComp;
+        m_accYComp_lastSent = m_accYComp;
+        m_accZComp_lastSent = m_accZComp;
+        m_magXComp_lastSent = m_magXComp;
+        m_magYComp_lastSent = m_magYComp;
+        m_magZComp_lastSent = m_magZComp;
+
+        emit newData(m_longitude, m_latitude,
+                     m_accXComp, m_accYComp, m_accZComp,
+                     m_magXComp, m_magYComp, m_magZComp);
+    }
 }

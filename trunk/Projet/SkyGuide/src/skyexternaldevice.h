@@ -37,14 +37,21 @@ private:
 
     double m_longitude;
     double m_latitude;
-
     int m_accXComp;
     int m_accYComp;
     int m_accZComp;
-
     int m_magXComp;
     int m_magYComp;
     int m_magZComp;
+
+    double m_longitude_lastSent;
+    double m_latitude_lastSent;
+    int m_accXComp_lastSent;
+    int m_accYComp_lastSent;
+    int m_accZComp_lastSent;
+    int m_magXComp_lastSent;
+    int m_magYComp_lastSent;
+    int m_magZComp_lastSent;
 };
 
 #endif // SKYEXTERNALDEVICE_H
