@@ -30,6 +30,8 @@ public slots:
     void showError(const QString & message);
     void showInfo(const QString & message);
     void updateAffichage(QList<SkyGuiElement *> *elements);
+
+    void receiveStartAffichage();
 private:
     MainWindow *p_win;
 };

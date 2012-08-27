@@ -29,7 +29,7 @@ QList<SkyElement *> * SkyDatabase::getSkyElements(/* const SkyRange & range */)
 
     QSqlQuery query;
 
-    if (!query.exec(QString("SELECT * FROM main.stars")))
+    if (!query.exec(QString("SELECT * FROM stars where magnitude <= 4")))
         qDebug() << "Erreur d'accès à la base de données !";
 
     while (query.next())

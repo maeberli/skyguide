@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QWidget>
 #include <QList>
+#include <QScrollBar>
 #include "skyguielement.h"
 
 class SkyStarField : public QWidget
@@ -23,6 +24,9 @@ public slots:
 signals:
 
     void sendInfo(QList<int> selections, QList<SkyGuiElement *> *stars);
+    void sendAdjust(bool in);
+    void sendMove(int direction);
+    void sendClearText();
 
 protected:
 
@@ -32,6 +36,8 @@ protected:
 
     void mousePressEvent(QMouseEvent *event);
 
+    void mouseReleaseEvent(QMouseEvent *);
+
     void wheelEvent(QWheelEvent *event);
 
 private:
@@ -40,15 +46,17 @@ private:
 
     QList<int> p_selections;
 
-    int p_width;
+    double p_width;
 
-    int p_height;
+    double p_height;
 
     int p_cpt;
 
     double p_factor;
 
     int p_numDegree;
+
+    QPoint prev;
 };
 
 #endif // SKYSTARFIELD_H

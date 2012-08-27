@@ -13,6 +13,7 @@ SkyGui::SkyGui(SkyConfiguration* config, QObject *parent) :
     p_win = new MainWindow();
 
     QObject::connect(this, SIGNAL(startRepaintSky(QList<SkyGuiElement *> *)), p_win, SLOT(repaintSky(QList<SkyGuiElement *> *)));
+    QObject::connect(p_win, SIGNAL(sendStartAffichage()), this, SLOT(receiveStartAffichage()));
 }
 
 SkyGui::~SkyGui()
@@ -56,4 +57,9 @@ void SkyGui::updateAffichage(QList<SkyGuiElement*> *elements)
 {
     emit logMessage(SKYLOGGER::VERBOSE, tr("updateAffichage slot SkyGui -> not implemented"));
     emit startRepaintSky(elements);
+}
+
+void SkyGui::receiveStartAffichage()
+{
+    emit startAffichage();
 }

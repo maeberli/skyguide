@@ -9,6 +9,9 @@
 #include <QDesktopWidget>
 #include <QApplication>
 #include <QScrollArea>
+#include <QScrollBar>
+#include <QDebug>
+#include <QRect>
 
 #include "mainwindow.h"
 #include "GuiImpl/skystarfield.h"
@@ -50,6 +53,12 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
     QObject::connect(p_sky, SIGNAL(sendInfo(QList<int>,QList<SkyGuiElement*>*)), this, SLOT(updateInfo(QList<int>,QList<SkyGuiElement*>*)));
     QObject::connect(p_logClear, SIGNAL(clicked()), this, SLOT(clearText()));
     QObject::connect(this, SIGNAL(resetSelection()), p_sky, SLOT(clearSelection()));
+    QObject::connect(p_sky, SIGNAL(sendAdjust(bool)), this, SLOT(adjustScrollBar(bool)));
+    QObject::connect(p_sky, SIGNAL(sendMove(int)), this, SLOT(drag(int)));
+    QObject::connect(p_sky, SIGNAL(sendClearText()), this, SLOT(clearText()));
+    QObject::connect(p_mainButton, SIGNAL(clicked()), this, SLOT(startStop()));
+
+    p_zoom->setMinimumSize(702, 702);
 }
 
 void MainWindow::repaintSky(QList<SkyGuiElement *> *stars)
@@ -71,6 +80,8 @@ void MainWindow::updateInfo(QList<int> selections, QList<SkyGuiElement *> *stars
         {
             info += "Declinaison: " + QString::number(stars->at(selections[i])->getDeclinasion()) + "\n";
             info += "Right ascension: " + QString::number(stars->at(selections[i])->getRightAscension()) + "\n";
+            info += "Azimuth: " + QString::number(stars->at(selections[i])->getAzimuth()) + "\n";
+            info += "Height: " + QString::number(stars->at(selections[i])->getHeight()) + "\n";
             info += "Greek letter: " + stars->at(selections[i])->getGreekLetter() + "\n";
             info += "Constellation: " + stars->at(selections[i])->getConstellation() + "\n";
             info += "Magnitude: " + QString::number(stars->at(selections[i])->getMagnitude()) + "\n";
@@ -81,10 +92,62 @@ void MainWindow::updateInfo(QList<int> selections, QList<SkyGuiElement *> *stars
     }
 }
 
+void MainWindow::drag(int direction)
+{
+    int valueH = p_zoom->horizontalScrollBar()->value();
+    int valueV = p_zoom->verticalScrollBar()->value();
+    switch (direction)
+    {
+        case 1:
+            p_zoom->horizontalScrollBar()->setValue(valueH + 10);
+            break;
+        case 2:
+            p_zoom->horizontalScrollBar()->setValue(valueH - 10);
+            break;
+        case 3:
+            p_zoom->verticalScrollBar()->setValue(valueV + 10);
+            break;
+        case 4:
+            p_zoom->verticalScrollBar()->setValue(valueV - 10);
+            break;
+    }
+}
+
+void MainWindow::adjustScrollBar(bool in)
+{
+    if (in)
+    {
+        p_zoom->horizontalScrollBar()->setValue(int(1.25 * p_zoom->horizontalScrollBar()->value()
+                                + ((1.25 - 1) * p_zoom->verticalScrollBar()->pageStep()/2)));
+        p_zoom->verticalScrollBar()->setValue(int(1.25 * p_zoom->verticalScrollBar()->value()
+                                                              + ((1.25 - 1) * p_zoom->verticalScrollBar()->pageStep()/2)));
+    }
+    else
+    {
+        p_zoom->horizontalScrollBar()->setValue(int(0.8 * p_zoom->horizontalScrollBar()->value()
+                                + ((0.8 - 1) * p_zoom->horizontalScrollBar()->pageStep()/2)));
+        p_zoom->verticalScrollBar()->setValue(int(0.8 * p_zoom->verticalScrollBar()->value()
+                                + ((0.8 - 1) * p_zoom->verticalScrollBar()->pageStep()/2)));
+    }
+}
+
 void MainWindow::clearText()
 {
     p_log->clear();
     emit resetSelection();
+}
+
+void MainWindow::startStop()
+{
+    if (p_mainButton->text() == QString("Start"))
+    {
+        p_mainButton->setText(QString("Stop"));
+        emit sendStartAffichage();
+    }
+    else
+    {
+        p_mainButton->setText(QString("Start"));
+    }
 }
 
 MainWindow::~MainWindow()

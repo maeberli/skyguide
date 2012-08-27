@@ -27,9 +27,14 @@ public slots:
     void repaintSky(QList<SkyGuiElement *> *stars);
     void updateInfo(QList<int> selections, QList<SkyGuiElement *> *stars);
     void clearText();
+    void adjustScrollBar(bool in);
+    void drag(int direction);
+    void startStop();
 
 signals:
     void resetSelection();
+
+    void sendStartAffichage();
     
 private:
     QHBoxLayout *p_mainLayout;
