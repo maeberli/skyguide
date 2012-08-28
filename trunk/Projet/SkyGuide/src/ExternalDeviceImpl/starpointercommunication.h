@@ -32,6 +32,10 @@ public:
     void openConnection();
     void closeConnection();
 
+    bool sendModeGuideFlash(int flashDirection);
+    bool changeInModeGuide();
+    bool changeInModePointer();
+
 signals:
     void receivedGPSData(double longitude, double latitude);
     void receivedAccelormeterData(int xComp, int yComp, int zComp);
@@ -46,9 +50,6 @@ private slots:
         void incommingData();
         void signalStatusChanged(const QString &status, QDateTime current);
         bool sendPing();
-        bool senModeGuideFlash(int flashDirection);
-        bool changeInModeGuide();
-        bool changeInModePointer();
 
 private:
     AbstractSerial *m_conn;

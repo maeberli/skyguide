@@ -18,7 +18,7 @@ bool CmdGPS::analyzeData()
     QRegExp reg("^[0-9]{4}\\.[0-9]{4},[NS],[0-9]{5}\\.[0-9]{4},[EW]$");
     if(reg.indexIn(m_data) == 0)
     {
-        QStringList list = m_data.split(",");
+        QStringList list = m_data.split(_SEP_);
         QString lat = list[0];
         char latSide = list[1].at(0).toAscii();
         QString longi = list[2];
@@ -51,10 +51,10 @@ QString CmdGPS::prepareForSend() const
     QTextStream stream(&rv);
     stream.setRealNumberPrecision(4);
     stream.setRealNumberNotation(QTextStream::FixedNotation);
-    stream << (this->m_type>9 ? QString("") : QString("0")) << m_type << ","
-           << latiDeg << latiMin << ","
-           << ( m_latitude < 0 ? "S" : "N" ) << ","
-           << longiDeg << longiMin << ","
+    stream << (this->m_type>9 ? QString("") : QString("0")) << m_type << _SEP_
+           << latiDeg << latiMin << _SEP_
+           << ( m_latitude < 0 ? "S" : "N" ) << _SEP_
+           << longiDeg << longiMin << _SEP_
            << ( m_longitude < 0 ? "W" : "E" );
 
     return rv;

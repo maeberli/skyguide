@@ -82,6 +82,23 @@ void StarPointerCommunication::closeConnection()
     m_conn->close();
 }
 
+bool StarPointerCommunication::sendModeGuideFlash(int flashDirection)
+{
+    return send(CmdGuideMode(flashDirection));
+}
+
+bool StarPointerCommunication::changeInModeGuide()
+{
+    m_actState = StarPointerCommunication::ModeGuide;
+    return send(CmdGuideMode());
+}
+
+bool StarPointerCommunication::changeInModePointer()
+{
+    m_actState = StarPointerCommunication::ModePointer;
+    return send(CmdPointerMode());
+}
+
 void StarPointerCommunication::incommingData()
 {
     QByteArray ba = m_conn->readAll();
@@ -129,23 +146,6 @@ void StarPointerCommunication::signalStatusChanged(const QString &status, QDateT
 bool StarPointerCommunication::sendPing()
 {
     return send(CmdPing());
-}
-
-bool StarPointerCommunication::senModeGuideFlash(int flashDirection)
-{
-    return send(CmdGuideMode(flashDirection));
-}
-
-bool StarPointerCommunication::changeInModeGuide()
-{
-    m_actState = StarPointerCommunication::ModeGuide;
-    return send(CmdGuideMode());
-}
-
-bool StarPointerCommunication::changeInModePointer()
-{
-    m_actState = StarPointerCommunication::ModePointer;
-    return send(CmdPointerMode());
 }
 
 bool StarPointerCommunication::send(const Command& cmd)

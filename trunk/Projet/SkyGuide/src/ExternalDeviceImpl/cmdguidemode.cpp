@@ -1,6 +1,7 @@
 #include "cmdguidemode.h"
 
 #include <QStringList>
+#include <QTextStream>
 
 namespace ExternalDeviceImpl {
 
@@ -31,8 +32,15 @@ bool CmdGuideMode::analyzeData()
 
 QString CmdGuideMode::prepareForSend() const
 {
-    return (this->m_type>9 ? QString("") : QString("0")) + m_type + _SEP_
-            + QString::number(m_flashDirection);
+    QString rv = "";
+    QTextStream stream(&rv);
+    stream.setRealNumberPrecision(4);
+    stream.setRealNumberNotation(QTextStream::FixedNotation);
+    stream << (this->m_type>9 ? QString("") : QString("0")) << m_type << _SEP_
+           << m_flashDirection;
+
+    return rv;
+
 }
 
 } // namespace ExternalDeviceImpl
