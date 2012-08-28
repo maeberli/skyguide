@@ -38,7 +38,8 @@ SOURCES += main.cpp \
     GuiImpl/mainwindow.cpp \
     GuiImpl/skystarfield.cpp \
     skyposition.cpp \
-    skytransformation.cpp
+    skytransformation.cpp \
+    CalculatorImpl/vectoroperations.cpp
 
 HEADERS += \
     skycore.h \
@@ -66,7 +67,8 @@ HEADERS += \
     GuiImpl/mainwindow.h \
     GuiImpl/skystarfield.h \
     skyposition.h \
-    skytransformation.h
+    skytransformation.h \
+    CalculatorImpl/vectoroperations.h
 
 
 CONFIG(debug, debug|release) {
