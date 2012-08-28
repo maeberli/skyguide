@@ -28,6 +28,7 @@ public slots:
 private:
     void consoleLog(SKYLOGGER::SkyLoggerTypes type, const QString & message);
     void fileLog(SKYLOGGER::SkyLoggerTypes type, const QString & message);
+    void emitSignals(SKYLOGGER::SkyLoggerTypes type, const QString & message);
 
     QFile* p_file;
     QTextStream* p_fileOut;

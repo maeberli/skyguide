@@ -1,5 +1,13 @@
 #include "skycalculator.h"
 
+#include <QDebug>
+
+QDebug operator<<(QDebug dbg, const Vect3D& v)
+{
+    dbg << "(" << v.x << "," << v.y << "," << v.z << ")";
+    return dbg;
+}
+
 SkyCalculator::SkyCalculator(SkyConfiguration* config, QObject *parent) :
     SkyComponent(config, parent)
 {
@@ -7,8 +15,6 @@ SkyCalculator::SkyCalculator(SkyConfiguration* config, QObject *parent) :
 
 QList<SkyGuiElement*>* SkyCalculator::convert2GuiElements(const QList<SkyElement*> &elements)
 {
-    emit logMessage(SKYLOGGER::VERBOSE, tr("convert2GuiElements SkyCalculator -> not implemented"));
-
     QList<SkyGuiElement*>* guiElements =  new QList<SkyGuiElement*>();
 
     foreach(SkyElement* element, elements)
@@ -98,27 +104,4 @@ Vect3D SkyCalculator::getVect3D(double rightAscension, double inclination) const
     rv.y = sin(M_PI/2 - inclination)*sin(rightAscension);
     rv.z = cos(M_PI/2 - inclination);
     return rv;
-}
-
-
-//double SkyCalculator::getDegreesFromLangitudeAndLatitude(
-//        const QString& longitudeIn,
-//        const char& longitudeSideIn,
-//        const QString& latidudeIn,
-//        const char& latidudeSideIn,
-//        double& longitudeOut,
-//        double& latitudeOut)
-//{
-//    longitudeOut = longitudeIn.left(3).append()
-//}
-
-
-void SkyCalculator::start()
-{
-    logMessage(SKYLOGGER::VERBOSE, tr("start SkyLogger -> not implemented (no use)."));
-}
-
-void SkyCalculator::stop()
-{
-    logMessage(SKYLOGGER::VERBOSE, tr("stop SkyLogger -> not implemented (no use)."));
 }

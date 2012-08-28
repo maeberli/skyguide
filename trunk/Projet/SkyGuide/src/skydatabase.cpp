@@ -1,7 +1,7 @@
-#include <QDebug>
 #include <QFile>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QSqlError>
 #include <QVariant>
 #include "skydatabase.h"
 
@@ -13,24 +13,19 @@ SkyDatabase::SkyDatabase(SkyConfiguration* config, QObject *parent) :
 
 QList<SkyElement *> * SkyDatabase::getSkyElements(/* const SkyRange & range */)
 {
-    emit logMessage(SKYLOGGER::VERBOSE, tr("getSkyElements SkyDatabase -> not implemented"));
-
     QList<SkyElement *> *list = new QList<SkyElement *>();
-
-    if (QFile::exists(QString("stars.db")))
-        qDebug() << "Le fichier stars.db existe.";
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
 
     db.setDatabaseName(QString("stars.db"));
 
     if (!db.open())
-        qDebug() << "Erreur de connection !";
+        emit logMessage(SKYLOGGER::ERROR, tr("Database connection error: %1").arg(db.lastError().text()));
 
     QSqlQuery query;
 
     if (!query.exec(QString("SELECT * FROM stars where magnitude <= 4")))
-        qDebug() << "Erreur d'accès à la base de données !";
+        emit logMessage(SKYLOGGER::ERROR, tr("Database access error: %1").arg(db.lastError().text()));
 
     while (query.next())
     {
@@ -43,14 +38,4 @@ QList<SkyElement *> * SkyDatabase::getSkyElements(/* const SkyRange & range */)
     db.close();
 
     return list;
-}
-
-void SkyDatabase::start()
-{
-    emit logMessage(SKYLOGGER::VERBOSE, tr("Start SkyDatabase -> not implemented"));
-}
-
-void SkyDatabase::stop()
-{
-    emit logMessage(SKYLOGGER::VERBOSE, tr("Stop SkyDatabase -> not implemented"));
 }

@@ -23,15 +23,18 @@ signals:
     void startRepaintSky(QList<SkyGuiElement *> *stars);
 
 public slots:
-    virtual void start();
-    virtual void stop();
+    virtual void start() { }
+    virtual void stop() { }
 
     void showWarning(const QString & message);
     void showError(const QString & message);
     void showInfo(const QString & message);
     void updateAffichage(QList<SkyGuiElement *> *elements);
 
+private slots:
     void receiveStartAffichage();
+    void receiveStopAffichage();
+
 private:
     MainWindow *p_win;
 };

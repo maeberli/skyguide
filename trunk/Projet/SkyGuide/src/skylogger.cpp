@@ -31,6 +31,7 @@ void SKYLOGGER::SkyLogger::logMessage(SKYLOGGER::SkyLoggerTypes type, const QStr
 {
     this->consoleLog(type, message);
     this->fileLog(type, message);
+    this->emitSignals(type, message);
 }
 
 void SKYLOGGER::SkyLogger::consoleLog(SKYLOGGER::SkyLoggerTypes type, const QString & message)
@@ -91,5 +92,24 @@ void SKYLOGGER::SkyLogger::fileLog(SKYLOGGER::SkyLoggerTypes type, const QString
     else
     {
         this->consoleLog(ERROR, QString(tr("Couldn't write log message in log file.")));
+    }
+}
+
+void SKYLOGGER::SkyLogger::emitSignals(SKYLOGGER::SkyLoggerTypes type, const QString &message)
+{
+    switch(type)
+    {
+    case SKYLOGGER::ERROR:
+        emit receivedError(message);
+        break;
+    case SKYLOGGER::INFO:
+        emit receivedInfo(message);
+        break;
+    case SKYLOGGER::WARNING:
+        emit receivedWarning(message);
+        break;
+    case SKYLOGGER::VERBOSE:
+    case SKYLOGGER::DEBUG:
+        break;
     }
 }

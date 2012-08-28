@@ -10,7 +10,6 @@
 #include <QApplication>
 #include <QScrollArea>
 #include <QScrollBar>
-#include <QDebug>
 #include <QRect>
 
 #include "mainwindow.h"
@@ -61,6 +60,11 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
     p_zoom->setMinimumSize(702, 702);
 }
 
+void MainWindow::appendLogMessage(QString message)
+{
+   p_log->setText(p_log->toPlainText()+"\n"+message);
+}
+
 void MainWindow::repaintSky(QList<SkyGuiElement *> *stars)
 {
     p_sky->setStars(stars);
@@ -74,7 +78,7 @@ void MainWindow::updateInfo(QList<int> selections, QList<SkyGuiElement *> *stars
     int count = selections.count();
     if (count)
     {
-        info += "Etoile[s] sélectionnée[s]\n";
+        info += "Etoile[s] sÃ©lectionnÃ©e[s]\n";
         info += "-------------------------\n";
         for (int i = 0; i < count; ++i)
         {
@@ -146,11 +150,12 @@ void MainWindow::startStop()
     }
     else
     {
+        emit sendStopAffichage();
         p_mainButton->setText(QString("Start"));
     }
 }
 
 MainWindow::~MainWindow()
 {
-    // Les Widgets sont détruits automatiquement.
+    // Les Widgets sont dÃ©truits automatiquement.
 }

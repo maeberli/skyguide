@@ -23,6 +23,8 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void appendLogMessage(QString message);
+
 public slots:
     void repaintSky(QList<SkyGuiElement *> *stars);
     void updateInfo(QList<int> selections, QList<SkyGuiElement *> *stars);
@@ -35,6 +37,7 @@ signals:
     void resetSelection();
 
     void sendStartAffichage();
+    void sendStopAffichage();
     
 private:
     QHBoxLayout *p_mainLayout;

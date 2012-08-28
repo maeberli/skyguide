@@ -29,6 +29,10 @@ private slots:
     void handleReceivedAccelormeterData(int,int,int);
     void handleReceivedMagnetometerData(int,int,int);
 
+    void handleLogError(QString message);
+    void handleLogInfo(QString message);
+    void handleLogVerbose(QString message);
+
     void timerTimeout();
 
 private:

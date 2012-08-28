@@ -5,7 +5,14 @@
 namespace ExternalDeviceImpl {
 
 CmdGuideMode::CmdGuideMode(QString _data)
-    :Command(Command::GuideMode, _data)
+    :Command(Command::GuideMode, _data),
+      m_flashDirection(0)
+{
+}
+
+CmdGuideMode::CmdGuideMode(int flashDirection)
+    :Command(Command::GuideMode, ""),
+      m_flashDirection(flashDirection)
 {
 }
 

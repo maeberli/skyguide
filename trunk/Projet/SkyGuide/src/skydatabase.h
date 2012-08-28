@@ -16,8 +16,8 @@ public:
     QList<SkyElement*>* getSkyElements(/* const SkyRange & range */);
 
 public slots:
-    virtual void start();
-    virtual void stop();
+    virtual void start() { }
+    virtual void stop() { }
 };
 
 #endif // SKYDATABASE_H

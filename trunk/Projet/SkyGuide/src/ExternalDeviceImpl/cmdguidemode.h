@@ -9,6 +9,7 @@ class CmdGuideMode : public Command
 {
 public:
     CmdGuideMode(QString _data = "");
+    CmdGuideMode(int flashDirection);
     QString prepareForSend() const;
     bool analyzeData();
     void decide(StarPointerCommunication& com) {};

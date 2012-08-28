@@ -26,54 +26,60 @@ StarPointerCommunication::StarPointerCommunication(QString devName,
                                                    AbstractSerial::DataBits dataBits,
                                                    AbstractSerial::Flow flow,
                                                    QObject *parent) :
-    QObject(parent)
+    QObject(parent),
+    m_actState(StarPointerCommunication::ModePointer),
+    m_devName(devName),
+    m_baudrate(baudrate),
+    m_parity(parity),
+    m_dataBits(dataBits),
+    m_flow(flow)
 {
 
     m_conn = new AbstractSerial(this);
 
     m_pingTimer = new QTimer(this);
     connect(m_pingTimer, SIGNAL(timeout()),
-              this, SLOT(initConnection()));
+              this, SLOT(sendPing()));
 
     connect(m_conn, SIGNAL(readyRead()),
             this, SLOT(incommingData()));
     connect(m_conn, SIGNAL(signalStatus(QString,QDateTime)),
             this, SLOT(signalStatusChanged(QString, QDateTime)));
-
-
-    //open connection and configure it
-    m_conn->enableEmitStatus(true);
-    m_conn->setDeviceName(devName);
-    if(m_conn->open(QIODevice::ReadWrite))
-    {
-        m_conn->setBaudRate(baudrate);
-        m_conn->setParity(parity);
-        m_conn->setDataBits(dataBits);
-        m_conn->setFlowControl(flow);
-    }
-
-//    //open connection and configure it
-//    m_conn->enableEmitStatus(true);
-//    m_conn->setDeviceName("/dev/ttyUSB0");
-//    if(m_conn->open(QIODevice::ReadWrite))
-//    {
-//        m_conn->setBaudRate( AbstractSerial::BaudRate9600);
-//        m_conn->setParity(AbstractSerial::ParityNone);
-//        m_conn->setDataBits(AbstractSerial::DataBits8);
-//        m_conn->setFlowControl(AbstractSerial::FlowControlOff);
-//    }
-
-
-    //initialize connection
-    m_pingTimer->start(PING_INTERVAL);
 }
 
 
 StarPointerCommunication::~StarPointerCommunication()
 {
-    m_conn->close();
+    closeConnection();
     delete m_pingTimer;
     delete m_conn;
+}
+
+void StarPointerCommunication::openConnection()
+{
+    //open connection and configure it
+    m_conn->enableEmitStatus(true);
+    m_conn->setDeviceName(m_devName);
+    if(m_conn->open(QIODevice::ReadWrite))
+    {
+        m_conn->setBaudRate(m_baudrate);
+        m_conn->setParity(m_parity);
+        m_conn->setDataBits(m_dataBits);
+        m_conn->setFlowControl(m_flow);
+    }
+    else
+    {
+        logError(tr("couldn't open serial device: %1").arg(m_conn->errorString()));
+    }
+
+    //initialize connection
+    m_pingTimer->start(PING_INTERVAL);
+}
+
+void StarPointerCommunication::closeConnection()
+{
+    m_pingTimer->stop();
+    m_conn->close();
 }
 
 void StarPointerCommunication::incommingData()
@@ -95,7 +101,9 @@ void StarPointerCommunication::incommingData()
     {
         buffer.remove(0, reg.matchedLength());
         QString data = reg.cap();
-        qDebug() << "data:" << data;
+
+        logVerbose(tr("received data: %1").arg(data));
+
         data.remove(0,1);
         data.chop(4);
 
@@ -115,12 +123,29 @@ void StarPointerCommunication::incommingData()
 
 void StarPointerCommunication::signalStatusChanged(const QString &status, QDateTime current)
 {
-    qDebug() << "serial status: " << status;
+    emit logVerbose(tr("serial device status: %1").arg(status));
 }
 
-bool StarPointerCommunication::initConnection()
+bool StarPointerCommunication::sendPing()
 {
     return send(CmdPing());
+}
+
+bool StarPointerCommunication::senModeGuideFlash(int flashDirection)
+{
+    return send(CmdGuideMode(flashDirection));
+}
+
+bool StarPointerCommunication::changeInModeGuide()
+{
+    m_actState = StarPointerCommunication::ModeGuide;
+    return send(CmdGuideMode());
+}
+
+bool StarPointerCommunication::changeInModePointer()
+{
+    m_actState = StarPointerCommunication::ModePointer;
+    return send(CmdPointerMode());
 }
 
 bool StarPointerCommunication::send(const Command& cmd)
@@ -143,7 +168,8 @@ bool StarPointerCommunication::checkCRC(QString data)
     stream.setFieldWidth(2);
     stream.setPadChar('0');
     stream << hex << (int)crc << dec;
-    qDebug() << "CRC: " << crcInHex;
+
+    emit logVerbose(tr("calculated CRC: %1").arg(crcInHex));
 
     return (data.right(CRC_LENGTH-1).toUpper() == crcInHex.toUpper());
 }

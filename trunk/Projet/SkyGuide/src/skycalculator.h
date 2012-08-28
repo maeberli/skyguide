@@ -16,6 +16,8 @@ struct Vect3D
     double z;
 };
 
+QDebug operator<<(QDebug dbg, const Vect3D& v);
+
 class SkyCalculator : public SkyComponent
 {
     Q_OBJECT
@@ -74,8 +76,8 @@ public:
 signals:
 
 public slots:
-    virtual void start();
-    virtual void stop();
+    virtual void start() { }
+    virtual void stop() { }
 
 };
 

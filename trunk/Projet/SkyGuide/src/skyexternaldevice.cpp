@@ -11,13 +11,22 @@ SkyExternalDevice::SkyExternalDevice(SkyConfiguration* config, QObject *parent) 
     m_accZComp(0),
     m_magXComp(0),
     m_magYComp(0),
-    m_magZComp(0)
+    m_magZComp(0),
+    m_longitude_lastSent(0.0),
+    m_latitude_lastSent(0.0),
+    m_accXComp_lastSent(0),
+    m_accYComp_lastSent(0),
+    m_accZComp_lastSent(0),
+    m_magXComp_lastSent(0),
+    m_magYComp_lastSent(0),
+    m_magZComp_lastSent(0)
 {
     emit logMessage(SKYLOGGER::VERBOSE, tr("Constructor SkyExternalDevice"));
 
+    m_timer = new QTimer(this);
 
-//    AbstractSerial::BaudRate baudrate = (AbstractSerial::BaudRate)p_config->getConfItem("baudrate", AbstractSerial::BaudRate9600).toInt();
-//    m_com = new StarPointerCommunication("/dev/ttyUSB0",AbstractSerial::BaudRate9600, AbstractSerial::ParityNone, AbstractSerial::DataBits8, AbstractSerial::FlowControlOff);
+    connect(m_timer, SIGNAL(timeout()),
+              this, SLOT(timerTimeout()));
 
     m_com = new StarPointerCommunication(
                 p_config->getConfItem("comPort", "/dev/ttyUSB0").toString(),
@@ -27,8 +36,6 @@ SkyExternalDevice::SkyExternalDevice(SkyConfiguration* config, QObject *parent) 
                 (AbstractSerial::Flow)p_config->getConfItem("flow", AbstractSerial::FlowControlOff).toInt(),
                 this
                 );
-    m_timer = new QTimer(this);
-
 
     connect(m_com, SIGNAL(receivedGPSData(double,double)),
             this, SLOT(handleReceivedGPSData(double,double)));
@@ -36,10 +43,12 @@ SkyExternalDevice::SkyExternalDevice(SkyConfiguration* config, QObject *parent) 
             this, SLOT(handleReceivedAccelormeterData(int,int,int)));
     connect(m_com, SIGNAL(receivedMagnetometerData(int,int,int)),
             this, SLOT(handleReceivedMagnetometerData(int,int,int)));
-
-    connect(m_timer, SIGNAL(timeout()),
-              this, SLOT(timerTimeout()));
-    m_timer->start(UPDATEINTERVALL);
+    connect(m_com, SIGNAL(logInfo(QString)),
+            this, SLOT(handleLogInfo(QString)));
+    connect(m_com, SIGNAL(logVerbose(QString)),
+            this, SLOT(handleLogVerbose(QString)));
+    connect(m_com, SIGNAL(logError(QString)),
+            this, SLOT(handleLogError(QString)));
 }
 
 SkyExternalDevice::~SkyExternalDevice()
@@ -51,12 +60,18 @@ SkyExternalDevice::~SkyExternalDevice()
 
 void SkyExternalDevice::start()
 {
-    emit logMessage(SKYLOGGER::VERBOSE, tr("start SkyExternalDevice -> not implemented"));
+    emit logMessage(SKYLOGGER::VERBOSE, tr("start SkyExternalDevice"));
+
+    m_com->openConnection();
+    m_timer->start(UPDATEINTERVALL);
 }
 
 void SkyExternalDevice::stop()
 {
-    emit logMessage(SKYLOGGER::VERBOSE, tr("stop SkyExternalDevice -> not implemented"));
+    emit logMessage(SKYLOGGER::VERBOSE, tr("stop SkyExternalDevice"));
+
+    m_com->closeConnection();
+    m_timer->stop();
 }
 
 void SkyExternalDevice::handleReceivedGPSData(double longitude, double latitude)
@@ -80,6 +95,21 @@ void SkyExternalDevice::handleReceivedMagnetometerData(int xComp, int yComp, int
     m_magXComp = xComp;
     m_magYComp = yComp;
     m_magZComp = zComp;
+}
+
+void SkyExternalDevice::handleLogError(QString message)
+{
+    emit logMessage(SKYLOGGER::ERROR, message);
+}
+
+void SkyExternalDevice::handleLogInfo(QString message)
+{
+    emit logMessage(SKYLOGGER::INFO, message);
+}
+
+void SkyExternalDevice::handleLogVerbose(QString message)
+{
+    emit logMessage(SKYLOGGER::VERBOSE, message);
 }
 
 void SkyExternalDevice::timerTimeout()

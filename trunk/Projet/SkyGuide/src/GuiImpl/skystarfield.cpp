@@ -1,7 +1,6 @@
 #include <QObject>
 #include <QWidget>
 #include <QPainter>
-#include <QDebug>
 #include <QList>
 #include <QMouseEvent>
 #include <QFont>

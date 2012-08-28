@@ -1,4 +1,3 @@
-#include <QDebug>
 #include <QString>
 #include "skyelement.h"
 

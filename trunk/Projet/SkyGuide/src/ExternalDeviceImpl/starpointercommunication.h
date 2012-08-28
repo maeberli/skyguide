@@ -29,21 +29,37 @@ public:
             QObject *parent = 0);
     ~StarPointerCommunication();
 
+    void openConnection();
+    void closeConnection();
+
 signals:
     void receivedGPSData(double longitude, double latitude);
     void receivedAccelormeterData(int xComp, int yComp, int zComp);
     void receivedMagnetometerData(int xComp, int yComp, int zComp);
 
+    void logError(QString message);
+    void logInfo(QString message);
+    void logVerbose(QString message);
+
 
 private slots:
         void incommingData();
         void signalStatusChanged(const QString &status, QDateTime current);
-        bool initConnection();
+        bool sendPing();
+        bool senModeGuideFlash(int flashDirection);
+        bool changeInModeGuide();
+        bool changeInModePointer();
 
 private:
     AbstractSerial *m_conn;
     ProtocollStates m_actState;
     QTimer *m_pingTimer;
+
+    QString m_devName;
+    AbstractSerial::BaudRate m_baudrate;
+    AbstractSerial::Parity m_parity;
+    AbstractSerial::DataBits m_dataBits;
+    AbstractSerial::Flow m_flow;
 
     bool send(const Command &cmd);
 
@@ -51,6 +67,8 @@ private:
     QString calculateCRC(const QString& data);
     Command* getCommandObject(QString data);
 
+    // friend class of commands so that they can decide(),
+    // based of information in StarPointerCommunicationObject
     friend class CmdGPS;
     friend class CmdAccelerometer;
     friend class CmdMagnetometer;

@@ -1,4 +1,3 @@
-#include <QDebug>
 #include <QList>
 
 #include "skycore.h"
@@ -6,12 +5,6 @@
 #include "skytransformation.h"
 
 using namespace SKYLOGGER;
-
-QDebug operator<<(QDebug dbg, const Vect3D& v)
-{
-    dbg << "(" << v.x << "," << v.y << "," << v.z << ")";
-    return dbg;
-}
 
 SkyCore::SkyCore(QObject *parent) :
     SkyComponent(p_config, parent)
@@ -124,6 +117,13 @@ void SkyCore::startGui()
         }
     }
 
+    SkyElement el(100,100,"jkl","asdfj",12.5,2);
+    guiList->append(new SkyGuiElement(el,0,0));
+    guiList->append(new SkyGuiElement(el,10,0));
+    guiList->append(new SkyGuiElement(el,0,10));
+    guiList->append(new SkyGuiElement(el,50,0));
+    guiList->append(new SkyGuiElement(el,100,0));
+
     p_gui->updateAffichage(guiList);
 }
 
@@ -144,22 +144,19 @@ void SkyCore::calculateRange(double longitude, double latitude,
     Vect3D vectP(0,0,-1);
 
     //calculate inclination and right ascension of vector which points to the stars.
-    double incl = p_calc->getAngleBetween(vectP,vectAcc) * (180/M_PI)-90;
-    double compDir = p_calc->getCompassDirection(vectP, north, east) ;
-    qDebug() << "incl:   " << incl;
-    qDebug() << "dir:    " << compDir * (180/M_PI);
-
+    double incl = p_calc->getAngleBetween(vectP,vectAcc) - M_PI/2;
+    double compDir = p_calc->getCompassDirection(vectP, north, east);
     double azimut = p_calc->transformCompDirectionSystem(compDir);
-    qDebug() << "azimut: " << azimut * (180/M_PI);
 
+    emit logMessage(SKYLOGGER::INFO, tr("Current pointer inclination: %1").arg(incl * (180/M_PI)));
+    emit logMessage(SKYLOGGER::INFO, tr("Current pointer compass: %1").arg(compDir * (180/M_PI)));
+    emit logMessage(SKYLOGGER::INFO, tr("Current pointer azimut: %1").arg(azimut * (180/M_PI)));
 }
 
 void SkyCore::start()
 {
-    emit logMessage(SKYLOGGER::VERBOSE, tr("Start SkyCore -> not implemented"));
 }
 
 void SkyCore::stop()
 {
-    emit logMessage(SKYLOGGER::VERBOSE, tr("Stop SkyCore -> not implemented"));
 }
