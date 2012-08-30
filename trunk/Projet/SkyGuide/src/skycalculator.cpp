@@ -2,12 +2,6 @@
 
 #include <QDebug>
 
-QDebug operator<<(QDebug dbg, const Vect3D& v)
-{
-    dbg << "(" << v.x << "," << v.y << "," << v.z << ")";
-    return dbg;
-}
-
 SkyCalculator::SkyCalculator(SkyConfiguration* config, QObject *parent) :
     SkyComponent(config, parent)
 {

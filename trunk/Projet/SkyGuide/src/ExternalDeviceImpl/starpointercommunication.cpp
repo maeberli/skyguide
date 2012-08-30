@@ -16,9 +16,14 @@
 #include "cmdpointermode.h"
 #include "cmdunknown.h"
 
-#define CRC_LENGTH 3
+
 
 namespace ExternalDeviceImpl {
+
+#define CRC_LENGTH 3
+
+#define PING_INTERVAL 2999
+
 
 StarPointerCommunication::StarPointerCommunication(QString devName,
                                                    AbstractSerial::BaudRate baudrate,
@@ -90,12 +95,14 @@ bool StarPointerCommunication::sendModeGuideFlash(int flashDirection)
 bool StarPointerCommunication::changeInModeGuide()
 {
     m_actState = StarPointerCommunication::ModeGuide;
+    m_pingTimer->stop();
     return send(CmdGuideMode());
 }
 
 bool StarPointerCommunication::changeInModePointer()
 {
     m_actState = StarPointerCommunication::ModePointer;
+    m_pingTimer->start();
     return send(CmdPointerMode());
 }
 
@@ -108,7 +115,7 @@ void StarPointerCommunication::incommingData()
     //extract commands
     //format: $[commande],[données]*[CRC]\r\n
     //"$01,123456*55\r\n$05,123546x456x45*cd\r\n$02,5g5g5*hh\r\n";
-    QRegExp reg("\\$[0-9]{2},[0-9a-zA-Z,\\.]*\\*[0-9a-zA-Z]{2}\\\\r\\\\n");
+    QRegExp reg("\\$[0-9]{2},[0-9a-zA-Z,\\.]*\\*[0-9a-zA-Z]{2}\\r\\n");
 
     int index = reg.indexIn(buffer);
     if(index > 0)
@@ -119,10 +126,10 @@ void StarPointerCommunication::incommingData()
         buffer.remove(0, reg.matchedLength());
         QString data = reg.cap();
 
-        logVerbose(tr("received data: %1").arg(data));
-
         data.remove(0,1);
-        data.chop(4);
+        data.chop(2);
+
+        logVerbose(tr("received data: %1").arg(data));
 
         //check for each command crc
         if(checkCRC(data))
@@ -151,7 +158,9 @@ bool StarPointerCommunication::sendPing()
 bool StarPointerCommunication::send(const Command& cmd)
 {
     QString tmp = cmd.prepareForSend();
-    QString toSend = QString("$") + calculateCRC(tmp) + QString("\\r\\n");
+    QString toSend = QString("$") + calculateCRC(tmp) + QString("\r\n");
+
+    logVerbose(tr("sent data: %1").arg(toSend));
 
     return (-1 != m_conn->write(toSend.toAscii()));
 }

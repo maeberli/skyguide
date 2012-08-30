@@ -1,6 +1,13 @@
 #include "vectoroperations.h"
 
-using namespace CalculatorImpl;
+namespace CalculatorImpl
+{
+
+QDebug operator<<(QDebug dbg, const Vect3D& v)
+{
+    dbg << "(" << v.x << "," << v.y << "," << v.z << ")";
+    return dbg;
+}
 
 double VectorOperations::getAngleBetween(
         const Vect3D& v1,
@@ -44,4 +51,6 @@ Vect3D VectorOperations::getVect3D(double rightAscension, double inclination)
     rv.y = sin(M_PI/2 - inclination)*sin(rightAscension);
     rv.z = cos(M_PI/2 - inclination);
     return rv;
+}
+
 }

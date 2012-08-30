@@ -7,8 +7,6 @@
 
 namespace ExternalDeviceImpl {
 
-#define PING_INTERVAL 2999
-
 class Command;
 
 class StarPointerCommunication : public QObject
