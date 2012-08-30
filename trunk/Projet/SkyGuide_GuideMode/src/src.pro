@@ -10,7 +10,36 @@ CONFIG   -= app_bundle
 
 TEMPLATE = app
 
-SOURCES += main.cpp
+SOURCES += \
+    main.cpp \
+    ExternalDeviceImpl/command.cpp \
+    ExternalDeviceImpl/cmdpointermode.cpp \
+    ExternalDeviceImpl/cmdping.cpp \
+    ExternalDeviceImpl/cmdguidemode.cpp \
+    ExternalDeviceImpl/cmdgps.cpp \
+    ExternalDeviceImpl/cmdaccelerometer.cpp \
+    ExternalDeviceImpl/cmdmagnetometer.cpp \
+    ExternalDeviceImpl/cmdpicstatus.cpp \
+    ExternalDeviceImpl/cmdunknown.cpp \
+    ExternalDeviceImpl/starpointercommunication.cpp \
+    CalculatorImpl/vectoroperations.cpp \
+    guidemodehandler.cpp \
+    applicationcontroler.cpp
+
+HEADERS += \
+    ExternalDeviceImpl/command.h \
+    ExternalDeviceImpl/cmdpointermode.h \
+    ExternalDeviceImpl/cmdping.h \
+    ExternalDeviceImpl/cmdguidemode.h \
+    ExternalDeviceImpl/cmdgps.h \
+    ExternalDeviceImpl/cmdaccelerometer.h \
+    ExternalDeviceImpl/cmdmagnetometer.h \
+    ExternalDeviceImpl/cmdpicstatus.h \
+    ExternalDeviceImpl/cmdunknown.h \
+    ExternalDeviceImpl/starpointercommunication.h \
+    CalculatorImpl/vectoroperations.h \
+    guidemodehandler.h \
+    applicationcontroler.h
 
 
 CONFIG(debug, debug|release) {
