@@ -1,30 +1,117 @@
+/**
+  * Class declaration file of SkyElement.
+  *
+  * @author Marco Aeberli
+  *
+  * @copyright Project P1 group DLM14 2012, all rights reserved
+  */
 #ifndef SKYELEMENT_H
 #define SKYELEMENT_H
 
+//include Qt-headers
 #include <QString>
 
+/**
+  * This class represents a element of the sky, with its proper informations.
+  */
 class SkyElement
 {
 public:
+    /**
+      * Constructort, create object.
+      *
+      * @param rightAscension       right ascension in degrees of the the element.
+      * @param declinasion          declination in degrees of the element.
+      * @param greekLetter          greekLetter of the element.
+      * @param constellation        constellation information of the element.
+      * @param distancelightYears   distance information in lightyears of the element.
+      * @param magnitude            magnitude information of the element.
+      */
     SkyElement(
         double rightAscension,
-        double declinasion,
+        double declination,
         QString greekLetter,
         QString constellation,
         int distancelightYears,
         double magnitude);
-    SkyElement(SkyElement& skyelement);
+
+    /**
+      * Copy constructor.
+      *
+      * @param skyelement           Element to copy.
+      */
+    SkyElement(const SkyElement& skyelement);
 
 
+    /**
+      * Accessor, returns the right-ascension in radian.
+      *
+      * @return     right-ascension in radian.
+      */
     double getRightAscension();
+
+    /**
+      * Accessor, returns the declinasion in radian.
+      *
+      * @return     declination in radian.
+      */
     double getDeclinasion();
+
+    /**
+      * Accessor, returns the greek-letter.
+      *
+      * @return     greek-letter of element.
+      */
     QString getGreekLetter();
+
+    /**
+      * Accessor, returns the constellation information.
+      *
+      * @return     constellation information of element.
+      */
     QString getConstellation();
+
+    /**
+      * Accessor, returns the distance in light-years.
+      *
+      * @return     distance in light-years of element.
+      */
     int getDistanceLightYears();
+
+    /**
+      * Accessor, returns the magnitude.
+      *
+      * @return     magnitude of element.
+      */
     double getMagnitude();
+
+
+    /**
+      * Accessor, returns the azimuth.
+      *
+      * @return     azimuth in radian of element.
+      */
     double getAzimuth();
+
+    /**
+      * Accessor, returns the height.
+      *
+      * @return     height in radion of element.
+      */
     double getHeight();
+
+    /**
+      * Accessor, sets the azimuth information of a element.
+      *
+      * @param azimuth  azmimuth information to set.
+      */
     void setAzimuth(double azimuth);
+
+    /**
+      * Accessor, set the height information of a element.
+      *
+      * @param height   heignt information to set.
+      */
     void setHeight(double height);
 
 

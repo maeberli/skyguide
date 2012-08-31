@@ -2,7 +2,6 @@
 #define SKYCALCULATOR_H
 
 #include <skycomponent.h>
-#include <skyrange.h>
 #include <skyelement.h>
 #include <skyguielement.h>
 

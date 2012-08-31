@@ -5,7 +5,6 @@
 
 #include <skycomponent.h>
 #include <skyelement.h>
-#include <skyrange.h>
 
 class SkyDatabase : public SkyComponent
 {
@@ -13,7 +12,7 @@ class SkyDatabase : public SkyComponent
 public:
     explicit SkyDatabase(SkyConfiguration* config, QObject *parent = 0);
 
-    QList<SkyElement*>* getSkyElements(/* const SkyRange & range */);
+    QList<SkyElement*>* getSkyElements();
 
 public slots:
     virtual void start() { }

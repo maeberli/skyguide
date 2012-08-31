@@ -17,7 +17,6 @@ SOURCES += main.cpp \
     skycore.cpp \
     skylogger.cpp \
     skydatabase.cpp \
-    skyrange.cpp \
     skyelement.cpp \
     skycalculator.cpp \
     skyguielement.cpp \
@@ -47,7 +46,6 @@ HEADERS += \
     skyloggertypes.h \
     skycomponent.h \
     skydatabase.h \
-    skyrange.h \
     skyelement.h \
     skycalculator.h \
     skyguielement.h \

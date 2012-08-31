@@ -1,9 +1,9 @@
 /**
   * Class declaration file of SkyLogger
   *
-  * \author Marco Aeberli
+  * @author Marco Aeberli
   *
-  * \copyright Project P1 group DLM14 2012, all rights reserved
+  * @copyright Project P1 group DLM14 2012, all rights reserved
   */
 
 #ifndef SKYLOGGER_H
@@ -30,7 +30,7 @@ public:
     /**
       * Base constructor. Initialize the object.
       *
-      * @param parent   parent object.
+      * @param parent   parent object (Qt-specific).
       */
     explicit SkyLogger(QObject *parent = 0);
 

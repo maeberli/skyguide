@@ -1,9 +1,9 @@
 /**
   * Class implementation file of SkyLogger
   *
-  * \author Marco Aeberli
+  * @author Marco Aeberli
   *
-  * \copyright Project P1 group DLM14 2012, all rights reserved
+  * @copyright Project P1 group DLM14 2012, all rights reserved
   */
 #include "skylogger.h"
 

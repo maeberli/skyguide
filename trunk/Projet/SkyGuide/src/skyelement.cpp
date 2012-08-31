@@ -1,15 +1,23 @@
-#include <QString>
+/**
+  * Class implementation file of SkyElement.
+  *
+  * @author Marco Aeberli
+  *
+  * @copyright Project P1 group DLM14 2012, all rights reserved
+  */
 #include "skyelement.h"
 
+#include <QString>
+
 SkyElement::SkyElement(double rightAscension,
-                       double declinasion,
+                       double declination,
                        QString greekLetter,
                        QString constellation,
                        int distancelightYears,
                        double magnitude)
 {
     this->p_rightAscension = rightAscension * 3.14159265 / 180;
-    this->p_declinasion = declinasion * 3.14159265 / 180;
+    this->p_declinasion = declination * 3.14159265 / 180;
     this->p_greekLetter = greekLetter;
     this->p_constellation = constellation;
     this->p_distanceLightYears = distancelightYears;
@@ -18,16 +26,8 @@ SkyElement::SkyElement(double rightAscension,
     p_height = 0.0;
 }
 
-SkyElement::SkyElement(SkyElement& skyelement)
+SkyElement::SkyElement(const SkyElement &skyelement)
 {
-    /*SkyElement(
-                skyelement.p_rightAscension,
-                skyelement.p_declinasion,
-                skyelement.p_greekLetter,
-                skyelement.p_constellation,
-                skyelement.p_distanceLightYears,
-                skyelement.p_magnitude
-                );*/
     p_rightAscension = skyelement.p_rightAscension;
     p_declinasion = skyelement.p_declinasion;
     p_greekLetter = skyelement.p_greekLetter;

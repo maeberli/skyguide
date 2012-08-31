@@ -1,3 +1,10 @@
+/**
+  * Class implementation file of SkyConfiguration.
+  *
+  * @author Marco Aeberli
+  *
+  * @copyright Project P1 group DLM14 2012, all rights reserved
+  */
 #include "skyconfiguration.h"
 
 #include <QtCore/QCoreApplication>

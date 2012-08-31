@@ -11,7 +11,7 @@ SkyDatabase::SkyDatabase(SkyConfiguration* config, QObject *parent) :
     emit logMessage(SKYLOGGER::VERBOSE, tr("Constructor SkyDatabase"));
 }
 
-QList<SkyElement *> * SkyDatabase::getSkyElements(/* const SkyRange & range */)
+QList<SkyElement *> * SkyDatabase::getSkyElements()
 {
     QList<SkyElement *> *list = new QList<SkyElement *>();
 
