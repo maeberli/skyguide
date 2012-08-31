@@ -1,6 +1,14 @@
+/**
+  * Class implementation file of SkyGuiElement.
+  *
+  * @author Marco Aeberli
+  *
+  * @copyright Project P1 group DLM14 2012, all rights reserved
+  */
 #include "skyguielement.h"
 
-SkyGuiElement::SkyGuiElement(SkyElement& skyelement, double positionX, double positionY) : SkyElement(skyelement)
+SkyGuiElement::SkyGuiElement(const SkyElement& skyelement, double positionX, double positionY)
+    : SkyElement(skyelement)
 {
     p_positionX = positionX;
     p_positionY = positionY;

@@ -1,3 +1,10 @@
+/**
+  * Class implementation file of SkyExternalDevice.
+  *
+  * @author Marco Aeberli
+  *
+  * @copyright Project P1 group DLM14 2012, all rights reserved
+  */
 #include "skyexternaldevice.h"
 
 using namespace ExternalDeviceImpl;
@@ -25,8 +32,9 @@ SkyExternalDevice::SkyExternalDevice(SkyConfiguration* config, QObject *parent) 
 
     m_timer = new QTimer(this);
 
+    //connect the timeout signal to the slot which checks if there are new data available.
     connect(m_timer, SIGNAL(timeout()),
-              this, SLOT(timerTimeout()));
+              this, SLOT(checkNewDataAvailable()));
 
     m_com = new StarPointerCommunication(
                 p_config->getConfItem("comPort", "/dev/ttyUSB0").toString(),
@@ -37,12 +45,15 @@ SkyExternalDevice::SkyExternalDevice(SkyConfiguration* config, QObject *parent) 
                 this
                 );
 
+    //connect the signals of the communication implementation with the corresponding slots.
     connect(m_com, SIGNAL(receivedGPSData(double,double)),
             this, SLOT(handleReceivedGPSData(double,double)));
     connect(m_com, SIGNAL(receivedAccelormeterData(int,int,int)),
             this, SLOT(handleReceivedAccelormeterData(int,int,int)));
     connect(m_com, SIGNAL(receivedMagnetometerData(int,int,int)),
             this, SLOT(handleReceivedMagnetometerData(int,int,int)));
+
+    //let the communication object log messages.
     connect(m_com, SIGNAL(logInfo(QString)),
             this, SLOT(handleLogInfo(QString)));
     connect(m_com, SIGNAL(logVerbose(QString)),
@@ -112,8 +123,10 @@ void SkyExternalDevice::handleLogVerbose(QString message)
     emit logMessage(SKYLOGGER::VERBOSE, message);
 }
 
-void SkyExternalDevice::timerTimeout()
+void SkyExternalDevice::checkNewDataAvailable()
 {
+    // when the last distrubuted informations aren't equal with the actual data,
+    // emit the newData signal.
     if( m_longitude_lastSent != m_longitude
             || m_latitude_lastSent != m_latitude
             || m_accXComp_lastSent != m_accXComp
