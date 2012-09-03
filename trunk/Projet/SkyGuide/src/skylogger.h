@@ -99,7 +99,7 @@ private:
     QTextStream* p_fileOut; //< textstream object to write to the log file.
 };
 
-}
+} // namespace SKYLOGGER
 
 
 #endif // SKYLOGGER_H

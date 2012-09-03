@@ -50,10 +50,10 @@ public:
       */
     explicit StarPointerCommunication(
             QString devName,
-            AbstractSerial::BaudRate baudrate,
-            AbstractSerial::Parity parity,
-            AbstractSerial::DataBits dataBits,
-            AbstractSerial::Flow flow,
+            QString baudrate,
+            QString parity,
+            QString dataBits,
+            QString flow,
             QObject *parent = 0);
 
     /**
@@ -170,10 +170,10 @@ private:
     QTimer *p_pingTimer;                        //< Intervall for send the ping command, to kepp connection alive.
 
     const QString p_devName;                    //< Serial device name.
-    const AbstractSerial::BaudRate p_baudrate;  //< baudrate connection config
-    const AbstractSerial::Parity p_parity;      //< parity connection config
-    const AbstractSerial::DataBits p_dataBits;  //< dataBits connection config
-    const AbstractSerial::Flow p_flow;          //< flow connection config
+    const QString p_baudrate;                   //< baudrate connection config
+    const QString p_parity;                     //< parity connection config
+    const QString p_dataBits;                   //< dataBits connection config
+    const QString p_flow;                       //< flow connection config
 
     /**
       * sends the command passed as argument.

@@ -23,8 +23,8 @@ signals:
     void startRepaintSky(QList<SkyGuiElement *> *stars);
 
 public slots:
-    virtual void start() { }
-    virtual void stop() { }
+    void start() { }
+    void stop() { }
 
     void showWarning(const QString & message);
     void showError(const QString & message);

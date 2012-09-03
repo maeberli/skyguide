@@ -25,6 +25,6 @@ enum SkyLoggerTypes
 
 };
 
-}
+} // namespace SKYLOGGER
 
 #endif // SKYLOGGERTYPES_H

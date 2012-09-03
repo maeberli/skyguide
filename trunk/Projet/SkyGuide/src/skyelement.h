@@ -94,11 +94,11 @@ public:
     double getAzimuth();
 
     /**
-      * Accessor, returns the height.
+      * Accessor, returns the altitude.
       *
-      * @return     height in radion of element.
+      * @return     altitude in radion of element.
       */
-    double getHeight();
+    double getAltitude();
 
     /**
       * Accessor, sets the azimuth information of a element.
@@ -108,11 +108,11 @@ public:
     void setAzimuth(double azimuth);
 
     /**
-      * Accessor, set the height information of a element.
+      * Accessor, set the altitude information of a element.
       *
-      * @param height   heignt information to set.
+      * @param altitude   altitude information to set.
       */
-    void setHeight(double height);
+    void setAltitude(double altitude);
 
 
 protected:
@@ -123,7 +123,7 @@ protected:
     int p_distanceLightYears;
     double p_magnitude;
     double p_azimuth;
-    double p_height;
+    double p_altitude;
 
 };
 

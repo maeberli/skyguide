@@ -23,7 +23,7 @@ SkyElement::SkyElement(double rightAscension,
     this->p_distanceLightYears = distancelightYears;
     this->p_magnitude = magnitude;
     p_azimuth = 0.0;
-    p_height = 0.0;
+    p_altitude = 0.0;
 }
 
 SkyElement::SkyElement(const SkyElement &skyelement)
@@ -35,7 +35,7 @@ SkyElement::SkyElement(const SkyElement &skyelement)
     p_distanceLightYears = skyelement.p_distanceLightYears;
     p_magnitude = skyelement.p_magnitude;
     p_azimuth = skyelement.p_azimuth;
-    p_height = skyelement.p_height;
+    p_altitude = skyelement.p_altitude;
 }
 
 double SkyElement::getRightAscension()
@@ -71,16 +71,16 @@ double SkyElement::getAzimuth()
 {
     return p_azimuth;
 }
-double SkyElement::getHeight()
+double SkyElement::getAltitude()
 {
-    return p_height;
+    return p_altitude;
 }
 void SkyElement::setAzimuth(double azimuth)
 {
     p_azimuth = azimuth;
 }
-void SkyElement::setHeight(double height)
+void SkyElement::setAltitude(double altitude)
 {
-    p_height = height;
+    p_altitude = altitude;
 }
 

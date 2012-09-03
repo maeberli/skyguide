@@ -15,8 +15,8 @@ public:
     QList<SkyElement*>* getSkyElements();
 
 public slots:
-    virtual void start() { }
-    virtual void stop() { }
+    void start() { }
+    void stop() { }
 };
 
 #endif // SKYDATABASE_H

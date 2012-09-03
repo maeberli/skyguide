@@ -110,7 +110,7 @@ void SkyCore::startGui()
     double x = 0.0, y = 0.0;
     for (int i = 0; i < count; ++i)
     {
-        if (allStars->at(i)->getHeight() > 0.0)
+        if (allStars->at(i)->getAltitude() > 0.0)
         {
             SkyTransformation::projection(allStars->at(i), &x, &y, 320);
             guiList->append(new SkyGuiElement(*(allStars->at(i)), x, y));

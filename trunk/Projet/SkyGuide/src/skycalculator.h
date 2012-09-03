@@ -107,8 +107,8 @@ public:
 signals:
 
 public slots:
-    virtual void start() { }
-    virtual void stop() { }
+    void start() { }
+    void stop() { }
 
 };
 

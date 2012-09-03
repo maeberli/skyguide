@@ -22,8 +22,8 @@ public:
     void startGui();
 
 public slots:
-    virtual void start();
-    virtual void stop();
+    void start();
+    void stop();
 
 private slots:
     void calculateRange(double longitude, double latitude,

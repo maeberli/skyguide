@@ -37,11 +37,11 @@ SkyExternalDevice::SkyExternalDevice(SkyConfiguration* config, QObject *parent) 
               this, SLOT(checkNewDataAvailable()));
 
     m_com = new StarPointerCommunication(
-                p_config->getConfItem("comPort", "/dev/ttyUSB0").toString(),
-                (AbstractSerial::BaudRate)p_config->getConfItem("baudrate", AbstractSerial::BaudRate9600).toInt(),
-                (AbstractSerial::Parity)p_config->getConfItem("parity", AbstractSerial::ParityNone).toInt(),
-                (AbstractSerial::DataBits)p_config->getConfItem("databits", AbstractSerial::DataBits8).toInt(),
-                (AbstractSerial::Flow)p_config->getConfItem("flow", AbstractSerial::FlowControlOff).toInt(),
+                p_config->getConfItem("serial_comPort", "/dev/ttyUSB0").toString(),
+                p_config->getConfItem("serial_baudrate", "9600").toString(),
+                p_config->getConfItem("serial_parity", "None").toString(),
+                p_config->getConfItem("serial_databits", "8 bit").toString(),
+                p_config->getConfItem("serial_flow", "Disable").toString(),
                 this
                 );
 

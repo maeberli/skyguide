@@ -26,10 +26,10 @@ namespace ExternalDeviceImpl {
 
 
 StarPointerCommunication::StarPointerCommunication(QString devName,
-                                                   AbstractSerial::BaudRate baudrate,
-                                                   AbstractSerial::Parity parity,
-                                                   AbstractSerial::DataBits dataBits,
-                                                   AbstractSerial::Flow flow,
+                                                   QString baudrate,
+                                                   QString parity,
+                                                   QString dataBits,
+                                                   QString flow,
                                                    QObject *parent) :
     QObject(parent),
     p_actState(StarPointerCommunication::ModePointer),

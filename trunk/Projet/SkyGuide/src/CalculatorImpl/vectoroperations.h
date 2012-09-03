@@ -9,7 +9,7 @@ namespace CalculatorImpl
 
 struct Vect3D
 {
-    Vect3D(double _x=0, double _y=0, double _z=0) : x(_x),y(_y),z(_z) { }
+    Vect3D(double x=0, double y=0, double z=0) : x(x),y(y),z(z) { }
     double x;
     double y;
     double z;
