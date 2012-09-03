@@ -1,3 +1,10 @@
+/**
+  * Class declaration file of CmdAccelerometer.
+  *
+  * @author Matthieu Rossier
+  *
+  * @copyright Project P1 group DLM14 2012, all rights reserved
+  */
 #ifndef SKYSTARFIELD_H
 #define SKYSTARFIELD_H
 

@@ -1,3 +1,10 @@
+/**
+  * Class declaration file of CmdAccelerometer.
+  *
+  * @author Matthieu Rossier
+  *
+  * @copyright Project P1 group DLM14 2012, all rights reserved
+  */
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -16,6 +23,11 @@
 #include "GuiImpl/skystarfield.h"
 #include "skyguielement.h"
 
+/**
+  * Class who represent the view of our application.
+  *
+  * This class contains all widgets.
+  */
 class MainWindow : public QWidget
 {
     Q_OBJECT

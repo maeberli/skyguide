@@ -31,7 +31,7 @@ void SkyCalculator::toHorizontalCoord(SkyElement* star, double angle, double lat
 
     double altitudeSin = sin(declinaison) * sin(latitude) - cos(declinaison) * cos(latitude) * cos(hourAngle);
     double altitude = asin(altitudeSin);
-    star->setAltitude(altitudeSin);
+    star->setAltitude(altitude);
 
     double azimuthCos = (sin(declinaison) - sin(latitude) * sin(altitude)) / (cos(latitude) * cos(altitude));
     double azimuthSin = (cos(declinaison) * sin(hourAngle)) / cos(altitude);

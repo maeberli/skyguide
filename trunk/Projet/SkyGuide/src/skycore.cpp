@@ -136,7 +136,7 @@ void SkyCore::calculateRange(double longitude, double latitude,
     double angle = p_calc->getAngleHour();
 
     for (int i = 0; i < count; ++i)
-        p_calc->toHorizontalCoord(allStars->at(i), angle, latitude, longitude);
+        p_calc->toHorizontalCoord(allStars->at(i), angle, latitude * M_PI / 180, longitude * M_PI / 180);
 
     double x = 0.0, y = 0.0;
 
