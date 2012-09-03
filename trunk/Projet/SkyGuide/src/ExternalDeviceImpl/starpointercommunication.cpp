@@ -32,23 +32,23 @@ StarPointerCommunication::StarPointerCommunication(QString devName,
                                                    AbstractSerial::Flow flow,
                                                    QObject *parent) :
     QObject(parent),
-    m_actState(StarPointerCommunication::ModePointer),
-    m_devName(devName),
-    m_baudrate(baudrate),
-    m_parity(parity),
-    m_dataBits(dataBits),
-    m_flow(flow)
+    p_actState(StarPointerCommunication::ModePointer),
+    p_devName(devName),
+    p_baudrate(baudrate),
+    p_parity(parity),
+    p_dataBits(dataBits),
+    p_flow(flow)
 {
 
-    m_conn = new AbstractSerial(this);
+    p_conn = new AbstractSerial(this);
 
-    m_pingTimer = new QTimer(this);
-    connect(m_pingTimer, SIGNAL(timeout()),
+    p_pingTimer = new QTimer(this);
+    connect(p_pingTimer, SIGNAL(timeout()),
               this, SLOT(sendPing()));
 
-    connect(m_conn, SIGNAL(readyRead()),
+    connect(p_conn, SIGNAL(readyRead()),
             this, SLOT(incommingData()));
-    connect(m_conn, SIGNAL(signalStatus(QString,QDateTime)),
+    connect(p_conn, SIGNAL(signalStatus(QString,QDateTime)),
             this, SLOT(signalStatusChanged(QString, QDateTime)));
 }
 
@@ -56,60 +56,75 @@ StarPointerCommunication::StarPointerCommunication(QString devName,
 StarPointerCommunication::~StarPointerCommunication()
 {
     closeConnection();
-    delete m_pingTimer;
-    delete m_conn;
+    delete p_pingTimer;
+    delete p_conn;
 }
 
-void StarPointerCommunication::openConnection()
+void StarPointerCommunication::openConnection(ProtocollStates startState)
 {
     //open connection and configure it
-    m_conn->enableEmitStatus(true);
-    m_conn->setDeviceName(m_devName);
-    if(m_conn->open(QIODevice::ReadWrite))
+    p_conn->enableEmitStatus(true);
+    p_conn->setDeviceName(p_devName);
+    if(p_conn->open(QIODevice::ReadWrite))
     {
-        m_conn->setBaudRate(m_baudrate);
-        m_conn->setParity(m_parity);
-        m_conn->setDataBits(m_dataBits);
-        m_conn->setFlowControl(m_flow);
+        p_conn->setBaudRate(p_baudrate);
+        p_conn->setParity(p_parity);
+        p_conn->setDataBits(p_dataBits);
+        p_conn->setFlowControl(p_flow);
     }
     else
     {
-        logError(tr("couldn't open serial device: %1").arg(m_conn->errorString()));
+        logError(tr("couldn't open serial device: %1").arg(p_conn->errorString()));
     }
 
     //initialize connection
-    m_pingTimer->start(PING_INTERVAL);
+    switch(startState)
+    {
+    case ModeGuide:
+        changeInModeGuide();
+        break;
+    case ModePointer:
+        changeInModePointer();
+        break;
+    }
 }
 
 void StarPointerCommunication::closeConnection()
 {
-    m_pingTimer->stop();
-    m_conn->close();
+    p_pingTimer->stop();
+    p_conn->close();
 }
 
 bool StarPointerCommunication::sendModeGuideFlash(int flashDirection)
 {
+    if(p_actState != StarPointerCommunication::ModeGuide)
+    {
+        p_actState = StarPointerCommunication::ModeGuide;
+    }
+
     return send(CmdGuideMode(flashDirection));
 }
 
 bool StarPointerCommunication::changeInModeGuide()
 {
-    m_actState = StarPointerCommunication::ModeGuide;
-    m_pingTimer->stop();
+    p_actState = StarPointerCommunication::ModeGuide;
+    p_pingTimer->stop();
     return send(CmdGuideMode());
 }
 
 bool StarPointerCommunication::changeInModePointer()
 {
-    m_actState = StarPointerCommunication::ModePointer;
-    m_pingTimer->start();
+    p_actState = StarPointerCommunication::ModePointer;
+    p_pingTimer->start();
     return send(CmdPointerMode());
 }
 
 void StarPointerCommunication::incommingData()
 {
-    QByteArray ba = m_conn->readAll();
+    QByteArray ba = p_conn->readAll();
     static QString buffer;
+
+    //appends the data at the end of the buffer.
     buffer.append(QString::fromAscii(ba.data(), ba.length()));
 
     //extract commands
@@ -117,16 +132,23 @@ void StarPointerCommunication::incommingData()
     //"$01,123456*55\r\n$05,123546x456x45*cd\r\n$02,5g5g5*hh\r\n";
     QRegExp reg("\\$[0-9]{2},[0-9a-zA-Z,\\.]*\\*[0-9a-zA-Z]{2}\\r\\n");
 
+    // if the regex match not, from the beginning,
+    // remove the the data in front
     int index = reg.indexIn(buffer);
     if(index > 0)
         buffer.remove(0,index);
 
+    //Now, if the regex match at the first position of the string, it's a correct trame.
     if(reg.indexIn(buffer) == 0)
     {
+        //remove commmand form the buffer.
         buffer.remove(0, reg.matchedLength());
         QString data = reg.cap();
 
+        //remove the '$' of the string
         data.remove(0,1);
+
+        //remove the trailing "\r\n"
         data.chop(2);
 
         logVerbose(tr("received data: %1").arg(data));
@@ -157,21 +179,25 @@ bool StarPointerCommunication::sendPing()
 
 bool StarPointerCommunication::send(const Command& cmd)
 {
+    //lets prepare the string with the data specified in cmd
     QString tmp = cmd.prepareForSend();
+    // calculate the CRC of the data-string and append the control characters
     QString toSend = QString("$") + calculateCRC(tmp) + QString("\r\n");
 
     logVerbose(tr("sent data: %1").arg(toSend));
 
-    return (-1 != m_conn->write(toSend.toAscii()));
+    return (-1 != p_conn->write(toSend.toAscii()));
 }
 
 bool StarPointerCommunication::checkCRC(QString data)
 {
-    char crc = data.at(0).toAscii();
+    char crc = 0;
 
-    for(int i = 1; i < data.length()-CRC_LENGTH; ++i)
+    // calculated the XOR CRC with each character of the string (excluded trailing CRC).
+    for(int i = 0; i < data.length()-CRC_LENGTH; ++i)
         crc ^= data.at(i).toAscii();
 
+    // Conversion of the CRC-byte in a two sign HEX-value.
     QString crcInHex = "";
     QTextStream stream(&crcInHex);
     stream.setFieldWidth(2);
@@ -185,11 +211,13 @@ bool StarPointerCommunication::checkCRC(QString data)
 
 QString StarPointerCommunication::calculateCRC(const QString& data)
 {
-    char crc = data.at(0).toAscii();
+    char crc = 0;
 
-    for(int i = 1; i < data.length(); ++i)
+    // calculate the XOR CRC with each character fo the string
+    for(int i = 0; i < data.length(); ++i)
         crc ^= data.at(i).toAscii();
 
+    // Conversio nfo the CRC-byte in a two sign HEX-value.
     QString crcInHex = "";
     QTextStream stream(&crcInHex);
     stream.setFieldWidth(2);

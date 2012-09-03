@@ -1,3 +1,10 @@
+/**
+  * Class implementation file of CmdAccelerometer.
+  *
+  * @author Marco Aeberli
+  *
+  * @copyright Project P1 group DLM14 2012, all rights reserved
+  */
 #include "cmdaccelerometer.h"
 
 #include <QStringList>
@@ -8,20 +15,20 @@
 
 namespace ExternalDeviceImpl {
 
-CmdAccelerometer::CmdAccelerometer(QString _data)
-    :Command(Command::Accelerometer, _data)
+CmdAccelerometer::CmdAccelerometer(QString data)
+    :Command(Command::Accelerometer, data)
 {
 }
 
 
 bool CmdAccelerometer::analyzeData()
 {
-    QStringList list = m_data.split(_SEP_);
+    QStringList list = p_data.split(_SEP_);
     if(list.size()==3)
     {
-        m_xComp = list[0].toInt() - NULLPOINT_OFFSET;
-        m_yComp = list[1].toInt() - NULLPOINT_OFFSET;
-        m_zComp = list[2].toInt() - NULLPOINT_OFFSET;
+        p_xComp = list[0].toInt() - NULLPOINT_OFFSET;
+        p_yComp = list[1].toInt() - NULLPOINT_OFFSET;
+        p_zComp = list[2].toInt() - NULLPOINT_OFFSET;
 
         return true;
     }
@@ -31,15 +38,15 @@ bool CmdAccelerometer::analyzeData()
 
 QString CmdAccelerometer::prepareForSend() const
 {
-    return (this->m_type>9 ? QString("") : QString("0")) + m_type + _SEP_
-            + QString::number(m_xComp + NULLPOINT_OFFSET) + _SEP_
-            + QString::number(m_yComp + NULLPOINT_OFFSET) + _SEP_
-            + QString::number(m_zComp + NULLPOINT_OFFSET);
+    return (this->p_type>9 ? QString("") : QString("0")) + p_type + _SEP_
+            + QString::number(p_xComp + NULLPOINT_OFFSET) + _SEP_
+            + QString::number(p_yComp + NULLPOINT_OFFSET) + _SEP_
+            + QString::number(p_zComp + NULLPOINT_OFFSET);
 }
 
 void CmdAccelerometer::decide(StarPointerCommunication& com)
 {
-    emit com.receivedAccelormeterData(m_xComp, m_yComp, m_zComp);
+    emit com.receivedAccelormeterData(p_xComp, p_yComp, p_zComp);
 }
 
 } // namespace ExternalDeviceImpl

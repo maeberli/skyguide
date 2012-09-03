@@ -1,20 +1,29 @@
+/**
+  * Class implementation file of CmdPicStatus.
+  *
+  * @author Marco Aeberli
+  *
+  * @copyright Project P1 group DLM14 2012, all rights reserved
+  */
 #include "cmdpicstatus.h"
 
 #include <QStringList>
 
+#include "starpointercommunication.h"
+
 namespace ExternalDeviceImpl {
 
-CmdPicStatus::CmdPicStatus(QString _data)
-    :Command(Command::Ping, _data)
+CmdPicStatus::CmdPicStatus(QString data)
+    :Command(Command::Ping, data)
 {
 }
 
 bool CmdPicStatus::analyzeData()
 {
-    QStringList list = m_data.split(_SEP_);
+    QStringList list = p_data.split(_SEP_);
     if(list.size() == 1)
     {
-        m_status = list[0].toInt();
+        p_status = list[0].toInt();
 
         return true;
     }
@@ -24,8 +33,13 @@ bool CmdPicStatus::analyzeData()
 
 QString CmdPicStatus::prepareForSend() const
 {
-    return (this->m_type>9 ? QString("") : QString("0")) + m_type + _SEP_
-            + QString::number(m_status);
+    return (this->p_type>9 ? QString("") : QString("0")) + p_type + _SEP_
+            + QString::number(p_status);
+}
+
+void CmdPicStatus::decide(StarPointerCommunication &com)
+{
+    com.logInfo(tr("PicStatus received. Code: %1").arg(p_status));
 }
 
 } // namespace ExternalDeviceImpl

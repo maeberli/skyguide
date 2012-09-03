@@ -1,3 +1,10 @@
+/**
+  * Class implementation file of CmdGps.
+  *
+  * @author Marco Aeberli
+  *
+  * @copyright Project P1 group DLM14 2012, all rights reserved
+  */
 #include "cmdgps.h"
 
 #include <QStringList>
@@ -7,8 +14,8 @@
 
 namespace ExternalDeviceImpl {
 
-CmdGPS::CmdGPS(QString _data)
-    :Command(Command::GPS, _data)
+CmdGPS::CmdGPS(QString data)
+    :Command(Command::GPS, data)
 {
 }
 
@@ -16,19 +23,19 @@ bool CmdGPS::analyzeData()
 {
 
     QRegExp reg("^[0-9]{4}\\.[0-9]{4},[NS],[0-9]{5}\\.[0-9]{4},[EW]$");
-    if(reg.indexIn(m_data) == 0)
+    if(reg.indexIn(p_data) == 0)
     {
-        QStringList list = m_data.split(_SEP_);
+        QStringList list = p_data.split(_SEP_);
         QString lat = list[0];
         char latSide = list[1].at(0).toAscii();
         QString longi = list[2];
         char longiSide = list[3].at(0).toAscii();
 
-        m_latitude = lat.left(2).toInt() + lat.right(7).toDouble()/60;
-        m_latitude = (latSide == 'N' ? m_latitude : -m_latitude);
+        p_latitude = lat.left(2).toInt() + lat.right(7).toDouble()/60;
+        p_latitude = (latSide == 'N' ? p_latitude : -p_latitude);
 
-        m_longitude = longi.left(3).toInt() + longi.right(7).toDouble()/60;
-        m_longitude = (longiSide == 'E' ? m_longitude : -m_longitude);
+        p_longitude = longi.left(3).toInt() + longi.right(7).toDouble()/60;
+        p_longitude = (longiSide == 'E' ? p_longitude : -p_longitude);
 
 
         return true;
@@ -38,8 +45,8 @@ bool CmdGPS::analyzeData()
 
 QString CmdGPS::prepareForSend() const
 {
-    double lati = (m_latitude < 0 ? m_latitude * (-1) : m_latitude);
-    double longi = (m_longitude < 0 ? m_longitude * (-1) : m_longitude);
+    double lati = (p_latitude < 0 ? p_latitude * (-1) : p_latitude);
+    double longi = (p_longitude < 0 ? p_longitude * (-1) : p_longitude);
 
     int latiDeg = (int)lati;
     double latiMin = (lati - latiDeg) * 60;
@@ -51,11 +58,11 @@ QString CmdGPS::prepareForSend() const
     QTextStream stream(&rv);
     stream.setRealNumberPrecision(4);
     stream.setRealNumberNotation(QTextStream::FixedNotation);
-    stream << (this->m_type>9 ? QString("") : QString("0")) << m_type << _SEP_
+    stream << (this->p_type>9 ? QString("") : QString("0")) << p_type << _SEP_
            << latiDeg << latiMin << _SEP_
-           << ( m_latitude < 0 ? "S" : "N" ) << _SEP_
+           << ( p_latitude < 0 ? "S" : "N" ) << _SEP_
            << longiDeg << longiMin << _SEP_
-           << ( m_longitude < 0 ? "W" : "E" );
+           << ( p_longitude < 0 ? "W" : "E" );
 
     return rv;
 
@@ -63,7 +70,7 @@ QString CmdGPS::prepareForSend() const
 
 void CmdGPS::decide(StarPointerCommunication& com)
 {
-    emit com.receivedGPSData(this->m_longitude, this->m_latitude);
+    emit com.receivedGPSData(this->p_longitude, this->p_latitude);
 }
 
 } // namespace ExternalDeviceImpl

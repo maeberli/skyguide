@@ -1,10 +1,18 @@
+/**
+  * Class implementation file of Command.
+  *
+  * @author Marco Aeberli
+  *
+  * @copyright Project P1 group DLM14 2012, all rights reserved
+  */
+
 #include "command.h"
 
 namespace ExternalDeviceImpl {
 
-Command::Command(Commands _type, QString _data)
-    : m_type(_type),
-      m_data(_data)
+Command::Command(Commands type, QString data)
+    : p_type(type),
+      p_data(data)
 {
 }
 
@@ -13,13 +21,9 @@ bool Command::analyzeData()
     return true;
 }
 
-void Command::decide(StarPointerCommunication& com)
-{
-}
-
 QString Command::prepareForSend() const
 {
-    return (this->m_type>9 ? QString("") : QString("0")) + QString::number(m_type) + QString(_SEP_);
+    return (this->p_type>9 ? QString("") : QString("0")) + QString::number(p_type) + QString(_SEP_);
 }
 
 } // namespace ExternalDeviceImpl

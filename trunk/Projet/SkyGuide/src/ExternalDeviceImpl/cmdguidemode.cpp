@@ -1,3 +1,10 @@
+/**
+  * Class implementation file of CmdGuideMode.
+  *
+  * @author Marco Aeberli
+  *
+  * @copyright Project P1 group DLM14 2012, all rights reserved
+  */
 #include "cmdguidemode.h"
 
 #include <QStringList>
@@ -5,24 +12,24 @@
 
 namespace ExternalDeviceImpl {
 
-CmdGuideMode::CmdGuideMode(QString _data)
-    :Command(Command::GuideMode, _data),
-      m_flashDirection(0)
+CmdGuideMode::CmdGuideMode(QString data)
+    :Command(Command::GuideMode, data),
+      p_flashDirection(0)
 {
 }
 
 CmdGuideMode::CmdGuideMode(int flashDirection)
     :Command(Command::GuideMode, ""),
-      m_flashDirection(flashDirection)
+      p_flashDirection(flashDirection)
 {
 }
 
 bool CmdGuideMode::analyzeData()
 {
-    QStringList list = m_data.split(_SEP_);
+    QStringList list = p_data.split(_SEP_);
     if(list.size()==1)
     {
-        this->m_flashDirection = list[0].toInt();
+        this->p_flashDirection = list[0].toInt();
 
         return true;
     }
@@ -36,11 +43,15 @@ QString CmdGuideMode::prepareForSend() const
     QTextStream stream(&rv);
     stream.setRealNumberPrecision(4);
     stream.setRealNumberNotation(QTextStream::FixedNotation);
-    stream << (this->m_type>9 ? QString("") : QString("0")) << m_type << _SEP_
-           << m_flashDirection;
+    stream << (this->p_type>9 ? QString("") : QString("0")) << p_type << _SEP_
+           << p_flashDirection;
 
     return rv;
+}
 
+void CmdGuideMode::decide(StarPointerCommunication &com)
+{
+    com.logVerbose(tr("Received GuideMode commmand."));
 }
 
 } // namespace ExternalDeviceImpl
