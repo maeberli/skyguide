@@ -16,9 +16,12 @@ public:
     SkyStarField(QWidget *parent = 0);
 
     void setStars(QList<SkyGuiElement *> *stars);
+    void setXP(double xp);
+    void setYP(double yp);
 
 public slots:
     void clearSelection();
+    void Inc(int index);
 
 
 signals:
@@ -44,6 +47,12 @@ private:
 
     QList<SkyGuiElement *> *p_stars;
 
+    double p_xP;
+
+    double p_yP;
+
+    QPointF p_globalPos;
+
     QList<int> p_selections;
 
     double p_width;
@@ -57,6 +66,8 @@ private:
     int p_numDegree;
 
     QPoint prev;
+
+    int p_selection;
 };
 
 #endif // SKYSTARFIELD_H

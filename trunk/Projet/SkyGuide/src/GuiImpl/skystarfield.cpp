@@ -20,6 +20,9 @@ SkyStarField::SkyStarField(QWidget *parent) : QWidget(parent)
     setPalette(QPalette(Qt::black));
     setAutoFillBackground(true);
     p_stars = 0;
+    p_xP = 0.0;
+    p_yP = 0.0;
+    p_selection = 0;
 }
 
 void SkyStarField::paintEvent(QPaintEvent *event)
@@ -36,19 +39,30 @@ void SkyStarField::paintEvent(QPaintEvent *event)
     pen.drawText(align, Qt::AlignHCenter, QString("N"));
     pen.drawText(align, Qt::AlignHCenter | Qt::AlignBottom, QString("S"));
     pen.drawText(align, Qt::AlignVCenter | Qt::AlignLeft, QString("E"));
-    pen.drawText(align, Qt::AlignVCenter | Qt::AlignRight, QString("W"));
+    pen.drawText(align, Qt::AlignVCenter | Qt::AlignRight, QString("O"));
+
+    // pen.drawText(10, 10, "(" + QString::number(p_globalPos.x()) + ", " + QString::number(p_globalPos.y()) + ")");
     /******************************/
 
     pen.drawEllipse(30, 30, p_width * 2.0 - 60, p_height * 2.0 - 60);
 
     pen.translate(p_width, p_height);
 
-    pen.setBrush(QBrush(Qt::white));
-
-    pen.setPen(Qt::NoPen);
-
     if (p_stars)
     {
+        // Dessin du pointeur.
+        pen.setPen(QPen(QBrush(Qt::red), 1));
+        /***********************/
+        // p_xP = -p_xP; /********** bricolage ***********/
+        pen.drawLine(-p_xP - 20, p_yP, -p_xP + 20, p_yP);
+        pen.drawLine(-p_xP, p_yP - 20, -p_xP, p_yP + 20);
+        pen.drawRect(-p_xP - 8, p_yP - 8, 16, 16);
+        /***********************/
+        pen.setPen(Qt::SolidLine);
+
+        pen.setPen(Qt::NoPen);
+        pen.setBrush(QBrush(Qt::white));
+
         int count = p_stars->count();
 
         double magnitude = 0.0;
@@ -57,12 +71,19 @@ void SkyStarField::paintEvent(QPaintEvent *event)
         {   
             magnitude = p_stars->at(i)->getMagnitude();
 
+            /*
             if (!p_selections.empty())
             {
                 int count = p_selections.count();
                 for (int j = 0; j < count; ++j)
                     if (p_selections[j] == i)
                         pen.setBrush(QBrush(Qt::red));
+            }
+            */
+            if (!p_selections.empty())
+            {
+                if (p_selections[p_selection] == i)
+                    pen.setBrush(QBrush(Qt::red));
             }
 
             if (magnitude >= 0.0 && magnitude <= 1)
@@ -77,6 +98,12 @@ void SkyStarField::paintEvent(QPaintEvent *event)
             pen.setBrush(QBrush(Qt::white));
         }
     }
+}
+
+void SkyStarField::Inc(int index)
+{
+    p_selection = index;
+    repaint();
 }
 
 void SkyStarField::mouseMoveEvent(QMouseEvent *event)
@@ -114,24 +141,31 @@ void SkyStarField::mousePressEvent(QMouseEvent *event)
     QPointF mousePose = event->posF();
     mousePose.setX(mousePose.x() - p_width);
     mousePose.setY(mousePose.y() - p_height);
+    p_globalPos = mousePose;
 
-    int count = p_stars->count();
-
-    for (int i = 0; i < count; ++i)
+    if (p_stars)
     {
-        if (abs(p_stars->at(i)->getPositionX() - mousePose.x()) < 7 &&
-            abs(p_stars->at(i)->getPositionY() - mousePose.y()) < 7)
+        int count = p_stars->count();
+
+        for (int i = 0; i < count; ++i)
         {
-            p_selections.append(i);
+            if (abs(p_stars->at(i)->getPositionX() - mousePose.x()) < 7 &&
+                abs(p_stars->at(i)->getPositionY() - mousePose.y()) < 7)
+            {
+                p_selections.append(i);
+            }
         }
+
+        // p_selection = p_selections[0];
+        p_selection = 0;
+
+        repaint();
+
+        emit sendInfo(p_selections, p_stars);
+
+        if (p_selections.isEmpty())
+            emit sendClearText();
     }
-
-    repaint();
-
-    emit sendInfo(p_selections, p_stars);
-
-    if (p_selections.isEmpty())
-        emit sendClearText();
 }
 
 void SkyStarField::mouseReleaseEvent(QMouseEvent *)
@@ -166,13 +200,20 @@ void SkyStarField::wheelEvent(QWheelEvent *event)
             emit sendAdjust(false);
         }
     }
-    int count = p_stars->count();
-    for (int i = 0; i < count; ++i)
+    if (p_stars)
     {
-        SkyTransformation::projection(p_stars->at(i), &newX, &newY, p_width - 30);
-        p_stars->at(i)->setPositionX(newX);
-        p_stars->at(i)->setPositionY(newY);
+        int count = p_stars->count();
+        for (int i = 0; i < count; ++i)
+        {
+            SkyTransformation::projection(p_stars->at(i), &newX, &newY, p_width - 30);
+            /*****/
+            newY = -newY;
+            /*****/
+            p_stars->at(i)->setPositionX(newX);
+            p_stars->at(i)->setPositionY(newY);
+        }
     }
+
     repaint();
 }
 
@@ -185,4 +226,14 @@ void SkyStarField::clearSelection()
 void SkyStarField::setStars(QList<SkyGuiElement *> *stars)
 {
     p_stars = stars;
+}
+
+void SkyStarField::setXP(double xp)
+{
+    p_xP = xp;
+}
+
+void SkyStarField::setYP(double yp)
+{
+    p_yP = yp;
 }

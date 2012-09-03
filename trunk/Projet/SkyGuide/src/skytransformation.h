@@ -14,6 +14,7 @@ public:
     static double getAngle();
     static void transformation(SkyElement *star, SkyPosition *where, double angle);
     static void projection(SkyElement *star, double *x, double *y, int factor);
+    static void projection(double azimuth, double height, double *x, double *y, int factor);
 };
 
 #endif // SKYTRANSFORMATION_H

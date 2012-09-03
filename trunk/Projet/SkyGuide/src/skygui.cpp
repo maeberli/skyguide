@@ -11,8 +11,7 @@ SkyGui::SkyGui(SkyConfiguration* config, QObject *parent) :
 
     p_win = new MainWindow();
 
-    connect(this, SIGNAL(startRepaintSky(QList<SkyGuiElement *> *)),
-            p_win, SLOT(repaintSky(QList<SkyGuiElement *> *)));
+    QObject::connect(this, SIGNAL(startRepaintSky(QList<SkyGuiElement *> *,double,double)), p_win, SLOT(repaintSky(QList<SkyGuiElement *> *,double,double)));
     connect(p_win, SIGNAL(sendStartAffichage()),
             this, SLOT(receiveStartAffichage()));
     connect(p_win, SIGNAL(sendStopAffichage()),
@@ -45,9 +44,9 @@ void SkyGui::showInfo(const QString &message)
     p_win->appendLogMessage("Info: " + message);
 }
 
-void SkyGui::updateAffichage(QList<SkyGuiElement*> *elements)
+void SkyGui::updateAffichage(QList<SkyGuiElement*> *elements, double xP, double yP)
 {
-    emit startRepaintSky(elements);
+    emit startRepaintSky(elements, xP, yP);
 }
 
 void SkyGui::receiveStartAffichage()

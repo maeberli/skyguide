@@ -20,7 +20,7 @@ signals:
     void startAffichage();
     void stopAffichage();
 
-    void startRepaintSky(QList<SkyGuiElement *> *stars);
+    void startRepaintSky(QList<SkyGuiElement *> *stars, double xP, double yP);
 
 public slots:
     void start() { }
@@ -29,7 +29,7 @@ public slots:
     void showWarning(const QString & message);
     void showError(const QString & message);
     void showInfo(const QString & message);
-    void updateAffichage(QList<SkyGuiElement *> *elements);
+    void updateAffichage(QList<SkyGuiElement *> *elements, double xP, double yP);
 
 private slots:
     void receiveStartAffichage();

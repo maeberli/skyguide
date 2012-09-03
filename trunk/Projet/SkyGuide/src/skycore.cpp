@@ -62,6 +62,9 @@ SkyCore::SkyCore(QObject *parent) :
     connect(p_externalDevice, SIGNAL(newData(double,double,int,int,int,int,int,int)),
             this, SLOT(calculateRange(double,double,int,int,int,int,int,int)));
 
+    allStars = 0;
+    guiList = 0;
+
 }
 
 SkyCore::~SkyCore()
@@ -76,55 +79,23 @@ SkyCore::~SkyCore()
     //delete logger as last element.
     delete p_logger;
 
-    int count = 0;
-    allStars->count();
-    for (int i = 0; i < count; ++i)
-        delete allStars->at(i);
-    delete allStars;
-    count = guiList->count();
-    for (int i = 0; i < count; ++i)
-        delete guiList->at(i);
-    delete guiList;
+    if (allStars != 0 && guiList != 0)
+    {
+        int count = 0;
+        allStars->count();
+        for (int i = 0; i < count; ++i)
+            delete allStars->at(i);
+        delete allStars;
+        count = guiList->count();
+        for (int i = 0; i < count; ++i)
+            delete guiList->at(i);
+        delete guiList;
+    }
 }
 
 void SkyCore::startGui()
 {
     p_gui->showWindow();
-
-    allStars = p_database->getSkyElements();
-
-    int count = allStars->count();
-
-    // Transformation (site bleu) + projection (x et y)
-    SkyPosition *here = new SkyPosition(46.992181, 6.915894);
-
-    guiList = new QList<SkyGuiElement *>();
-
-    double angle = SkyTransformation::getAngle();
-
-    for (int i = 0; i < count; ++i)
-        SkyTransformation::transformation(allStars->at(i), here, angle);
-
-    delete here;
-
-    double x = 0.0, y = 0.0;
-    for (int i = 0; i < count; ++i)
-    {
-        if (allStars->at(i)->getAltitude() > 0.0)
-        {
-            SkyTransformation::projection(allStars->at(i), &x, &y, 320);
-            guiList->append(new SkyGuiElement(*(allStars->at(i)), x, y));
-        }
-    }
-
-    SkyElement el(100,100,"jkl","asdfj",12.5,2);
-    guiList->append(new SkyGuiElement(el,0,0));
-    guiList->append(new SkyGuiElement(el,10,0));
-    guiList->append(new SkyGuiElement(el,0,10));
-    guiList->append(new SkyGuiElement(el,50,0));
-    guiList->append(new SkyGuiElement(el,100,0));
-
-    p_gui->updateAffichage(guiList);
 }
 
 void SkyCore::calculateRange(double longitude, double latitude,
@@ -145,12 +116,51 @@ void SkyCore::calculateRange(double longitude, double latitude,
 
     //calculate inclination and right ascension of vector which points to the stars.
     double incl = p_calc->getAngleBetween(vectP,vectAcc) - M_PI/2;
-    double compDir = p_calc->getCompassDirection(vectP, north, east);
+    double compDir = p_calc->getCompassDirection(vectP, north, east) ;
     double azimut = p_calc->transformCompDirectionSystem(compDir);
 
     emit logMessage(SKYLOGGER::INFO, tr("Current pointer inclination: %1").arg(incl * (180/M_PI)));
     emit logMessage(SKYLOGGER::INFO, tr("Current pointer compass: %1").arg(compDir * (180/M_PI)));
     emit logMessage(SKYLOGGER::INFO, tr("Current pointer azimut: %1").arg(azimut * (180/M_PI)));
+
+
+    double xP = 0.0, yP = 0.0;
+
+    SkyTransformation::projection(azimut, incl, &xP, &yP, 320);
+    qDebug() << "xP: " << xP << "yP: " << yP;
+
+    allStars = p_database->getSkyElements();
+
+    int count = allStars->count();
+
+    // Transformation (site bleu) + projection (x et y)
+    SkyPosition *here = new SkyPosition(46.992181, 6.915894);
+
+    guiList = new QList<SkyGuiElement *>();
+
+    double angle = SkyTransformation::getAngle();
+
+    for (int i = 0; i < count; ++i)
+        SkyTransformation::transformation(allStars->at(i), here, angle);
+
+    delete here;
+
+    double x = 0.0, y = 0.0;
+
+    for (int i = 0; i < count; ++i)
+    {
+        if (allStars->at(i)->getAltitude() > 0.0)
+        {
+            SkyTransformation::projection(allStars->at(i), &x, &y, 320);
+            /*******/
+            y = -y;
+            /*******/
+            guiList->append(new SkyGuiElement(*(allStars->at(i)), x, y));
+        }
+    }
+
+    p_gui->updateAffichage(guiList, xP, yP);
+
 }
 
 void SkyCore::start()

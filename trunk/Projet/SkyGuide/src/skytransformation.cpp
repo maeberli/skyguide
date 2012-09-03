@@ -38,9 +38,9 @@ void SkyTransformation::transformation(SkyElement *star, SkyPosition *where, dou
     double azimuthSin = (cos(declinaison) * sin(hourAngle)) / cos(altitude);
 
     if (azimuthSin > 0.0)
-        star->setAzimuth(acos(azimuthCos));
+        star->setAzimuth(fabs(acos(azimuthCos)));
     else
-        star->setAzimuth(-acos(azimuthCos));
+        star->setAzimuth(-fabs(acos(azimuthCos)));
 }
 
 void SkyTransformation::projection(SkyElement *star, double *x, double *y, int factor)
@@ -49,6 +49,14 @@ void SkyTransformation::projection(SkyElement *star, double *x, double *y, int f
     double altitude = star->getAltitude();
     double PIDIV2 = -2.0 / 3.14159265;
     double dist = -factor * (PIDIV2 * altitude + 1.0);
-    *x = dist * cos(azimuth);
-    *y = dist * sin(azimuth);
+    *x = dist * cos(azimuth-M_PI/2);
+    *y = dist * sin(azimuth-M_PI/2);
+}
+
+void SkyTransformation::projection(double azimuth, double height, double *x, double *y, int factor)
+{
+    double PIDIV2 = -2.0 / 3.14159265;
+    double dist = -factor * (PIDIV2 * height + 1.0);
+    *x = dist * cos(azimuth-M_PI/2);
+    *y = dist * sin(azimuth-M_PI/2);
 }
