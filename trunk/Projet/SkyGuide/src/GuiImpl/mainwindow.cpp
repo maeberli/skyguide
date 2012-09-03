@@ -11,6 +11,7 @@
 #include <QScrollArea>
 #include <QScrollBar>
 #include <QRect>
+#include <cmath>
 
 #include "mainwindow.h"
 #include "GuiImpl/skystarfield.h"
@@ -146,10 +147,10 @@ void MainWindow::updateInfo(QList<int> selections, QList<SkyGuiElement *> *stars
 
     if (selections.count())
     {
-        p_tDeclinaison->setText(QString::number(stars->at(selections[0])->getDeclinasion() * (180 / 3.14)));
-        p_tRightAscension->setText(QString::number(stars->at(selections[0])->getRightAscension() * (180 / 3.14)));
-        p_tAzimth->setText(QString::number(stars->at(selections[0])->getAzimuth() * (180 / 3.14)));
-        p_tHeight->setText(QString::number(stars->at(selections[0])->getAltitude() * (180 / 3.14)));
+        p_tDeclinaison->setText(QString::number(stars->at(selections[0])->getDeclination() * (180 / M_PI)));
+        p_tRightAscension->setText(QString::number(stars->at(selections[0])->getRightAscension() * (180 / M_PI)));
+        p_tAzimth->setText(QString::number(stars->at(selections[0])->getAzimuth() * (180 / M_PI)));
+        p_tHeight->setText(QString::number(stars->at(selections[0])->getAltitude() * (180 / M_PI)));
         p_tGreekLetter->setText(stars->at(selections[0])->getGreekLetter());
         p_tConstellation->setText(stars->at(selections[0])->getConstellation());
         p_tMagnitude->setText(QString::number(stars->at(selections[0])->getMagnitude()));
@@ -165,10 +166,10 @@ void MainWindow::updateInfo(QList<int> selections, QList<SkyGuiElement *> *stars
         info += "----------------------------\n";
         for (int i = 0; i < count; ++i)
         {
-            info += "Declinaison: " + QString::number(stars->at(selections[i])->getDeclinasion() * (180 / 3.14)) + "\n";
-            info += "Right ascension: " + QString::number(stars->at(selections[i])->getRightAscension() * (180 / 3.14)) + "\n";
-            info += "Azimuth: " + QString::number(stars->at(selections[i])->getAzimuth() * (180 / 3.14)) + "\n";
-            info += "Height: " + QString::number(stars->at(selections[i])->getHeight() * (180 / 3.14)) + "\n";
+            info += "Declinaison: " + QString::number(stars->at(selections[i])->getDeclinasion() * (180 / M_PI)) + "\n";
+            info += "Right ascension: " + QString::number(stars->at(selections[i])->getRightAscension() * (180 / M_PI)) + "\n";
+            info += "Azimuth: " + QString::number(stars->at(selections[i])->getAzimuth() * (180 / M_PI)) + "\n";
+            info += "Height: " + QString::number(stars->at(selections[i])->getHeight() * (180 / M_PI)) + "\n";
             info += "Greek letter: " + stars->at(selections[i])->getGreekLetter() + "\n";
             info += "Constellation: " + stars->at(selections[i])->getConstellation() + "\n";
             info += "Magnitude: " + QString::number(stars->at(selections[i])->getMagnitude()) + "\n";
@@ -192,10 +193,10 @@ void MainWindow::previous()
     {
         p_next->setDisabled(false);
     }
-    p_tDeclinaison->setText(QString::number(p_stars->at(p_selections[p_index])->getDeclinasion() * (180 / 3.14)));
-    p_tRightAscension->setText(QString::number(p_stars->at(p_selections[p_index])->getRightAscension() * (180 / 3.14)));
-    p_tAzimth->setText(QString::number(p_stars->at(p_selections[p_index])->getAzimuth() * (180 / 3.14)));
-    p_tHeight->setText(QString::number(p_stars->at(p_selections[p_index])->getAltitude() * (180 / 3.14)));
+    p_tDeclinaison->setText(QString::number(p_stars->at(p_selections[p_index])->getDeclination() * (180 / M_PI)));
+    p_tRightAscension->setText(QString::number(p_stars->at(p_selections[p_index])->getRightAscension() * (180 / M_PI)));
+    p_tAzimth->setText(QString::number(p_stars->at(p_selections[p_index])->getAzimuth() * (180 / M_PI)));
+    p_tHeight->setText(QString::number(p_stars->at(p_selections[p_index])->getAltitude() * (180 / M_PI)));
     p_tGreekLetter->setText(p_stars->at(p_selections[p_index])->getGreekLetter());
     p_tConstellation->setText(p_stars->at(p_selections[p_index])->getConstellation());
     p_tMagnitude->setText(QString::number(p_stars->at(p_selections[p_index])->getMagnitude()));
@@ -214,10 +215,10 @@ void MainWindow::next()
     {
         p_previous->setDisabled(false);
     }
-    p_tDeclinaison->setText(QString::number(p_stars->at(p_selections[p_index])->getDeclinasion() * (180 / 3.14)));
-    p_tRightAscension->setText(QString::number(p_stars->at(p_selections[p_index])->getRightAscension() * (180 / 3.14)));
-    p_tAzimth->setText(QString::number(p_stars->at(p_selections[p_index])->getAzimuth() * (180 / 3.14)));
-    p_tHeight->setText(QString::number(p_stars->at(p_selections[p_index])->getAltitude() * (180 / 3.14)));
+    p_tDeclinaison->setText(QString::number(p_stars->at(p_selections[p_index])->getDeclination() * (180 / M_PI)));
+    p_tRightAscension->setText(QString::number(p_stars->at(p_selections[p_index])->getRightAscension() * (180 / M_PI)));
+    p_tAzimth->setText(QString::number(p_stars->at(p_selections[p_index])->getAzimuth() * (180 / M_PI)));
+    p_tHeight->setText(QString::number(p_stars->at(p_selections[p_index])->getAltitude() * (180 / M_PI)));
     p_tGreekLetter->setText(p_stars->at(p_selections[p_index])->getGreekLetter());
     p_tConstellation->setText(p_stars->at(p_selections[p_index])->getConstellation());
     p_tMagnitude->setText(QString::number(p_stars->at(p_selections[p_index])->getMagnitude()));

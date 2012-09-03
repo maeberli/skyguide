@@ -14,6 +14,14 @@ class SkyCalculator : public SkyComponent
 public:
     SkyCalculator(SkyConfiguration* config, QObject *parent = 0);
 
+    static double getAngleHour();
+
+    static void toHorizontalCoord(SkyElement* star, double angle, double latitude, double longitude);
+
+    static void projectOnPlane(SkyElement* star, double* x, double* y, int factor);
+
+    static void projectOnPlane(double azimuth, double height, double* x, double* y, int factor);
+
     QList<SkyGuiElement*>* convert2GuiElements(const QList<SkyElement*> & elements);
 
 

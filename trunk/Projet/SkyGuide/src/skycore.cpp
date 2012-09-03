@@ -1,8 +1,6 @@
 #include <QList>
 
 #include "skycore.h"
-#include "skyposition.h"
-#include "skytransformation.h"
 
 using namespace SKYLOGGER;
 
@@ -119,31 +117,26 @@ void SkyCore::calculateRange(double longitude, double latitude,
     double compDir = p_calc->getCompassDirection(vectP, north, east) ;
     double azimut = p_calc->transformCompDirectionSystem(compDir);
 
-    emit logMessage(SKYLOGGER::INFO, tr("Current pointer inclination: %1").arg(incl * (180/M_PI)));
+    emit logMessage(SKYLOGGER::INFO, tr("Current pointer latitude, longitude: %1, %2").arg(latitude).arg(longitude));
     emit logMessage(SKYLOGGER::INFO, tr("Current pointer compass: %1").arg(compDir * (180/M_PI)));
-    emit logMessage(SKYLOGGER::INFO, tr("Current pointer azimut: %1").arg(azimut * (180/M_PI)));
+    emit logMessage(SKYLOGGER::INFO, tr("Current pointer azimuth: %1").arg(azimut * (180/M_PI)));
 
 
     double xP = 0.0, yP = 0.0;
 
-    SkyTransformation::projection(azimut, incl, &xP, &yP, 320);
+    p_calc->projectOnPlane(azimut, incl, &xP, &yP, 320);
     qDebug() << "xP: " << xP << "yP: " << yP;
 
     allStars = p_database->getSkyElements();
 
     int count = allStars->count();
 
-    // Transformation (site bleu) + projection (x et y)
-    SkyPosition *here = new SkyPosition(46.992181, 6.915894);
-
     guiList = new QList<SkyGuiElement *>();
 
-    double angle = SkyTransformation::getAngle();
+    double angle = p_calc->getAngleHour();
 
     for (int i = 0; i < count; ++i)
-        SkyTransformation::transformation(allStars->at(i), here, angle);
-
-    delete here;
+        p_calc->toHorizontalCoord(allStars->at(i), angle, latitude, longitude);
 
     double x = 0.0, y = 0.0;
 
@@ -151,7 +144,7 @@ void SkyCore::calculateRange(double longitude, double latitude,
     {
         if (allStars->at(i)->getAltitude() > 0.0)
         {
-            SkyTransformation::projection(allStars->at(i), &x, &y, 320);
+            p_calc->projectOnPlane(allStars->at(i), &x, &y, 320);
             /*******/
             y = -y;
             /*******/

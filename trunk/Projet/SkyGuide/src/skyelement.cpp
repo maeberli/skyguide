@@ -6,6 +6,7 @@
   * @copyright Project P1 group DLM14 2012, all rights reserved
   */
 #include "skyelement.h"
+#include <cmath>
 
 #include <QString>
 
@@ -16,8 +17,8 @@ SkyElement::SkyElement(double rightAscension,
                        int distancelightYears,
                        double magnitude)
 {
-    this->p_rightAscension = rightAscension * 3.14159265 / 180;
-    this->p_declinasion = declination * 3.14159265 / 180;
+    this->p_rightAscension = rightAscension * M_PI / 180;
+    this->p_declination = declination * M_PI / 180;
     this->p_greekLetter = greekLetter;
     this->p_constellation = constellation;
     this->p_distanceLightYears = distancelightYears;
@@ -29,7 +30,7 @@ SkyElement::SkyElement(double rightAscension,
 SkyElement::SkyElement(const SkyElement &skyelement)
 {
     p_rightAscension = skyelement.p_rightAscension;
-    p_declinasion = skyelement.p_declinasion;
+    p_declination = skyelement.p_declination;
     p_greekLetter = skyelement.p_greekLetter;
     p_constellation = skyelement.p_constellation;
     p_distanceLightYears = skyelement.p_distanceLightYears;
@@ -43,9 +44,9 @@ double SkyElement::getRightAscension()
     return this->p_rightAscension;
 }
 
-double SkyElement::getDeclinasion()
+double SkyElement::getDeclination()
 {
-    return this->p_declinasion;
+    return this->p_declination;
 }
 
 QString SkyElement::getGreekLetter()

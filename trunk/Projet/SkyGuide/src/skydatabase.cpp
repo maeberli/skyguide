@@ -17,7 +17,7 @@ QList<SkyElement *> * SkyDatabase::getSkyElements()
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
 
-    db.setDatabaseName(QString("stars.db"));
+    db.setDatabaseName(QString(p_config->getConfItem("db_path", "SkyGuide.db").toString()));
 
     if (!db.open())
         emit logMessage(SKYLOGGER::ERROR, tr("Database connection error: %1").arg(db.lastError().text()));

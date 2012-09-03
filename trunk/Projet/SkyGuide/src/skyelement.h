@@ -55,7 +55,7 @@ public:
       *
       * @return     declination in radian.
       */
-    double getDeclinasion();
+    double getDeclination();
 
     /**
       * Accessor, returns the greek-letter.
@@ -117,7 +117,7 @@ public:
 
 protected:
     double p_rightAscension;
-    double p_declinasion;
+    double p_declination;
     QString p_greekLetter;
     QString p_constellation;
     int p_distanceLightYears;

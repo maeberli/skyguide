@@ -7,7 +7,7 @@
 
 #include "skystarfield.h"
 #include "skyguielement.h"
-#include "skytransformation.h"
+#include "skycalculator.h"
 
 SkyStarField::SkyStarField(QWidget *parent) : QWidget(parent)
 {
@@ -205,7 +205,7 @@ void SkyStarField::wheelEvent(QWheelEvent *event)
         int count = p_stars->count();
         for (int i = 0; i < count; ++i)
         {
-            SkyTransformation::projection(p_stars->at(i), &newX, &newY, p_width - 30);
+            SkyCalculator::projectOnPlane(p_stars->at(i), &newX, &newY, p_width - 30);
             /*****/
             newY = -newY;
             /*****/
