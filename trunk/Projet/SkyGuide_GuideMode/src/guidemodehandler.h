@@ -29,6 +29,8 @@ public:
     GuideModeHandler(
             double _refAzimuth,
             double _refAltitude,
+            QString serialDevice,
+            int flashUpdateIntervall,
             bool verboseOutput = false,
             QObject *parent = 0);
     ~GuideModeHandler();
@@ -69,6 +71,13 @@ public:
         }
     }
 
+public slots:
+    void startupCommunication();
+    void shutdownCommunication();
+
+signals:
+    void shutdownDone();
+
 private slots:
     void logError(QString msg);
     void logInfo(QString msg);
@@ -84,6 +93,8 @@ private:
     StarPointerCommunication* m_com;
     double m_refAzimuth;
     double m_refAltitude;
+    const QString m_serialDevice;
+    const int m_flashUpdateIntervall;
     const double m_VERBOSEOUTPUT;
 
     int m_actAccCompX;

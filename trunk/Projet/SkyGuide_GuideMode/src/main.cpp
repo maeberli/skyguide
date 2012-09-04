@@ -14,21 +14,27 @@ int main(int argc, char *argv[])
     QCoreApplication a(argc, argv);
 
     //check if minimal argument count is available
-    if(a.arguments().count() < 3)
+    if(a.arguments().count() < 4)
     {
         showHelp();
     }
     else
     {
+        //necessaire parameters
         double azimuth = a.arguments().at(1).toDouble() * (M_PI / 180);
         double altitude = a.arguments().at(2).toDouble() * (M_PI / 180);
+        QString serialDevice = a.arguments().at(3);
+
+        //optional parameters
+        int flashUpdateIntervall = 400;
         double verbose = false;
 
-        if(a.arguments().count() > 3)
+        if(a.arguments().count() >= 4)
         {
-            for(int i = 3; i < a.arguments().count(); ++i)
+            for(int i = 4; i < a.arguments().count(); ++i)
             {
                 if(a.arguments().at(i) == "-V") { verbose = true; }
+                else if(a.arguments().at(i) == "-i") { flashUpdateIntervall = a.arguments().at(++i).toInt(); }
                 else if(a.arguments().at(i) == "-h"){ showHelp(); }
                 else if(a.arguments().at(i) == "-H"){ showHelp(); }
                 else
@@ -36,22 +42,38 @@ int main(int argc, char *argv[])
             }
         }
 
-        ApplicationControler* appControl = new ApplicationControler(azimuth, altitude, verbose,&a);
+        GuideModeHandler handler(azimuth,
+                                 altitude,
+                                 serialDevice,
+                                 flashUpdateIntervall,
+                                 verbose);
 
-        QObject::connect(appControl, SIGNAL(finished()),
+        TerminationHandler termHandler(&handler);
+
+        // Quit the application if the applicationControler Thread has finished.scheiss
+        QObject::connect(&termHandler, SIGNAL(started()),
+                         &handler, SLOT(startupCommunication()));
+        QObject::connect(&termHandler, SIGNAL(finished()),
                          &a, SLOT(quit()));
 
-        QTimer::singleShot(0, appControl, SLOT(start()));
+        //Initialize the communcation connection.
+        termHandler.start();
 
-        return a.exec();
+        int rv = a.exec();
+
+        return rv;
     }
 }
 
 void showHelp()
 {
-    std::cout << "Usage: SkyGuide_GuideMode AZIMUTH ALTITUDE [OPTION...]" << std::endl << std::endl
+    std::cout << "Usage: SkyGuide_GuideMode AZIMUTH ALTITUDE DEVICENAME [OPTION...]" << std::endl << std::endl
+              << "AZIMUTH    asdfjlasdf" << std::endl
+              << "ALTITUDE   asdfjlasdf" << std::endl
+              << "DEVICENAME asdfjlasdf" << std::endl << std::endl
               << "-h, -H,    show this help" << std::endl
-              << "-V         show verbose output" << std::endl;
+              << "-V         show verbose output" << std::endl
+              << "-i         Intervall for flash update in milliseconds (default 400 msec)" << std::endl;
 
     exit(-1);
 }

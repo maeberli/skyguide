@@ -2,12 +2,18 @@
 
 #include <QDebug>
 
-#define CALCTICKERTIMEOUT 400
-
-GuideModeHandler::GuideModeHandler(double _refAzimuth, double _refAltitude, bool verboseOutput, QObject *parent)
+GuideModeHandler::GuideModeHandler(
+        double _refAzimuth,
+        double _refAltitude,
+        QString serialDevice,
+        int flashUpdateIntervall,
+        bool verboseOutput,
+        QObject *parent)
     :QObject(parent),
       m_refAzimuth(_refAzimuth),
       m_refAltitude(_refAltitude),
+      m_serialDevice(serialDevice),
+      m_flashUpdateIntervall(flashUpdateIntervall),
       m_VERBOSEOUTPUT(verboseOutput),
       m_actAccCompX(0),
       m_actAccCompY(0),
@@ -22,11 +28,12 @@ GuideModeHandler::GuideModeHandler(double _refAzimuth, double _refAltitude, bool
 
     m_calcTicker = new QTimer();
 
-    m_com =  new StarPointerCommunication("/dev/ttyUSB0",
-          AbstractSerial::BaudRate9600,
-          AbstractSerial::ParityNone,
-          AbstractSerial::DataBits8,
-          AbstractSerial::FlowControlOff);
+    m_com =  new StarPointerCommunication(
+                m_serialDevice,
+                "9600",
+                "None",
+                "8 bit",
+                "Disable");
 
     connect(m_calcTicker, SIGNAL(timeout()),
             this, SLOT(sendNewDirection()));
@@ -44,26 +51,30 @@ GuideModeHandler::GuideModeHandler(double _refAzimuth, double _refAltitude, bool
             this, SLOT(handleReceivedGPSData(double,double)));
     connect(m_com, SIGNAL(receivedMagnetometerData(int,int,int)),
             this, SLOT(handleReceivedMagnetometerData(int,int,int)));
-
-
-    m_com->openConnection();
-
-    m_com->changeInModeGuide();
-
-    m_calcTicker->start(CALCTICKERTIMEOUT);
 }
 
 GuideModeHandler::~GuideModeHandler()
 {
-    logVerbose("called destructor");
+    logVerbose("called GuideModeHandler destructor");
 
+    delete m_calcTicker;
+    delete m_com;
+}
+
+void GuideModeHandler::startupCommunication()
+{
+    m_com->openConnection();
+
+    m_calcTicker->start(m_flashUpdateIntervall);
+}
+
+void GuideModeHandler::shutdownCommunication()
+{
     m_calcTicker->stop();
 
     m_com->changeInModePointer();
 
     m_com->closeConnection();
-    delete m_calcTicker;
-    delete m_com;
 }
 
 void GuideModeHandler::logError(QString msg)
