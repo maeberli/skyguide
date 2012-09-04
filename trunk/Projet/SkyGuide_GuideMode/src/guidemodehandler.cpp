@@ -63,7 +63,7 @@ GuideModeHandler::~GuideModeHandler()
 
 void GuideModeHandler::startupCommunication()
 {
-    m_com->openConnection();
+    m_com->openConnection(StarPointerCommunication::ModeGuide);
 
     m_calcTicker->start(m_flashUpdateIntervall);
 }

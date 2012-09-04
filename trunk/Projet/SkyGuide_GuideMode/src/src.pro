@@ -1,5 +1,4 @@
-QT       += core
-QT       -= gui
+QT       += core gui
 
 OBJECTS_DIR = obj
 MOC_DIR = moc
@@ -12,6 +11,7 @@ TEMPLATE = app
 
 SOURCES += \
     main.cpp \
+    mainwindow.cpp \
     ExternalDeviceImpl/command.cpp \
     ExternalDeviceImpl/cmdpointermode.cpp \
     ExternalDeviceImpl/cmdping.cpp \
@@ -23,10 +23,10 @@ SOURCES += \
     ExternalDeviceImpl/cmdunknown.cpp \
     ExternalDeviceImpl/starpointercommunication.cpp \
     CalculatorImpl/vectoroperations.cpp \
-    guidemodehandler.cpp \
-    applicationcontroler.cpp
+    guidemodehandler.cpp
 
 HEADERS += \
+    mainwindow.h \
     ExternalDeviceImpl/command.h \
     ExternalDeviceImpl/cmdpointermode.h \
     ExternalDeviceImpl/cmdping.h \
@@ -38,9 +38,9 @@ HEADERS += \
     ExternalDeviceImpl/cmdunknown.h \
     ExternalDeviceImpl/starpointercommunication.h \
     CalculatorImpl/vectoroperations.h \
-    guidemodehandler.h \
-    applicationcontroler.h
+    guidemodehandler.h
 
+FORMS    += mainwindow.ui
 
 CONFIG(debug, debug|release) {
     QMAKE_LIBDIR += ../lib/libqserialdevice/build/debug
