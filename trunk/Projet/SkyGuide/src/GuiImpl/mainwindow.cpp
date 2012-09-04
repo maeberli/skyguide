@@ -272,6 +272,7 @@ void MainWindow::clearText()
     p_tGreekLetter->setText("-");
     p_tConstellation->setText("-");
     p_tMagnitude->setText("-");
+    p_log->clear();
     emit resetSelection();
 }
 
