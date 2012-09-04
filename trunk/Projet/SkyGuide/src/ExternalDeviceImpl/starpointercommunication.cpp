@@ -115,7 +115,7 @@ bool StarPointerCommunication::changeInModeGuide()
 bool StarPointerCommunication::changeInModePointer()
 {
     p_actState = StarPointerCommunication::ModePointer;
-    p_pingTimer->start();
+    p_pingTimer->start(PING_INTERVAL);
     return send(CmdPointerMode());
 }
 

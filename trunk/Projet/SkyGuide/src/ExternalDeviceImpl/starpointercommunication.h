@@ -66,7 +66,7 @@ public:
       *
       * @param startState   Connection  be initialized whith this state.
       */
-    void openConnection(ProtocollStates startState =  ModeGuide);
+    void openConnection(ProtocollStates startState =  ModePointer);
 
     /**
       * Close the connection to the device.

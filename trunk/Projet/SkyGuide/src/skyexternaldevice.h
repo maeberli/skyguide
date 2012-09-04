@@ -15,7 +15,7 @@
 #include "skycomponent.h"
 #include "ExternalDeviceImpl/starpointercommunication.h"
 
-#define UPDATEINTERVALL 3000  //< intervall of checking for new data from the external device.
+#define UPDATEINTERVALL 1000  //< intervall of checking for new data from the external device.
 
 /**
   * This class adapts the interface the comminucation implementation to the SkyCore expected interface.
