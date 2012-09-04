@@ -1,11 +1,9 @@
-QT       += core gui
+QT       += core
+QT       += gui
 
 OBJECTS_DIR = obj
 MOC_DIR = moc
 INCLUDEPATH += ../lib/libqserialdevice/qserialdevice/
-
-CONFIG   += console
-CONFIG   -= app_bundle
 
 TEMPLATE = app
 
@@ -53,7 +51,6 @@ CONFIG(debug, debug|release) {
     DESTDIR = release
     TARGET = SkyGuide_GuideMode
 }
-
 
 win32 {
     LIBS += -lsetupapi -luuid -ladvapi32
