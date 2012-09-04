@@ -185,8 +185,9 @@ bool StarPointerCommunication::send(const Command& cmd)
     QString toSend = QString("$") + calculateCRC(tmp) + QString("\r\n");
 
     logVerbose(tr("sent data: %1").arg(toSend));
-
-    return (-1 != p_conn->write(toSend.toAscii()));
+    bool rv = (-1 != p_conn->write(toSend.toAscii()));
+    bool rv2 = p_conn->flush();
+    return (rv && rv2);
 }
 
 bool StarPointerCommunication::checkCRC(QString data)
