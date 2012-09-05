@@ -10,9 +10,13 @@
 using namespace ExternalDeviceImpl;
 using namespace CalculatorImpl;
 
+double smallerDiffernce(double angle1, double angle2);
+
 class GuideModeHandler : public QObject
 {
     Q_OBJECT
+
+public:
     enum Direction{
         Top         = 0,
         TopLeft     = 1,
@@ -25,7 +29,6 @@ class GuideModeHandler : public QObject
         Undef       = 8
     };
 
-public:
     GuideModeHandler(
             double _refAzimuth,
             double _refAltitude,
@@ -35,7 +38,7 @@ public:
             QObject *parent = 0);
     ~GuideModeHandler();
 
-    QString DirectionToString(Direction dir)
+    static QString DirectionToString(Direction dir)
     {
         switch(dir)
         {

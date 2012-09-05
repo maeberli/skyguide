@@ -55,8 +55,8 @@ void MainWindow::openConn(bool connect)
     if(connect)
     {
         m_guideModeHandler = new GuideModeHandler(
-                    ui->azimuth->value(),
-                    ui->altitude->value(),
+                    ui->azimuth->value() * (M_PI/180),
+                    ui->altitude->value() * (M_PI/180),
                     ui->comDevice->text(),
                     ui->flashUpdateIntervall->value(),
                     ui->verboseConsole->checkState());

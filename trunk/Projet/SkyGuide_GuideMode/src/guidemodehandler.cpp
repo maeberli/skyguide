@@ -2,6 +2,13 @@
 
 #include <QDebug>
 
+double smallerDiffernce(double angle1, double angle2)
+{
+    double diff1 = fabs(angle1-angle2);
+    double diff2 = fabs((2*M_PI)-diff1);
+    return (diff1 < diff2 ? diff1 : diff2);
+}
+
 GuideModeHandler::GuideModeHandler(
         double _refAzimuth,
         double _refAltitude,
@@ -145,14 +152,14 @@ void GuideModeHandler::sendNewDirection()
     double azimuthMarge = 20*M_PI/180;
     double altitudeMarge = 20*M_PI/180;
 
-    if(fabs(azimuth-m_refAzimuth) > azimuthMarge)
+    if(smallerDiffernce(m_refAzimuth, azimuth) > azimuthMarge)
     {
-        if(        (azimuth-m_refAzimuth < M_PI && m_refAzimuth-azimuth > -M_PI)
+        if(        (azimuth-m_refAzimuth < M_PI && azimuth-m_refAzimuth > 0 && m_refAzimuth-azimuth > -M_PI && m_refAzimuth-azimuth < 0)
                 || (azimuth-m_refAzimuth < -M_PI && m_refAzimuth-azimuth > M_PI)) // turn to west/left
-            right_left = Left;
-        else if(   (azimuth-m_refAzimuth > M_PI && m_refAzimuth-azimuth < -M_PI) // turn to east/right
-                || (azimuth-m_refAzimuth > -M_PI && m_refAzimuth-azimuth < M_PI))
-            right_left = Right;
+            right_left = GuideModeHandler::Left;
+        else/* if(   (azimuth-m_refAzimuth > M_PI && m_refAzimuth-azimuth < -M_PI) // turn to east/right
+                || (azimuth-m_refAzimuth > -M_PI && m_refAzimuth-azimuth < M_PI))*/
+            right_left = GuideModeHandler::Right;
     }
 
     if(m_refAltitude > (altitude + altitudeMarge)) // turn to top
