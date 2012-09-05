@@ -1,5 +1,5 @@
 /**
-  * Class declaration file of SkyComponent.
+  * Class declaration file of VectorOperations.
   *
   * @author Marco Aeberli
   *

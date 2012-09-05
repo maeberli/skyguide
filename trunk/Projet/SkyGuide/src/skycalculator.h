@@ -1,17 +1,17 @@
 /**
   * Class declaration file of SkyCalculator.
   *
-  * @author      Matthieu Rossier
+  * @author      Matthieu Rossier / Aeberli Marco
   *
   * @copyright   Project P1 group DLM14 2012, all rights reserved
   */
 #ifndef SKYCALCULATOR_H
 #define SKYCALCULATOR_H
 
-#include <skycomponent.h>
-#include <skyelement.h>
-#include <skyguielement.h>
-
+//include SkyGuide specific headers
+#include "skycomponent.h"
+#include "skyelement.h"
+#include "skyguielement.h"
 #include "CalculatorImpl/vectoroperations.h"
 
 using namespace CalculatorImpl;
@@ -51,24 +51,48 @@ public:
       */
     static void projectOnPlane(double azimuth, double height, double* x, double* y, int factor);
 
-    QList<SkyGuiElement*>* convert2GuiElements(const QList<SkyElement*> & elements);
 
-
+    /**
+      * Calculates the cross product of two vectors (v1 x v2)
+      *
+      * @param v1       lefthanded vector in cross operation.
+      * @param v2       righthanded vector in cross operation.
+      * @return         Result vector of the operation.
+      */
     Vect3D crossProduct(const Vect3D& v1, const Vect3D& v2) const
     {
         return VectorOperations::crossProduct(v1,v2);
     }
 
+    /**
+      * Calculates the scalar product of the two vectors.
+      *
+      * @param v1       First vector of the operation.
+      * @param v2       Second vector of the operation.
+      * @return         Signed result value.
+      */
     double scalarProduct(const Vect3D& v1, const Vect3D& v2) const
     {
         return VectorOperations::scalarProduct(v1,v2);
     }
 
+    /**
+      * Calculates the norm of a vector.
+      *
+      * @param v        The norm of this vector will be calculated.
+      * @return         Norm of the vector v.
+      */
     double getNorm(const Vect3D& v) const
     {
         return VectorOperations::getNorm(v);
     }
 
+    /**
+      * Calculates the unit vector of a vector.
+      *
+      * @param v        The unit of this vector will be calculated.
+      * @return         Unit vector of v passed as argument.
+      */
     Vect3D getUnitVector(const Vect3D& v) const
     {
         return VectorOperations::getUnitVector(v);

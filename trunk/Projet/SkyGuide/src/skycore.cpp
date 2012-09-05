@@ -1,3 +1,10 @@
+/**
+  * Class implementation file of SkyCore.
+  *
+  * @author Marco Aeberli
+  *
+  * @copyright Project P1 group DLM14 2012, all rights reserved
+  */
 #include <QList>
 
 #include "skycore.h"

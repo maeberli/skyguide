@@ -1,3 +1,10 @@
+/**
+  * Class implementation file of StarPointerCommunication.
+  *
+  * @author Marco Aeberli
+  *
+  * @copyright Project P1 group DLM14 2012, all rights reserved
+  */
 #include "starpointercommunication.h"
 
 #include <QByteArray>

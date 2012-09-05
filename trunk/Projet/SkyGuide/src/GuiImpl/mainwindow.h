@@ -8,6 +8,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+//include Qt-headers
 #include <QWidget>
 #include <QPushButton>
 #include <QGridLayout>
@@ -20,6 +21,7 @@
 #include <QList>
 #include <QLabel>
 
+//include SkyGuide specific headers
 #include "GuiImpl/skystarfield.h"
 #include "skyguielement.h"
 

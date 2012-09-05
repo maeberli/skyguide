@@ -169,7 +169,7 @@ void MainWindow::updateInfo(QList<int> selections, QList<SkyGuiElement *> *stars
     int count = selections.count();
     if (count)
     {
-        info += "Etoile[s] sélectionnée[s]\n";
+        info += "Etoile[s] sÃ©lectionnÃ©e[s]\n";
         info += "----------------------------\n";
         for (int i = 0; i < count; ++i)
         {
@@ -299,5 +299,5 @@ void MainWindow::startStop()
 
 MainWindow::~MainWindow()
 {
-    // Les Widgets sont détruits automatiquement.
+    // Les Widgets sont dÃ©truits automatiquement.
 }

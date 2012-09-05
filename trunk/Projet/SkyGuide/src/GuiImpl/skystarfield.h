@@ -8,10 +8,13 @@
 #ifndef SKYSTARFIELD_H
 #define SKYSTARFIELD_H
 
+//include Qt-headers
 #include <QObject>
 #include <QWidget>
 #include <QList>
 #include <QScrollBar>
+
+//include SkyGuide specific headers
 #include "skyguielement.h"
 
 /**

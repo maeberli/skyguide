@@ -1,3 +1,10 @@
+/**
+  * Class implementation file of SkyComponent.
+  *
+  * @author Matthieu Rossier / Aeberli Marco
+  *
+  * @copyright Project P1 group DLM14 2012, all rights reserved
+  */
 #include "skycalculator.h"
 
 #include <QDate>
@@ -59,16 +66,3 @@ void SkyCalculator::projectOnPlane(double azimuth, double height, double* x, dou
     *x = dist * cos(azimuth-M_PI/2);
     *y = dist * sin(azimuth-M_PI/2);
 }
-
-QList<SkyGuiElement*>* SkyCalculator::convert2GuiElements(const QList<SkyElement*> &elements)
-{
-    QList<SkyGuiElement*>* guiElements =  new QList<SkyGuiElement*>();
-
-    foreach(SkyElement* element, elements)
-    {
-        guiElements->append(new SkyGuiElement(*element,0,0));
-    }
-
-    return guiElements;
-}
-
