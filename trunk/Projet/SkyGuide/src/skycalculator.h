@@ -1,3 +1,10 @@
+/**
+  * Class declaration file of SkyCalculator.
+  *
+  * @author      Matthieu Rossier
+  *
+  * @copyright   Project P1 group DLM14 2012, all rights reserved
+  */
 #ifndef SKYCALCULATOR_H
 #define SKYCALCULATOR_H
 
@@ -6,20 +13,42 @@
 #include <skyguielement.h>
 
 #include "CalculatorImpl/vectoroperations.h"
+
 using namespace CalculatorImpl;
 
+/**
+  * Class who represent calcul.
+  */
 class SkyCalculator : public SkyComponent
 {
     Q_OBJECT
 public:
+    /**
+      * Constructor, creates and initialize the object.
+      *
+      * @param config     Represent the file configuration.
+      * @param parent     Represent object who inialize it.
+      */
     SkyCalculator(SkyConfiguration* config, QObject *parent = 0);
 
+    /**
+      * Calcul angle hour.
+      */
     static double getAngleHour();
 
+    /**
+      * Transform in system coordinate horizontale with (right ascension, declinaison, latitude, longitude and angle hour).
+      */
     static void toHorizontalCoord(SkyElement* star, double angle, double latitude, double longitude);
 
+    /**
+      * Load to memory contains of file database (SkyGuide.db).
+      */
     static void projectOnPlane(SkyElement* star, double* x, double* y, int factor);
 
+    /**
+      * Load to memory contains of file database (SkyGuide.db).
+      */
     static void projectOnPlane(double azimuth, double height, double* x, double* y, int factor);
 
     QList<SkyGuiElement*>* convert2GuiElements(const QList<SkyElement*> & elements);

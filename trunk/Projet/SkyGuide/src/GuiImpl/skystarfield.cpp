@@ -182,10 +182,20 @@ void SkyStarField::wheelEvent(QWheelEvent *event)
         if (!(p_cpt > 10))
         {
             if (!(p_cpt < 0))
+            {
                 resize(size() * p_factor);
+                /***************/
+                // p_xP *= p_factor;
+                // p_yP *= p_factor;
+                /***************/
+            }
             p_width *= p_factor;
             p_height *= p_factor;
             p_cpt++;
+            /***************/
+            p_xP *= p_factor;
+            p_yP *= p_factor;
+            /***************/
             emit sendAdjust(true);
         }
     }
@@ -197,6 +207,10 @@ void SkyStarField::wheelEvent(QWheelEvent *event)
             p_width /= p_factor;
             p_height /= p_factor;
             p_cpt--;
+            /***************/
+            p_xP /= p_factor;
+            p_yP /= p_factor;
+            /***************/
             emit sendAdjust(false);
         }
     }

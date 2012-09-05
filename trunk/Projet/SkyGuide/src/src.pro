@@ -12,8 +12,6 @@ OBJECTS_DIR = obj
 MOC_DIR = moc
 INCLUDEPATH += ../lib/libqserialdevice/qserialdevice/
 
-RC_FILE += icon.rc
-
 
 SOURCES += main.cpp \
     skycore.cpp \

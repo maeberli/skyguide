@@ -1,3 +1,10 @@
+/**
+  * Class implementation file of MainWindow.
+  *
+  * @author Matthieu Rossier
+  *
+  * @copyright Project P1 group DLM14 2012, all rights reserved
+  */
 #include <QWidget>
 #include <QPushButton>
 #include <QHBoxLayout>
