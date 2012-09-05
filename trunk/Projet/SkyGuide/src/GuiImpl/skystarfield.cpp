@@ -46,7 +46,7 @@ void SkyStarField::paintEvent(QPaintEvent *event)
     pen.drawText(align, Qt::AlignHCenter, QString("N"));
     pen.drawText(align, Qt::AlignHCenter | Qt::AlignBottom, QString("S"));
     pen.drawText(align, Qt::AlignVCenter | Qt::AlignLeft, QString("E"));
-    pen.drawText(align, Qt::AlignVCenter | Qt::AlignRight, QString("O"));
+    pen.drawText(align, Qt::AlignVCenter | Qt::AlignRight, QString("W"));
 
     // pen.drawText(10, 10, "(" + QString::number(p_globalPos.x()) + ", " + QString::number(p_globalPos.y()) + ")");
     /******************************/
