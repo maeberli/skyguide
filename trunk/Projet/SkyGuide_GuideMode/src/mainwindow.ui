@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Guide Mode</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,0,0" columnstretch="0,0,0,1">
@@ -164,7 +164,7 @@
      <x>0</x>
      <y>0</y>
      <width>506</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

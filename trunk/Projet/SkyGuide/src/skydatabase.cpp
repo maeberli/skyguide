@@ -16,6 +16,7 @@ SkyDatabase::SkyDatabase(SkyConfiguration* config, QObject *parent) :
     SkyComponent(config, parent)
 {
     emit logMessage(SKYLOGGER::VERBOSE, tr("Constructor SkyDatabase"));
+    p_config->getConfItem("db_path", "SkyGuide.db").toString();
 }
 
 QList<SkyElement *> * SkyDatabase::getSkyElements()
@@ -24,7 +25,7 @@ QList<SkyElement *> * SkyDatabase::getSkyElements()
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
 
-    db.setDatabaseName(QString(p_config->getConfItem("db_path", "SkyGuide.db").toString()));
+    db.setDatabaseName(p_config->getConfItem("db_path", "SkyGuide.db").toString());
 
     if (!db.open())
         emit logMessage(SKYLOGGER::ERROR, tr("Database connection error: %1").arg(db.lastError().text()));

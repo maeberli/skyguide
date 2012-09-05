@@ -125,7 +125,7 @@ void SkyCore::calculateRange(double longitude, double latitude,
     double azimut = p_calc->transformCompDirectionSystem(compDir);
 
     emit logMessage(SKYLOGGER::INFO, tr("Current pointer latitude, longitude: %1, %2").arg(latitude).arg(longitude));
-    emit logMessage(SKYLOGGER::INFO, tr("Current pointer compass: %1").arg(compDir * (180/M_PI)));
+    emit logMessage(SKYLOGGER::INFO, tr("Current pointer altitude: %1").arg(incl * (180/M_PI)));
     emit logMessage(SKYLOGGER::INFO, tr("Current pointer azimuth: %1").arg(azimut * (180/M_PI)));
 
 

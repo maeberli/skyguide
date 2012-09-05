@@ -5,8 +5,6 @@ OBJECTS_DIR = obj
 MOC_DIR = moc
 INCLUDEPATH += ../lib/libqserialdevice/qserialdevice/
 
-TEMPLATE = app
-
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
