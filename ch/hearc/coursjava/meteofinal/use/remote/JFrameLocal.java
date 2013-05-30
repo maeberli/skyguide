@@ -130,7 +130,19 @@ public class JFrameLocal extends JFrame
 		RmiTools.shareObject(meteoServiceWrapper, rmiUrlMeteoService);
 
 		RmiURL rmiUrlAfficheurManager = new RmiURL(RMI_ID_AFFICHEUR_MANAGER, inetAddressServer, RmiTools.PORT_RMI_DEFAUT);
-		AfficheurManager_I afficheurManager = (AfficheurManager_I)RmiTools.connectionRemoteObjectBloquant(rmiUrlAfficheurManager);
+
+		AfficheurManager_I afficheurManager = null;
+
+		try
+			{
+			afficheurManager = (AfficheurManager_I)RmiTools.connectionRemoteObjectBloquant(rmiUrlAfficheurManager);
+			}
+		catch (RemoteException e)
+			{
+			System.out.println("Erreur avec l'interface réseau !");
+
+			System.exit(-1);
+			}
 
 		RmiURL rmiUrlAfficheurService = afficheurManager.createRemoteAfficheurService(affichageOptions, new RmiURL(name, inetAddressLocal, RmiTools.PORT_RMI_DEFAUT));
 
@@ -200,6 +212,7 @@ public class JFrameLocal extends JFrame
 		catch (MeteoServiceException e)
 			{
 			}
+
 		meteoService.start(meteoServiceOptions);
 
 		/* Mettre à jour les JSlider sur le serveur. */
@@ -298,7 +311,7 @@ public class JFrameLocal extends JFrame
 		// portCom = new JTextField("Port COM");
 		// portCom.setText("COM1");
 
-		String[] ports = {"COM1", "COM2", "COM3", "COM4", "COM5"};
+		String[] ports = { "COM1", "COM2", "COM3", "COM4", "COM5" };
 		portsCom = new JComboBox<String>(ports);
 
 		startStop = new JButton("Start");
