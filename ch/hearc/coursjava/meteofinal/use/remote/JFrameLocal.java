@@ -117,6 +117,12 @@ public class JFrameLocal extends JFrame
 					sliderPressionDT.setValue((int)meteoServiceOptions.getPressionDT());
 					sliderAltitudeDT.setValue((int)meteoServiceOptions.getAltitudeDT());
 					}
+
+				@Override
+				public void exitClient() throws RemoteException
+					{
+					System.exit(0);
+					}
 			};
 
 		String name = IdTools.createID("METEO_SERVICE_");
