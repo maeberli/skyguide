@@ -48,6 +48,12 @@ public class MeteoServiceWrapper implements MeteoServiceWrapper_I
 		// Rien parce que j'utilise une classe interne anonyme !
 		}
 
+	@Override
+	public void exitClient() throws RemoteException
+		{
+		// Rien parce que j'utilise une classe internet anonyme !
+		}
+
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
