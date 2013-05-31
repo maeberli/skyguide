@@ -1,6 +1,8 @@
 
 package ch.hearc.coursjava.meteofinal.use.remote;
 
+import javax.swing.UIManager;
+
 
 
 public class UsePCLocal
@@ -17,6 +19,15 @@ public class UsePCLocal
 
 	public static void main()
 		{
+		try
+			{
+			UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
+			}
+		catch (Exception e)
+			{
+			System.out.println("[UsePCLocal] Set look and feel failed !");
+			}
+
 		new JFrameLocal();
 		}
 
