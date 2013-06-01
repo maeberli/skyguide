@@ -116,6 +116,9 @@ public class JFrameLocal extends JFrame
 					sliderTemperatureDT.setValue((int)meteoServiceOptions.getTemperatureDT());
 					sliderPressionDT.setValue((int)meteoServiceOptions.getPressionDT());
 					sliderAltitudeDT.setValue((int)meteoServiceOptions.getAltitudeDT());
+
+					meteoService.stop();
+					meteoService.start(meteoServiceOptions);
 					}
 
 				@Override
@@ -388,7 +391,10 @@ public class JFrameLocal extends JFrame
 					try
 						{
 						inetAddressServer = InetAddress.getByName(ipServer.getText());
-						inetAddressLocal = InetAddress.getLocalHost();
+						// inetAddressLocal = InetAddress.getLocalHost();
+
+						JDialogNetworkInterface dialogNetworkInterface = new JDialogNetworkInterface();
+						inetAddressLocal = dialogNetworkInterface.getInetAddressSelected();
 
 						JFrameLocal.this.connect();
 						}

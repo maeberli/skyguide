@@ -1,4 +1,4 @@
-package network;
+package ch.hearc.coursjava.meteofinal.use.remote;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
