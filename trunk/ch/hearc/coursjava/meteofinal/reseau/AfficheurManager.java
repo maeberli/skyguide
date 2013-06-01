@@ -7,6 +7,7 @@ import java.rmi.RemoteException;
 import ch.hearc.coursjava.meteofinal.afficheur.AffichageOptions;
 import ch.hearc.coursjava.meteofinal.afficheur.AfficheurFactory;
 import ch.hearc.coursjava.meteofinal.afficheur.AfficheurService_I;
+import ch.hearc.coursjava.meteofinal.use.remote.JDialogNetworkInterface;
 
 import com.bilat.tools.reseau.rmi.IdTools;
 import com.bilat.tools.reseau.rmi.RmiTools;
@@ -117,12 +118,15 @@ public class AfficheurManager implements AfficheurManager_I
 		{
 		// TODO share this
 		/* Matthieu */
+		JDialogNetworkInterface dialogNetworkInterface = new JDialogNetworkInterface();
+		localhost = dialogNetworkInterface.getInetAddressSelected();
 		// On partage le serveur.
 
 		// AFFICHEUR_MANAGER doit être connu des stations météo (client).
 		// Même chose pour l'adresse IP du serveur.
 
-		RmiURL rmiUrlServer = new RmiURL("AFFICHEUR_MANAGER", InetAddress.getLocalHost(), RmiTools.PORT_RMI_DEFAUT);
+		// RmiURL rmiUrlServer = new RmiURL("AFFICHEUR_MANAGER", InetAddress.getLocalHost(), RmiTools.PORT_RMI_DEFAUT);
+		RmiURL rmiUrlServer = new RmiURL("AFFICHEUR_MANAGER", localhost, RmiTools.PORT_RMI_DEFAUT);
 		// Partage de l'objet.
 		RmiTools.shareObject(this, rmiUrlServer);
 		/* END */
@@ -140,7 +144,8 @@ public class AfficheurManager implements AfficheurManager_I
 		String id = IdTools.createID(PREFIXE);
 
 		/* Matthieu */
-		RmiURL rmiUrl = new RmiURL(id, InetAddress.getLocalHost(), RmiTools.PORT_RMI_DEFAUT);
+		// RmiURL rmiUrl = new RmiURL(id, InetAddress.getLocalHost(), RmiTools.PORT_RMI_DEFAUT);
+		RmiURL rmiUrl = new RmiURL(id, localhost, RmiTools.PORT_RMI_DEFAUT);
 
 		return rmiUrl;
 		/* END */
@@ -157,6 +162,8 @@ public class AfficheurManager implements AfficheurManager_I
 	// Tools
 
 	private static AfficheurManager_I INSTANCE = null;
+
+	private static InetAddress localhost;
 
 	// Tools final
 	private static final String PREFIXE = "AFFICHEUR_SERVICE_";
