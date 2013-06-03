@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -28,7 +29,36 @@ public class JFrameCentrale extends JFrame
 	private void control()
 		{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
 		graphList = new LinkedList<PanelStationMeteo>();
+
+		addWindowListener(new WindowAdapter()
+			{
+
+				@Override
+				public void windowClosing(WindowEvent event)
+					{
+					// Parcourir toutes les stations météo.
+					// Puis les fermer via le MeteoServiceWrapper.
+					for(Component c:tabbedPane.getComponents())
+						{
+						if (c instanceof PanelStationMeteo)
+							{
+							PanelStationMeteo stationMeteo = (PanelStationMeteo)c;
+
+							// Appel d'une méthode qui de MeteoServiceWrapper qui la ferme la fenêtre cliente.
+							try
+								{
+								stationMeteo.getMeteoServiceWrapper().exitClient();
+								}
+							catch (RemoteException e)
+								{
+								System.out.println("[JFrameCentrale] Fermeture du client.");
+								}
+							}
+						}
+					}
+			});
 		}
 
 	private void geometrie()
@@ -38,11 +68,18 @@ public class JFrameCentrale extends JFrame
 		tabbedPane = new JTabbedPane();
 
 		add(tabbedPane, BorderLayout.CENTER);
+
+		tabbedPane.add("Bienvenu sur la central météo", new JLabel("En attente de station météo ..."));
 		}
 
 
 	public PanelStationMeteo openNewTab(MeteoServiceWrapper_I meteoServiceRemote)
 		{
+		if (tabbedPane.getComponentAt(0) instanceof JLabel)
+			{
+			tabbedPane.remove(0);
+			}
+
 		PanelStationMeteo stationMeteo = new PanelStationMeteo(meteoServiceRemote);
 		tabbedPane.add("Station Météo", stationMeteo);
 
@@ -63,7 +100,7 @@ public class JFrameCentrale extends JFrame
 		setLocation(30, 30);
 		setResizable(true);
 
-		this.setVisible(true);
+		setVisible(true);
 		}
 
 	/*------------------------------------------------------------------*\
