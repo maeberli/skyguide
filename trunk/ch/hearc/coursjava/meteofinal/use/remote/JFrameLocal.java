@@ -3,6 +3,7 @@ package ch.hearc.coursjava.meteofinal.use.remote;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -116,15 +118,6 @@ public class JFrameLocal extends JFrame
 					sliderTemperatureDT.setValue((int)meteoServiceOptions.getTemperatureDT());
 					sliderPressionDT.setValue((int)meteoServiceOptions.getPressionDT());
 					sliderAltitudeDT.setValue((int)meteoServiceOptions.getAltitudeDT());
-
-					meteoService.stop();
-					meteoService.start(meteoServiceOptions);
-					}
-
-				@Override
-				public void exitClient() throws RemoteException
-					{
-					System.exit(0);
 					}
 			};
 
@@ -133,19 +126,7 @@ public class JFrameLocal extends JFrame
 		RmiTools.shareObject(meteoServiceWrapper, rmiUrlMeteoService);
 
 		RmiURL rmiUrlAfficheurManager = new RmiURL(RMI_ID_AFFICHEUR_MANAGER, inetAddressServer, RmiTools.PORT_RMI_DEFAUT);
-
-		AfficheurManager_I afficheurManager = null;
-
-		try
-			{
-			afficheurManager = (AfficheurManager_I)RmiTools.connectionRemoteObjectBloquant(rmiUrlAfficheurManager);
-			}
-		catch (RemoteException e)
-			{
-			System.out.println("Erreur avec l'interface réseau !");
-
-			System.exit(-1);
-			}
+		AfficheurManager_I afficheurManager = (AfficheurManager_I)RmiTools.connectionRemoteObjectBloquant(rmiUrlAfficheurManager);
 
 		RmiURL rmiUrlAfficheurService = afficheurManager.createRemoteAfficheurService(affichageOptions, new RmiURL(name, inetAddressLocal, RmiTools.PORT_RMI_DEFAUT));
 
@@ -215,7 +196,6 @@ public class JFrameLocal extends JFrame
 		catch (MeteoServiceException e)
 			{
 			}
-
 		meteoService.start(meteoServiceOptions);
 
 		/* Mettre à jour les JSlider sur le serveur. */
@@ -314,20 +294,26 @@ public class JFrameLocal extends JFrame
 		// portCom = new JTextField("Port COM");
 		// portCom.setText("COM1");
 
-		String[] ports = { "COM1", "COM2", "COM3", "COM4", "COM5" };
+		String[] ports = {"COM1", "COM2", "COM3", "COM4", "COM5"};
 		portsCom = new JComboBox<String>(ports);
 
 		startStop = new JButton("Start");
+		startStop.setPreferredSize(new Dimension(10,10));
 		isConnecting = new JLabel("Connecting");
 		isConnecting.setForeground(Color.GREEN);
 		isRunning = new JLabel("Running");
 		isRunning.setForeground(Color.GREEN);
+
+		Box box = Box.createHorizontalBox();
+		box.add(startStop);
+		meteoServiceRemote.add(box);
 
 		meteoServiceRemote.add(ipServer);
 		meteoServiceRemote.add(portsCom);
 		meteoServiceRemote.add(startStop);
 		meteoServiceRemote.add(isConnecting);
 		meteoServiceRemote.add(isRunning);
+		this.pack();
 
 		JPanel meteoServiceOptionsPanel = new JPanel();
 		meteoServiceOptionsPanel.setLayout(new BorderLayout());
@@ -391,10 +377,7 @@ public class JFrameLocal extends JFrame
 					try
 						{
 						inetAddressServer = InetAddress.getByName(ipServer.getText());
-						// inetAddressLocal = InetAddress.getLocalHost();
-
-						JDialogNetworkInterface dialogNetworkInterface = new JDialogNetworkInterface();
-						inetAddressLocal = dialogNetworkInterface.getInetAddressSelected();
+						inetAddressLocal = InetAddress.getLocalHost();
 
 						JFrameLocal.this.connect();
 						}
@@ -419,6 +402,7 @@ public class JFrameLocal extends JFrame
 		setTitle("Station météo locale");
 		setLocation(100, 10);
 		setSize(800, 400);
+
 
 		setVisible(true);
 		}
@@ -450,6 +434,7 @@ public class JFrameLocal extends JFrame
 
 	private MeteoServiceOptions meteoServiceOptions;
 	private AffichageOptions affichageOptions;
+
 
 	private static final String RMI_ID_AFFICHEUR_MANAGER = "AFFICHEUR_MANAGER";
 	}

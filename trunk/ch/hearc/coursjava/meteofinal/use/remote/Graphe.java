@@ -55,6 +55,12 @@ public class Graphe
 
 		}
 
+
+	public XYSeries getSeriesMemoire()
+		{
+		return this.seriesMemoire;
+		}
+
 	public void setFirstValue(long firstValue)
 		{
 		this.firstValue = firstValue;
