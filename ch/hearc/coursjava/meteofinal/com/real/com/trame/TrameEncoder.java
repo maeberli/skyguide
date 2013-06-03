@@ -18,7 +18,7 @@ public class TrameEncoder
 	 * 				010X00
 	 * 			ou X appartient a [0,2], selon (pression,temperature,altitude)
 	 *
-	 * Outputs: le tableu de byte a écrire sur le flux outputStream en direction de la station meteo
+	 * Outputs: le tableu de byte a ï¿½crire sur le flux outputStream en direction de la station meteo
 	 *
 	 * Note:
 	 *

@@ -5,7 +5,6 @@ import ch.hearc.coursjava.meteofinal.meteo.exception.MeteoServiceException;
 import ch.hearc.coursjava.meteofinal.meteo.listener.event.MeteoEventType_E;
 
 
-
 public class TrameDecoder
 	{
 
