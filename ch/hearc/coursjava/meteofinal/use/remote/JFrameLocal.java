@@ -118,6 +118,12 @@ public class JFrameLocal extends JFrame
 					sliderPressionDT.setValue((int)meteoServiceOptions.getPressionDT());
 					sliderAltitudeDT.setValue((int)meteoServiceOptions.getAltitudeDT());
 					}
+
+				@Override
+				public void exitClient() throws RemoteException
+					{
+					System.exit(0);
+					}
 			};
 
 		String name = IdTools.createID("METEO_SERVICE_");
@@ -125,7 +131,6 @@ public class JFrameLocal extends JFrame
 		RmiTools.shareObject(meteoServiceWrapper, rmiUrlMeteoService);
 
 		RmiURL rmiUrlAfficheurManager = new RmiURL(RMI_ID_AFFICHEUR_MANAGER, inetAddressServer, RmiTools.PORT_RMI_DEFAUT);
-		AfficheurManager_I afficheurManager = (AfficheurManager_I)RmiTools.connectionRemoteObjectBloquant(rmiUrlAfficheurManager);
 
 		AfficheurManager_I afficheurManager = (AfficheurManager_I)RmiTools.connectionRemoteObjectBloquant(rmiUrlAfficheurManager);
 

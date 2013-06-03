@@ -2,6 +2,10 @@
 package ch.hearc.coursjava.meteofinal.use.remote;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 

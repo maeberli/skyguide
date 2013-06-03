@@ -295,6 +295,11 @@ public class PanelStationMeteo extends JPanel
 		return panelGrapheAltitude;
 		}
 
+	public MeteoServiceWrapper_I getMeteoServiceWrapper()
+		{
+		return meteoServiceRemote;
+		}
+
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
