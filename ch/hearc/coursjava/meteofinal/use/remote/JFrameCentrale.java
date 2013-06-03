@@ -2,10 +2,6 @@
 package ch.hearc.coursjava.meteofinal.use.remote;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,31 +29,6 @@ public class JFrameCentrale extends JFrame
 		{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		graphList = new LinkedList<PanelStationMeteo>();
-
-		addWindowListener(new WindowAdapter()
-			{
-
-				@Override
-				public void windowClosing(WindowEvent event)
-					{
-					// Parcourir toutes les stations météo.
-					// Puis les fermer via le MeteoServiceWrapper.
-					for (Component c : tabbedPane.getComponents())
-						{
-						PanelStationMeteo stationMeteo = (PanelStationMeteo)c;
-
-						// Appel d'une méthode qui de MeteoServiceWrapper qui la ferme la fenêtre cliente.
-						try
-							{
-							stationMeteo.getMeteoServiceWrapper().exitClient();
-							}
-						catch (RemoteException e)
-							{
-							System.out.println("[JFrameCentrale] Fermeture du client.");
-							}
-						}
-					}
-			});
 		}
 
 	private void geometrie()
@@ -68,6 +39,7 @@ public class JFrameCentrale extends JFrame
 
 		add(tabbedPane, BorderLayout.CENTER);
 		}
+
 
 	public PanelStationMeteo openNewTab(MeteoServiceWrapper_I meteoServiceRemote)
 		{
@@ -99,7 +71,7 @@ public class JFrameCentrale extends JFrame
 	\*------------------------------------------------------------------*/
 	public void draw()
 		{
-		for(PanelStationMeteo graph:graphList)
+		for(PanelStationMeteo graph: graphList)
 			{
 			graph.repaint();
 			}
@@ -123,7 +95,6 @@ public class JFrameCentrale extends JFrame
 
 	// private PanelGraphe panel;
 	private JTabbedPane tabbedPane;
-	private long oldX;
 	// private PanelGraphe newTab;
 	private List<PanelStationMeteo> graphList;
 

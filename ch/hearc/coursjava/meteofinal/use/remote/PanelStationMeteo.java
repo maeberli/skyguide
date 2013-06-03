@@ -3,6 +3,7 @@ package ch.hearc.coursjava.meteofinal.use.remote;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -65,12 +67,17 @@ public class PanelStationMeteo extends JPanel
 		isRunning = new JLabel("Running");
 		isRunning.setForeground(Color.GREEN);
 
-		meteoServiceRemote.add(startStop);
+		Box box = Box.createHorizontalBox();
+		box.setSize(new Dimension(70,50));
+		box.add(startStop);
+		meteoServiceRemote.add(box);
+
 		meteoServiceRemote.add(isConnecting);
 		meteoServiceRemote.add(isRunning);
 
 		JPanel meteoServiceOptionsPanel = new JPanel();
 		meteoServiceOptionsPanel.setLayout(new BorderLayout());
+
 
 		meteoServiceOptionsPanel.add(new JPanelTitle("Meteo service options"), BorderLayout.NORTH);
 
@@ -96,7 +103,28 @@ public class PanelStationMeteo extends JPanel
 		meteoAffichageOptionsPanel.add(new JPanelTitle("Meteo affichage options"), BorderLayout.NORTH);
 
 		JPanel affichageOptions = new JPanel();
-		affichageOptions.setLayout(new GridLayout(1, 1));
+		affichageOptions.setLayout(new GridLayout(6, 2));
+
+
+		labelMinT = new JLabel("temperature minimum");
+		labelMaxT = new JLabel("temperature maximum");
+		labelMinP = new JLabel("Pression minimum");
+		labelMaxP = new JLabel("pression maximum");
+		labelMinA = new JLabel("altitude minimum");
+		labelMaxA = new JLabel("altitude maximum");
+
+		affichageOptions.add(new JLabel("temperature minimum"));
+		affichageOptions.add(labelMinT);
+		affichageOptions.add(new JLabel("temperature maximum"));
+		affichageOptions.add(labelMaxT);
+		affichageOptions.add(new JLabel("pression minimum"));
+		affichageOptions.add(labelMinP);
+		affichageOptions.add(new JLabel("pression maximum"));
+		affichageOptions.add(labelMaxP);
+		affichageOptions.add(new JLabel("altitude minimum"));
+		affichageOptions.add(labelMinA);
+		affichageOptions.add(new JLabel("altitude maximum"));
+		affichageOptions.add(labelMaxA);
 
 		meteoAffichageOptionsPanel.add(affichageOptions);
 
@@ -227,6 +255,23 @@ public class PanelStationMeteo extends JPanel
 		sliderAltitudeDT.setValue((int)meteoServiceOptions.getAltitudeDT());
 		}
 
+	public void updateAffichageOptions()
+		{
+		minT = (float)panelGrapheTemperature.getGraphe().getSeriesMemoire().getMinY();
+		maxT = (float)panelGrapheTemperature.getGraphe().getSeriesMemoire().getMaxY();
+		minP = (float)panelGraphePression.getGraphe().getSeriesMemoire().getMinY();
+		maxP = (float)panelGraphePression.getGraphe().getSeriesMemoire().getMaxY();
+		minA = (float)panelGrapheAltitude.getGraphe().getSeriesMemoire().getMinY();
+		maxA = (float)panelGrapheAltitude.getGraphe().getSeriesMemoire().getMaxY();
+
+		labelMinT.setText(String.valueOf(minT));
+		labelMaxT.setText(String.valueOf(maxT));
+		labelMinP.setText(String.valueOf(minP));
+		labelMaxP.setText(String.valueOf(maxP));
+		labelMinA.setText(String.valueOf(minA));
+		labelMaxA.setText(String.valueOf(maxA));
+		}
+
 	/*------------------------------*\
 	|*				Set				*|
 	\*------------------------------*/
@@ -250,11 +295,6 @@ public class PanelStationMeteo extends JPanel
 		return panelGrapheAltitude;
 		}
 
-	public MeteoServiceWrapper_I getMeteoServiceWrapper()
-		{
-		return meteoServiceRemote;
-		}
-
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
@@ -276,4 +316,19 @@ public class PanelStationMeteo extends JPanel
 	private JSlider sliderTemperatureDT;
 	private JSlider sliderPressionDT;
 	private JSlider sliderAltitudeDT;
+
+	private float minT = 0;
+	private float maxT = 0;
+	private float minP = 0;
+	private float maxP = 0;
+	private float minA = 0;
+	private float maxA = 0;
+
+	private JLabel labelMinT;
+	private JLabel labelMaxT;
+	private JLabel labelMinP;
+	private JLabel labelMaxP;
+	private JLabel labelMinA;
+	private JLabel labelMaxA;
+
 	}

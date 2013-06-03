@@ -32,6 +32,7 @@ public class AfficheurService implements AfficheurService_I
 		{
 		this.panelStationMeteo.getPanelGraphePression().getGraphe().addToDataset(event.getTime(), event.getValue());
 		this.panelStationMeteo.getPanelGraphePression().getGraphe().toAffichage();
+		this.panelStationMeteo.updateAffichageOptions();
 		this.panelStationMeteo.getPanelGraphePression().repaint();
 		}
 
@@ -39,6 +40,7 @@ public class AfficheurService implements AfficheurService_I
 		{
 		this.panelStationMeteo.getPanelGrapheAltitude().getGraphe().addToDataset(event.getTime(), event.getValue());
 		this.panelStationMeteo.getPanelGrapheAltitude().getGraphe().toAffichage();
+		this.panelStationMeteo.updateAffichageOptions();
 		this.panelStationMeteo.getPanelGrapheAltitude().repaint();
 		}
 
@@ -46,6 +48,7 @@ public class AfficheurService implements AfficheurService_I
 		{
 		this.panelStationMeteo.getPanelGrapheTemperature().getGraphe().addToDataset(event.getTime(), event.getValue());
 		this.panelStationMeteo.getPanelGrapheTemperature().getGraphe().toAffichage();
+		this.panelStationMeteo.updateAffichageOptions();
 		this.panelStationMeteo.getPanelGrapheTemperature().repaint();
 		}
 
