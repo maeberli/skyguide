@@ -28,6 +28,9 @@ public class PCCentral implements PC_I
 			}
 		catch (Exception e)
 			{
+			System.err.println("ERREUR: " + e);
+
+			System.exit(-1);
 			}
 		}
 

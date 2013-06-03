@@ -12,7 +12,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 
 import javax.swing.Box;
@@ -73,7 +72,7 @@ public class JFrameLocal extends JFrame
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 
-	private void connect() throws RemoteException, MeteoServiceException
+	private void connect() throws Exception
 		{
 		final MeteoService_I meteoService = MeteoServiceFactory.create(portsCom.getItemAt(portsCom.getSelectedIndex()));
 
@@ -128,9 +127,9 @@ public class JFrameLocal extends JFrame
 		RmiURL rmiUrlAfficheurManager = new RmiURL(RMI_ID_AFFICHEUR_MANAGER, inetAddressServer, RmiTools.PORT_RMI_DEFAUT);
 		AfficheurManager_I afficheurManager = (AfficheurManager_I)RmiTools.connectionRemoteObjectBloquant(rmiUrlAfficheurManager);
 
-		RmiURL rmiUrlAfficheurService = afficheurManager.createRemoteAfficheurService(affichageOptions, new RmiURL(name, inetAddressLocal, RmiTools.PORT_RMI_DEFAUT));
+		AfficheurManager_I afficheurManager = (AfficheurManager_I)RmiTools.connectionRemoteObjectBloquant(rmiUrlAfficheurManager);
 
-		System.out.println("RMI URL AFFICHEUR_MANAGER [" + rmiUrlAfficheurService.getServeurHostAdress() + "]");
+		RmiURL rmiUrlAfficheurService = afficheurManager.createRemoteAfficheurService(affichageOptions, new RmiURL(name, inetAddressLocal, RmiTools.PORT_RMI_DEFAUT));
 
 		final AfficheurServiceWrapper_I afficheurService = (AfficheurServiceWrapper_I)RmiTools.connectionRemoteObjectBloquant(new RmiURL(rmiUrlAfficheurService.getIdObjectRMI(), inetAddressServer, RmiTools.PORT_RMI_DEFAUT));
 
@@ -195,6 +194,7 @@ public class JFrameLocal extends JFrame
 			}
 		catch (MeteoServiceException e)
 			{
+			// System.exit(-1);
 			}
 		meteoService.start(meteoServiceOptions);
 
@@ -381,17 +381,11 @@ public class JFrameLocal extends JFrame
 
 						JFrameLocal.this.connect();
 						}
-					catch (RemoteException e)
+					catch (Exception e)
 						{
-						System.err.println("Erreur avec RemoteException !");
-						}
-					catch (MeteoServiceException e)
-						{
-						System.err.println("Erreur avec MeteoServiceException !");
-						}
-					catch (UnknownHostException e)
-						{
-						System.err.println("Erreur avec UnknownHostException !");
+						System.err.println("TEST");
+						System.err.println(e);
+						System.exit(-1);
 						}
 					}
 			});
