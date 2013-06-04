@@ -1,10 +1,12 @@
-
 package ch.hearc.coursjava.meteofinal.meteo;
 
+import ch.hearc.coursjava.meteofinal.com.logique.MeteoServiceCallback_I;
+import ch.hearc.coursjava.meteofinal.com.real.MeteoService;
+import ch.hearc.coursjava.meteofinal.com.real.com.ComConnexion;
+import ch.hearc.coursjava.meteofinal.com.real.com.ComOption;
 import ch.hearc.coursjava.meteofinal.com.simulateur.MeteoServiceSimulateur;
 
-public class MeteoServiceFactory
-	{
+public class MeteoServiceFactory {
 
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
@@ -26,15 +28,19 @@ public class MeteoServiceFactory
 	 * 		Mac 	: ??
 	 * </pre>
 	 */
-	public static MeteoService_I create(String portName)
-		{
-		// ComConnexion comConnexion = new ComConnexion(portName, new ComOption());
-		// MeteoServiceCallback_I meteoService = new MeteoService(comConnexion);
-		// comConnexion.setMSC(meteoService);
-		// return (MeteoService_I) meteoService;
+	public static MeteoService_I create(String portName) {
 
-		return new MeteoServiceSimulateur(portName);
+		if ("Simulateur".equals(portName)) {
+			return new MeteoServiceSimulateur(portName);
+		} else {
+
+			ComConnexion comConnexion = new ComConnexion(portName,
+					new ComOption());
+			MeteoServiceCallback_I meteoService = new MeteoService(comConnexion);
+			comConnexion.setMSC(meteoService);
+			return (MeteoService_I) meteoService;
 		}
+	}
 
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
@@ -43,4 +49,4 @@ public class MeteoServiceFactory
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
-	}
+}
