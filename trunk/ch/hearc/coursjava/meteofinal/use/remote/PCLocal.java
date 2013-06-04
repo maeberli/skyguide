@@ -111,6 +111,20 @@ public class PCLocal implements PC_I
 					{
 					return meteoService.isConnect();
 					}
+
+				@Override
+				public void setMeteoServiceOptions(
+						MeteoServiceOptions meteoServiceOptions)
+						throws RemoteException {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void exitClient() throws RemoteException {
+					// TODO Auto-generated method stub
+					
+				}
 			};
 
 		String name = IdTools.createID("METEO_SERVICE_");
