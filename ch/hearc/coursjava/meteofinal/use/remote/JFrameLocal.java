@@ -6,7 +6,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
 
 public class JFrameLocal extends JFrame
@@ -29,6 +28,11 @@ public class JFrameLocal extends JFrame
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 
+	public void openNewTab()
+		{
+		tabbedPane.add("Station météo", new JPanelStationMeteoLocal(this));
+		}
+
 	/*------------------------------*\
 	|*				Set				*|
 	\*------------------------------*/
@@ -48,8 +52,7 @@ public class JFrameLocal extends JFrame
 
 		add(tabbedPane, BorderLayout.CENTER);
 
-		tabbedPane.add("Station météo", new JPanelStationMeteoLocal());
-		tabbedPane.add(new JLabel("TEST"));
+		tabbedPane.add("Station météo", new JPanelStationMeteoLocal(this));
 		}
 
 	private void controle()
