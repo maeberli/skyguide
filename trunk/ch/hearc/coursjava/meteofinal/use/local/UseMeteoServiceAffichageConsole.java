@@ -1,16 +1,12 @@
 package ch.hearc.coursjava.meteofinal.use.local;
 
-import java.sql.Time;
 import java.util.List;
 
 import ch.hearc.coursjava.meteofinal.meteo.MeteoPortDetectionServiceFactory;
 import ch.hearc.coursjava.meteofinal.meteo.MeteoPortDetectionService_I;
-import ch.hearc.coursjava.meteofinal.meteo.MeteoServiceFactory;
 import ch.hearc.coursjava.meteofinal.meteo.MeteoServiceOptions;
 import ch.hearc.coursjava.meteofinal.meteo.MeteoService_I;
 import ch.hearc.coursjava.meteofinal.meteo.exception.MeteoServiceException;
-import ch.hearc.coursjava.meteofinal.meteo.listener.MeteoListener_I;
-import ch.hearc.coursjava.meteofinal.meteo.listener.event.MeteoEvent;
 
 
 public class UseMeteoServiceAffichageConsole {
@@ -28,20 +24,19 @@ public class UseMeteoServiceAffichageConsole {
 	}
 
 	public static void main() throws MeteoServiceException {
-		
+
 		MeteoPortDetectionService_I portDetectService = MeteoPortDetectionServiceFactory.create();
-		
-		
+
+
 		List<String> listMeteoStations = portDetectService.findPortNameMeteo();
-		MeteoService_I meteoService = null;
-		
+
 		for (String port : listMeteoStations) {
 			// create meteoservices in list?
 			System.out.println("Port list : " + port);
 			System.exit(1);
 			//meteoService = MeteoServiceFactory.create(port);
 		}
-		meteoService = MeteoServiceFactory.create("/dev/tty.SLAB_USBtoUART");
+		/*meteoService = MeteoServiceFactory.create("/dev/tty.SLAB_USBtoUART");
 
 		meteoService.connect();
 
@@ -63,7 +58,7 @@ public class UseMeteoServiceAffichageConsole {
 			}
 		});
 
-		scenario(meteoService);
+		scenario(meteoService);*/
 	}
 
 	/*------------------------------------------------------------------*\
@@ -88,7 +83,7 @@ public class UseMeteoServiceAffichageConsole {
 		meteoService.disconnect();
 		sleep(100);
 		meteoService.stop();
-		
+
 		meteoService.connect();
 		meteoService.start(meteoServiceOptions2);
 		sleep(10000);
