@@ -3,6 +3,8 @@ package ch.hearc.coursjava.meteofinal.use.remote;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.rmi.RemoteException;
@@ -61,7 +63,7 @@ public class JFrameLocal extends JFrame
 		{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		// Enlever l'onglet du client sur le serveur.
+		// Enlever les onglets du client sur le serveur.
 		addWindowListener(new WindowAdapter()
 			{
 
@@ -90,9 +92,10 @@ public class JFrameLocal extends JFrame
 
 	private void apparence()
 		{
-		setTitle("Nouvelle station météo");
-		setLocation(100, 10);
+		setTitle("Stations météo locales");
 		setSize(800, 400);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation((int)((dim.getWidth() - getWidth()) / 2), (int)((dim.getHeight() - getHeight()) / 2));
 
 		setVisible(true);
 		}

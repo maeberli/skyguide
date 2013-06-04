@@ -50,6 +50,12 @@ public class AfficheurServiceWrapper implements AfficheurServiceWrapper_I
 		afficheurService.removeTab();
 		}
 
+	@Override
+	public void majStartStop(String startStop) throws RemoteException
+		{
+		afficheurService.majStartStop(startStop);
+		}
+
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/

@@ -64,6 +64,13 @@ public class AfficheurService implements AfficheurService_I
 		PCCentral.frameGraphe.removeStationMeteo(panelStationMeteo);
 		}
 
+
+	@Override
+	public void majStartStop(String startStop)
+		{
+		this.panelStationMeteo.majStartStop(startStop);
+		}
+
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/

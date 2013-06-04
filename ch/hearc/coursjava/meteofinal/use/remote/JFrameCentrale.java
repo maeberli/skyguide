@@ -3,6 +3,8 @@ package ch.hearc.coursjava.meteofinal.use.remote;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.rmi.RemoteException;
@@ -104,9 +106,10 @@ public class JFrameCentrale extends JFrame
 
 	private void apparence()
 		{
-		setSize(800, 600);
 		setTitle("JFramePCCentrale");
-		setLocation(30, 30);
+		setSize(800, 600);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation((int)((dim.getWidth() - getWidth()) / 2), (int)((dim.getHeight() - getHeight()) / 2));
 		setResizable(true);
 
 		setVisible(true);
