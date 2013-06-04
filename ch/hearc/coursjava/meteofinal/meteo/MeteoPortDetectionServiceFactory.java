@@ -1,6 +1,8 @@
 
 package ch.hearc.coursjava.meteofinal.meteo;
 
+import ch.hearc.coursjava.meteofinal.com.real.com.MeteoPortDetectionService;
+
 
 public class MeteoPortDetectionServiceFactory
 	{
@@ -22,7 +24,7 @@ public class MeteoPortDetectionServiceFactory
 		// TODO
 
 		// Provisoire
-		return null;
+		return (MeteoPortDetectionService_I)MeteoPortDetectionService.getInstance();
 		}
 
 	/*------------------------------------------------------------------*\
