@@ -11,6 +11,7 @@ import javax.swing.Box;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
@@ -37,19 +38,10 @@ public class JPanelPortDetection extends JPanel {
 		appearance();
 	}
 
-	public static void main(String[] args) {
-		JFrame testFrame = new JFrame();
-		testFrame.setContentPane(new JPanelPortDetection(null));
-		testFrame.setSize(300, 500);
-		testFrame.setResizable(false);
-		testFrame.setVisible(true);
-	}
-
 	private void geometry() {
-		setLayout(new MigLayout("flowy, fillx, filly", "[grow,fill]", ""));
 		setOpaque(false);
-		btnAddToExcluded = new JButton(">>>>>");
-		btnRemFromExcluded = new JButton("<<<<<");
+		btnAddToExcluded = new JButton("Exclure >>>");
+		btnRemFromExcluded = new JButton("<<< Autoriser");
 		btnAutoDetect = new JButton("Auto-Detect Stations");
 		allPortsListModel = new DefaultListModel<String>();
 		excludedPortsListModel = new DefaultListModel<String>();
@@ -121,10 +113,10 @@ public class JPanelPortDetection extends JPanel {
 					if (!foundStationsListModel.contains(station)) {
 						foundStationsList.add(station);
 						foundStationsListModel.addElement(station);
-						//if(panelStation.getPortsComboBoxModel().getIndexOf(station) == -1)
-							//{
+						if(panelStation.getComboBoxModel().getIndexOf(station) == -1)
+							{
 							panelStation.getPortsComboBox().addItem(station);
-							//}
+							}
 					}
 				}
 			}
@@ -132,18 +124,23 @@ public class JPanelPortDetection extends JPanel {
 	}
 
 	private void appearance() {
-		JPanel panelNorth = new JPanel();
+		setLayout(new MigLayout("flowx, fillx, filly", "[grow,left][grow,fill,][grow,right]", ""));
+
+		/*JPanel panelNorth = new JPanel();
 		panelNorth.setOpaque(false);
 		panelNorth.setLayout(new MigLayout("flowx, fillx, filly",
 				"[center][grow, fill, right]", "[center]"));
 
-		panelNorth.add(btnAutoDetect);
+		panelNorth.add(btnAutoDetect);*/
 		//panelNorth.add(jListFoundStations, "w 100, h 150");
-		add(panelNorth, "north");
-		add(jListAllPorts, "west, w 100, h 150");
-		add(btnAddToExcluded);
-		add(btnRemFromExcluded);
-		add(jListExcludedPorts, "east, w 100, h 150");
+		//add(panelNorth, "north, span");
+		add(new JLabel("Ports COM branchés"), "spanx");
+		add(jListAllPorts, "w 100, h 300, grow");
+		add(btnAutoDetect, "flowy, cell 1 0");
+		add(btnAddToExcluded, "flowy, cell 1 1");
+		add(btnRemFromExcluded, "cell 1 1");
+		add(new JLabel("Ports COM exclus"), "cell 2 0");
+		add(jListExcludedPorts, "w 100, h 300,grow,cell 2 1");
 	}
 
 	// Inputs

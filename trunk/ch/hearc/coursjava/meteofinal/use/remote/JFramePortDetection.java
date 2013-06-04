@@ -11,7 +11,7 @@ public class JFramePortDetection extends JDialog {
 	public JFramePortDetection(JPanelStationMeteoLocal panelStation) {
 		setModal(true);
 		setContentPane(new JPanelPortDetection(panelStation));
-		setSize(200, 300);
+		setSize(500, 300);
 		setVisible(true);
 	}
 }

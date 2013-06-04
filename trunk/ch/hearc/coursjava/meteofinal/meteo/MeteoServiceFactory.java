@@ -30,16 +30,17 @@ public class MeteoServiceFactory {
 	 */
 	public static MeteoService_I create(String portName) {
 
-		//if ("Simulateur".equals(portName)) {
+		if ("Simulateur".equals(portName)) {
 			return new MeteoServiceSimulateur(portName);
-		/*} else {
+		}
+		 else {
 
 			ComConnexion comConnexion = new ComConnexion(portName,
 					new ComOption());
 			MeteoServiceCallback_I meteoService = new MeteoService(comConnexion);
 			comConnexion.setMSC(meteoService);
 			return (MeteoService_I) meteoService;
-		}*/
+		}
 	}
 
 	/*------------------------------------------------------------------*\
