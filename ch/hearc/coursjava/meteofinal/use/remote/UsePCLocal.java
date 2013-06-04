@@ -28,7 +28,7 @@ public class UsePCLocal
 			System.out.println("[UsePCLocal] Set look and feel failed !");
 			}
 
-		new JFrameLocal(0);
+		new JFrameLocal();
 		}
 
 	/*------------------------------------------------------------------*\

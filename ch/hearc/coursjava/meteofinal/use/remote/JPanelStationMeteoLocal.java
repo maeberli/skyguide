@@ -73,6 +73,11 @@ public class JPanelStationMeteoLocal extends JPanel
 	return portsCom;
 	}
 
+	public AfficheurServiceWrapper_I getAfficheurService()
+		{
+		return afficheurService;
+		}
+
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
@@ -132,7 +137,7 @@ public class JPanelStationMeteoLocal extends JPanel
 				@Override
 				public void exitClient() throws RemoteException
 					{
-					// System.exit(0);
+					System.exit(0);
 					}
 			};
 
@@ -146,7 +151,7 @@ public class JPanelStationMeteoLocal extends JPanel
 
 		RmiURL rmiUrlAfficheurService = afficheurManager.createRemoteAfficheurService(affichageOptions, new RmiURL(name, inetAddressLocal, RmiTools.PORT_RMI_DEFAUT));
 
-		final AfficheurServiceWrapper_I afficheurService = (AfficheurServiceWrapper_I)RmiTools.connectionRemoteObjectBloquant(new RmiURL(rmiUrlAfficheurService.getIdObjectRMI(), inetAddressServer, RmiTools.PORT_RMI_DEFAUT));
+		afficheurService = (AfficheurServiceWrapper_I)RmiTools.connectionRemoteObjectBloquant(new RmiURL(rmiUrlAfficheurService.getIdObjectRMI(), inetAddressServer, RmiTools.PORT_RMI_DEFAUT));
 
 		meteoService.addMeteoListener(new MeteoListener_I()
 			{
@@ -264,23 +269,6 @@ public class JPanelStationMeteoLocal extends JPanel
 						}
 					}
 			});
-
-		// Enlever l'onglet du client sur le serveur.
-		/*addWindowListener(new WindowAdapter()
-			{
-
-				@Override
-				public void windowClosing(WindowEvent event)
-					{
-					try
-						{
-						afficheurService.removeTab();
-						}
-					catch (RemoteException e)
-						{
-						}
-					}
-			});*/
 		}
 
 	private void geometrie()
@@ -412,6 +400,8 @@ public class JPanelStationMeteoLocal extends JPanel
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
+
+	private AfficheurServiceWrapper_I afficheurService;
 
 	private JFrameLocal frameLocal;
 

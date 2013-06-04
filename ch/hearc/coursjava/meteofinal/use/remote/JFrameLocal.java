@@ -2,11 +2,15 @@
 package ch.hearc.coursjava.meteofinal.use.remote;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.rmi.RemoteException;
 
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
+
+import ch.hearc.coursjava.meteofinal.reseau.AfficheurServiceWrapper_I;
 
 public class JFrameLocal extends JFrame
 	{
@@ -15,10 +19,8 @@ public class JFrameLocal extends JFrame
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JFrameLocal(int test)
+	public JFrameLocal()
 		{
-		System.out.println(test);
-
 		geometrie();
 		controle();
 		apparence();
@@ -66,14 +68,22 @@ public class JFrameLocal extends JFrame
 				@Override
 				public void windowClosing(WindowEvent event)
 					{
-					/*try
+					for(Component c:tabbedPane.getComponents())
 						{
-						afficheurService.removeTab();
+						JPanelStationMeteoLocal panelStationMeteoLocal = (JPanelStationMeteoLocal)c;
+
+						AfficheurServiceWrapper_I afficheurService = panelStationMeteoLocal.getAfficheurService();
+						if (afficheurService != null)
+							{
+							try
+								{
+								afficheurService.removeTab();
+								}
+							catch (RemoteException e)
+								{
+								}
+							}
 						}
-					catch (RemoteException e)
-						{
-						}*/
-					System.out.println("TEST");
 					}
 			});
 		}
