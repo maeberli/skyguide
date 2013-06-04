@@ -44,8 +44,10 @@ public class JPanelStationMeteoLocal extends JPanel
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
-	public JPanelStationMeteoLocal()
+	public JPanelStationMeteoLocal(JFrameLocal frameLocal)
 		{
+		this.frameLocal = frameLocal;
+
 		geometrie();
 		controle();
 		apparence();
@@ -72,6 +74,8 @@ public class JPanelStationMeteoLocal extends JPanel
 
 	private void connect() throws Exception
 		{
+		frameLocal.openNewTab();
+
 		final MeteoService_I meteoService = MeteoServiceFactory.create(portsCom.getItemAt(portsCom.getSelectedIndex()));
 
 		MeteoServiceWrapper_I meteoServiceWrapper = new MeteoServiceWrapper_I()
@@ -115,6 +119,9 @@ public class JPanelStationMeteoLocal extends JPanel
 					sliderTemperatureDT.setValue((int)meteoServiceOptions.getTemperatureDT());
 					sliderPressionDT.setValue((int)meteoServiceOptions.getPressionDT());
 					sliderAltitudeDT.setValue((int)meteoServiceOptions.getAltitudeDT());
+
+					meteoService.stop();
+					meteoService.start(meteoServiceOptions);
 					}
 
 				@Override
@@ -400,6 +407,8 @@ public class JPanelStationMeteoLocal extends JPanel
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
+
+	private JFrameLocal frameLocal;
 
 	private PanelGraphe panelGrapheTemperature;
 	private PanelGraphe panelGraphePression;
