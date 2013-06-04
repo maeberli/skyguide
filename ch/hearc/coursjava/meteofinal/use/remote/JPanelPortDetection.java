@@ -46,7 +46,7 @@ public class JPanelPortDetection extends JPanel {
 	}
 
 	private void geometry() {
-		setLayout(new MigLayout("fillx, filly", "[grow,fill]", ""));
+		setLayout(new MigLayout("flowy, fillx, filly", "[grow,fill]", ""));
 		setOpaque(false);
 		btnAddToExcluded = new JButton(">>>>>");
 		btnRemFromExcluded = new JButton("<<<<<");
@@ -78,7 +78,6 @@ public class JPanelPortDetection extends JPanel {
 	}
 
 	private void control() {
-
 		btnAddToExcluded.addActionListener(new ActionListener() {
 
 			@Override
@@ -115,16 +114,10 @@ public class JPanelPortDetection extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// List<String> stations =
-				// detectionService.findPortNameMeteo(excludedPortsList);
-
-				List<String> list = new ArrayList<String>();
-
-				list.add("test1");
-				list.add("test2");
-				list.add("test3");
-				list.add("test4");
-				for (String station : list) {
+				 List<String> stations =
+				 detectionService.findPortNameMeteo(excludedPortsList);
+				 
+				for (String station : stations) {
 					if (!foundStationsListModel.contains(station)) {
 						foundStationsList.add(station);
 						foundStationsListModel.addElement(station);
