@@ -304,7 +304,7 @@ public class JPanelStationMeteoLocal extends JPanel
 		// portCom = new JTextField("Port COM");
 		// portCom.setText("COM1");
 
-		String[] ports = {"COM1", "COM2", "COM3", "COM4", "COM5"};
+		String[] ports = {"COM1", "COM2", "COM3", "COM4", "COM7","COM8"};
 		portsCom = new JComboBox<String>(ports);
 
 		startStop = new JButton("Start");

@@ -24,7 +24,7 @@ public class MeteoPortDetectionServiceFactory
 		// TODO
 
 		// Provisoire
-		return (MeteoPortDetectionService_I)MeteoPortDetectionService.getInstance();
+		return MeteoPortDetectionService.getInstance();
 		}
 
 	/*------------------------------------------------------------------*\
