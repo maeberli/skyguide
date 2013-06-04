@@ -15,7 +15,6 @@ import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.StandardChartTheme;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
@@ -86,25 +85,27 @@ public class PanelGraphe extends JPanel
 	private void dessiner(Graphics2D g2d)
 		{
 		// Generate the graph
-		chart = ChartFactory.createXYLineChart(this.label, // Title
+		chart = ChartFactory.createTimeSeriesChart(this.label, // Title
 				this.xLabel, // x-axis Label
 				this.yLabel, // y-axis Label
 				graphe.getDataSet(), // Dataset
-				PlotOrientation.VERTICAL, // Plot Orientation
-				true, // Show Legend
+				false, // Show Legend
 				true, // Use tooltips
 				false // Configure chart to generate URLs?
 				);
 
 		StandardChartTheme theme = (StandardChartTheme)org.jfree.chart.StandardChartTheme.createJFreeTheme();
 
-		theme.setTitlePaint(Color.decode("#4572a7"));
-		theme.setRangeGridlinePaint(Color.decode("#C0C0C0"));
-		theme.setPlotBackgroundPaint(Color.white);
-		theme.setChartBackgroundPaint(Color.white);
+		theme.setTitlePaint(Color.WHITE);
+		theme.setRangeGridlinePaint(Color.WHITE);
+		theme.setPlotBackgroundPaint(Color.DARK_GRAY);
+		theme.setChartBackgroundPaint(Color.DARK_GRAY);
+		theme.setAxisLabelPaint(Color.WHITE);
+		theme.setTickLabelPaint(Color.WHITE);
+		theme.setPlotOutlinePaint(Color.WHITE);
+
 		theme.setAxisOffset(new RectangleInsets(0, 0, 0, 0));
 		theme.setBarPainter(new StandardBarPainter());
-		theme.setAxisLabelPaint(Color.decode("#666666"));
 		theme.apply(chart);
 
 		XYPlot plot = (XYPlot)chart.getPlot();
@@ -116,7 +117,7 @@ public class PanelGraphe extends JPanel
 			{
 			XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer)r;
 
-			renderer.setSeriesPaint(0, Color.BLUE);
+			renderer.setSeriesPaint(0, Color.WHITE);
 			}
 
 		chart.draw(g2d, new Rectangle2D.Double(0, 0, this.getWidth(), this.getHeight()));
