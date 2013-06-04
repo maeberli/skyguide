@@ -25,8 +25,8 @@ import ch.hearc.coursjava.meteofinal.meteo.MeteoPortDetectionService_I;
 
 public class JPanelPortDetection extends JPanel {
 
-	JPanelPortDetection(JFrameLocal frameLocal) {
-		this.frameLocal = frameLocal;
+	JPanelPortDetection(JPanelStationMeteoLocal panelStation) {
+		this.panelStation = panelStation;
 
 		excludedPortsList = new ArrayList<String>();
 		portsList = new ArrayList<String>();
@@ -121,6 +121,10 @@ public class JPanelPortDetection extends JPanel {
 					if (!foundStationsListModel.contains(station)) {
 						foundStationsList.add(station);
 						foundStationsListModel.addElement(station);
+						//if(panelStation.getPortsComboBoxModel().getIndexOf(station) == -1)
+							//{
+							panelStation.getPortsComboBox().addItem(station);
+							//}
 					}
 				}
 			}
@@ -133,8 +137,8 @@ public class JPanelPortDetection extends JPanel {
 		panelNorth.setLayout(new MigLayout("flowx, fillx, filly",
 				"[center][grow, fill, right]", "[center]"));
 
-		panelNorth.add(btnAutoDetect, "");
-		panelNorth.add(jListFoundStations, "w 100, h 150");
+		panelNorth.add(btnAutoDetect);
+		//panelNorth.add(jListFoundStations, "w 100, h 150");
 		add(panelNorth, "north");
 		add(jListAllPorts, "west, w 100, h 150");
 		add(btnAddToExcluded);
@@ -143,7 +147,7 @@ public class JPanelPortDetection extends JPanel {
 	}
 
 	// Inputs
-	private JFrameLocal frameLocal;
+	private JPanelStationMeteoLocal panelStation;
 
 	// Tools
 

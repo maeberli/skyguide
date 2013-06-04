@@ -280,7 +280,7 @@ public class JPanelStationMeteoLocal extends JPanel
 		// portCom.setText("COM1");
 
 		String[] ports = { "COM1", "COM2", "COM3", "COM4", "COM7", "COM8" };
-		portsCom = new JComboBox<String>(ports);
+		portsCom = new JComboBox<String>();
 
 		startStop = new JButton("Start");
 		startStop.setPreferredSize(new Dimension(10, 10));
@@ -438,6 +438,17 @@ public class JPanelStationMeteoLocal extends JPanel
 						}
 					}
 			});
+		portsCom.addMouseListener(new MouseAdapter() {
+
+
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if (portsCom.getItemCount() == 0)
+				{
+					new JFramePortDetection(JPanelStationMeteoLocal.this);
+				}
+			}
+		});
 		}
 
 	private void apparence()
