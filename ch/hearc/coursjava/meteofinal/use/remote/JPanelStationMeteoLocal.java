@@ -13,6 +13,7 @@ import java.net.InetAddress;
 import java.rmi.RemoteException;
 
 import javax.swing.Box;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -74,6 +75,11 @@ public class JPanelStationMeteoLocal extends JPanel
 		{
 		return portsCom;
 		}
+	
+	public DefaultComboBoxModel<String> getComboBoxModel()
+	{
+		return portsComModel;
+	}
 
 	public AfficheurServiceWrapper_I getAfficheurService()
 		{
@@ -279,8 +285,10 @@ public class JPanelStationMeteoLocal extends JPanel
 		// portCom = new JTextField("Port COM");
 		// portCom.setText("COM1");
 
-		String[] ports = { "COM1", "COM2", "COM3", "COM4", "COM7", "COM8" };
-		portsCom = new JComboBox<String>();
+		//String[] ports = { "COM1", "COM2", "COM3", "COM4", "COM7", "COM8" };
+		portsComModel = new DefaultComboBoxModel<String>();
+		
+		portsCom = new JComboBox<String>(portsComModel);
 
 		startStop = new JButton("Start");
 		startStop.setPreferredSize(new Dimension(10, 10));
@@ -471,7 +479,10 @@ public class JPanelStationMeteoLocal extends JPanel
 	private JButton startStop;
 	private JTextField ipServer;
 	// private JTextField portCom;
+	
 	private JComboBox<String> portsCom;
+	private DefaultComboBoxModel<String> portsComModel;
+	
 	private JLabel isConnecting;
 	private JLabel isRunning;
 
