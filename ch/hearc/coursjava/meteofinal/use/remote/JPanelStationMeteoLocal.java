@@ -379,7 +379,10 @@ public class JPanelStationMeteoLocal extends JPanel
 					try
 						{
 						inetAddressServer = InetAddress.getByName(ipServer.getText());
-						inetAddressLocal = InetAddress.getLocalHost();
+						// inetAddressLocal = InetAddress.getLocalHost();
+
+						JDialogNetworkInterface dialogNetworkInterface = new JDialogNetworkInterface();
+						inetAddressLocal = dialogNetworkInterface.getInetAddressSelected();
 
 						JPanelStationMeteoLocal.this.connect();
 						}
