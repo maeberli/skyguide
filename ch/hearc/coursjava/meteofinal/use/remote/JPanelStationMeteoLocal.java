@@ -68,6 +68,11 @@ public class JPanelStationMeteoLocal extends JPanel
 	|*				Get				*|
 	\*------------------------------*/
 
+	public JComboBox<String> getPortsComboBox()
+	{
+	return portsCom;
+	}
+
 	/*------------------------------------------------------------------*\
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
