@@ -77,6 +77,10 @@ public class MeteoPortDetectionService implements MeteoPortDetectionService_I {
 			}
 		}
 
+		list.add("test1");
+		list.add("test2");
+		list.add("test3");
+		list.add("test4");
 		return list;
 	}
 
