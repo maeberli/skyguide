@@ -95,6 +95,11 @@ public class JFrameCentrale extends JFrame
 	public void removeStationMeteo(JPanel stationMeteo)
 		{
 		tabbedPane.remove(stationMeteo);
+
+		if (tabbedPane.getComponents().length == 0)
+			{
+			tabbedPane.add("Bienvenu sur la central météo", new JLabel("En attente de station météo ..."));
+			}
 		}
 
 	private void apparence()
