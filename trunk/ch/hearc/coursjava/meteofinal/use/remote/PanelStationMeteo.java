@@ -40,6 +40,24 @@ public class PanelStationMeteo extends JPanel
 	|*							Methodes Public							*|
 	\*------------------------------------------------------------------*/
 
+	public void majStartStop(String startStop)
+		{
+		System.out.println("TEST2" + startStop);
+
+		if (this.startStop.getText() == "Start")
+			{
+			this.startStop.setText("Stop");
+			isConnecting.setForeground(Color.GREEN);
+			isRunning.setForeground(Color.GREEN);
+			}
+		else
+			{
+			this.startStop.setText("Start");
+			isConnecting.setForeground(Color.RED);
+			isRunning.setForeground(Color.RED);
+			}
+		}
+
 	public void geometrie()
 		{
 		setLayout(new BorderLayout());

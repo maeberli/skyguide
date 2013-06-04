@@ -26,4 +26,6 @@ public interface AfficheurServiceWrapper_I extends Remote
 
 	public void removeTab() throws RemoteException;
 
+	public void majStartStop(String startStop) throws RemoteException;
+
 	}

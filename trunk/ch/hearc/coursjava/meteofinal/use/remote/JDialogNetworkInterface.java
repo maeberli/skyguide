@@ -1,7 +1,9 @@
 package ch.hearc.coursjava.meteofinal.use.remote;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -137,8 +139,9 @@ public class JDialogNetworkInterface extends JDialog {
 
 	private void setStyle() {
 		setTitle("Sélétionner la bonne interface réseau");
-		setLocation(100, 10);
 		setSize(350, 450);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		setLocation((int)((dim.getWidth() - getWidth()) / 2), (int)((dim.getHeight() - getHeight()) / 2));
 		setModal(true);
 
 		setVisible(true);

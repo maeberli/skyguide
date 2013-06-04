@@ -36,16 +36,18 @@ import com.bilat.tools.reseau.rmi.IdTools;
 import com.bilat.tools.reseau.rmi.RmiTools;
 import com.bilat.tools.reseau.rmi.RmiURL;
 
-
-
 public class JPanelStationMeteoLocal extends JPanel
 	{
+
 	/*------------------------------------------------------------------*\
 	|*							Constructeurs							*|
 	\*------------------------------------------------------------------*/
 
 	public JPanelStationMeteoLocal(JFrameLocal frameLocal)
 		{
+		meteoService = null;
+		afficheurService = null;
+
 		this.frameLocal = frameLocal;
 
 		geometrie();
@@ -69,9 +71,9 @@ public class JPanelStationMeteoLocal extends JPanel
 	\*------------------------------*/
 
 	public JComboBox<String> getPortsComboBox()
-	{
-	return portsCom;
-	}
+		{
+		return portsCom;
+		}
 
 	public AfficheurServiceWrapper_I getAfficheurService()
 		{
@@ -82,193 +84,173 @@ public class JPanelStationMeteoLocal extends JPanel
 	|*							Methodes Private						*|
 	\*------------------------------------------------------------------*/
 
-	private void connect() throws Exception
+	private void startStopMeteoServive() throws Exception
 		{
-		frameLocal.openNewTab();
-
-		final MeteoService_I meteoService = MeteoServiceFactory.create(portsCom.getItemAt(portsCom.getSelectedIndex()));
-
-		MeteoServiceWrapper_I meteoServiceWrapper = new MeteoServiceWrapper_I()
+		if (afficheurService != null)
 			{
-
-				@Override
-				public void stop() throws RemoteException
-					{
-					meteoService.stop();
-
-					isConnecting.setForeground(Color.RED);
-					isRunning.setForeground(Color.RED);
-					}
-
-				@Override
-				public void start(MeteoServiceOptions meteoServiceOptions) throws RemoteException
-					{
-					meteoService.start(meteoServiceOptions);
-
-					isConnecting.setForeground(Color.GREEN);
-					isRunning.setForeground(Color.GREEN);
-					}
-
-				@Override
-				public boolean isRunning() throws RemoteException
-					{
-					return meteoService.isRunning();
-					}
-
-				@Override
-				public boolean isConnect() throws RemoteException
-					{
-					return meteoService.isConnect();
-					}
-
-				@Override
-				public void setMeteoServiceOptions(MeteoServiceOptions meteoServiceOptions) throws RemoteException
-					{
-					JPanelStationMeteoLocal.this.meteoServiceOptions = meteoServiceOptions;
-
-					sliderTemperatureDT.setValue((int)meteoServiceOptions.getTemperatureDT());
-					sliderPressionDT.setValue((int)meteoServiceOptions.getPressionDT());
-					sliderAltitudeDT.setValue((int)meteoServiceOptions.getAltitudeDT());
-
-					meteoService.stop();
-					meteoService.start(meteoServiceOptions);
-					}
-
-				@Override
-				public void exitClient() throws RemoteException
-					{
-					System.exit(0);
-					}
-			};
-
-		String name = IdTools.createID("METEO_SERVICE_");
-		RmiURL rmiUrlMeteoService = new RmiURL(name, inetAddressLocal, RmiTools.PORT_RMI_DEFAUT);
-		RmiTools.shareObject(meteoServiceWrapper, rmiUrlMeteoService);
-
-		RmiURL rmiUrlAfficheurManager = new RmiURL(RMI_ID_AFFICHEUR_MANAGER, inetAddressServer, RmiTools.PORT_RMI_DEFAUT);
-
-		AfficheurManager_I afficheurManager = (AfficheurManager_I)RmiTools.connectionRemoteObjectBloquant(rmiUrlAfficheurManager);
-
-		RmiURL rmiUrlAfficheurService = afficheurManager.createRemoteAfficheurService(affichageOptions, new RmiURL(name, inetAddressLocal, RmiTools.PORT_RMI_DEFAUT));
-
-		afficheurService = (AfficheurServiceWrapper_I)RmiTools.connectionRemoteObjectBloquant(new RmiURL(rmiUrlAfficheurService.getIdObjectRMI(), inetAddressServer, RmiTools.PORT_RMI_DEFAUT));
-
-		meteoService.addMeteoListener(new MeteoListener_I()
-			{
-
-				@Override
-				public void temperaturePerformed(MeteoEvent event)
-					{
-					panelGrapheTemperature.getGraphe().addToDataset(event.getTime(), event.getValue());
-					panelGrapheTemperature.getGraphe().toAffichage();
-					panelGrapheTemperature.repaint();
-
-					try
-						{
-						afficheurService.printTemperature(event);
-						}
-					catch (RemoteException e)
-						{
-						// System.exit(-1);
-						}
-					}
-
-				@Override
-				public void pressionPerformed(MeteoEvent event)
-					{
-					panelGraphePression.getGraphe().addToDataset(event.getTime(), event.getValue());
-					panelGraphePression.getGraphe().toAffichage();
-					panelGraphePression.repaint();
-
-					try
-						{
-						afficheurService.printPression(event);
-						}
-					catch (RemoteException e)
-						{
-						// System.exit(-1);
-						}
-					}
-
-				@Override
-				public void altitudePerformed(MeteoEvent event)
-					{
-					panelGrapheAltitude.getGraphe().addToDataset(event.getTime(), event.getValue());
-					panelGrapheAltitude.getGraphe().toAffichage();
-					panelGrapheAltitude.repaint();
-
-					try
-						{
-						afficheurService.printAltitude(event);
-						}
-					catch (RemoteException e)
-						{
-						// System.exit(-1);
-						}
-					}
-			});
-
-		try
-			{
-			meteoService.connect();
+			System.out.println("TEST1");
+			afficheurService.majStartStop(startStop.getText());
 			}
-		catch (MeteoServiceException e)
+
+		if (startStop.getText() == "Start")
 			{
-			// System.exit(-1);
+			if (meteoService == null)
+				{
+				frameLocal.openNewTab();
+
+				meteoService = MeteoServiceFactory.create(portsCom.getItemAt(portsCom.getSelectedIndex()));
+
+				MeteoServiceWrapper_I meteoServiceWrapper = new MeteoServiceWrapper_I()
+					{
+
+						@Override
+						public void stop() throws RemoteException
+							{
+							meteoService.stop();
+
+							startStop.setText("Start");
+							isConnecting.setForeground(Color.RED);
+							isRunning.setForeground(Color.RED);
+							}
+
+						@Override
+						public void start(MeteoServiceOptions meteoServiceOptions) throws RemoteException
+							{
+							meteoService.start(meteoServiceOptions);
+
+							startStop.setText("Stop");
+							isConnecting.setForeground(Color.GREEN);
+							isRunning.setForeground(Color.GREEN);
+							}
+
+						@Override
+						public boolean isRunning() throws RemoteException
+							{
+							return meteoService.isRunning();
+							}
+
+						@Override
+						public boolean isConnect() throws RemoteException
+							{
+							return meteoService.isConnect();
+							}
+
+						@Override
+						public void setMeteoServiceOptions(MeteoServiceOptions meteoServiceOptions) throws RemoteException
+							{
+							JPanelStationMeteoLocal.this.meteoServiceOptions = meteoServiceOptions;
+
+							sliderTemperatureDT.setValue((int)meteoServiceOptions.getTemperatureDT());
+							sliderPressionDT.setValue((int)meteoServiceOptions.getPressionDT());
+							sliderAltitudeDT.setValue((int)meteoServiceOptions.getAltitudeDT());
+
+							meteoService.stop();
+							meteoService.start(meteoServiceOptions);
+							}
+
+						@Override
+						public void exitClient() throws RemoteException
+							{
+							System.exit(0);
+							}
+					};
+
+				String name = IdTools.createID("METEO_SERVICE_");
+				RmiURL rmiUrlMeteoService = new RmiURL(name, inetAddressLocal, RmiTools.PORT_RMI_DEFAUT);
+				RmiTools.shareObject(meteoServiceWrapper, rmiUrlMeteoService);
+
+				RmiURL rmiUrlAfficheurManager = new RmiURL(RMI_ID_AFFICHEUR_MANAGER, inetAddressServer, RmiTools.PORT_RMI_DEFAUT);
+
+				AfficheurManager_I afficheurManager = (AfficheurManager_I)RmiTools.connectionRemoteObjectBloquant(rmiUrlAfficheurManager);
+
+				RmiURL rmiUrlAfficheurService = afficheurManager.createRemoteAfficheurService(affichageOptions, new RmiURL(name, inetAddressLocal, RmiTools.PORT_RMI_DEFAUT));
+
+				afficheurService = (AfficheurServiceWrapper_I)RmiTools.connectionRemoteObjectBloquant(new RmiURL(rmiUrlAfficheurService.getIdObjectRMI(), inetAddressServer, RmiTools.PORT_RMI_DEFAUT));
+
+				meteoService.addMeteoListener(new MeteoListener_I()
+					{
+
+						@Override
+						public void temperaturePerformed(MeteoEvent event)
+							{
+							panelGrapheTemperature.getGraphe().addToDataset(event.getTime(), event.getValue());
+							panelGrapheTemperature.getGraphe().toAffichage();
+							panelGrapheTemperature.repaint();
+
+							try
+								{
+								afficheurService.printTemperature(event);
+								}
+							catch (RemoteException e)
+								{
+								// System.exit(-1);
+								}
+							}
+
+						@Override
+						public void pressionPerformed(MeteoEvent event)
+							{
+							panelGraphePression.getGraphe().addToDataset(event.getTime(), event.getValue());
+							panelGraphePression.getGraphe().toAffichage();
+							panelGraphePression.repaint();
+
+							try
+								{
+								afficheurService.printPression(event);
+								}
+							catch (RemoteException e)
+								{
+								// System.exit(-1);
+								}
+							}
+
+						@Override
+						public void altitudePerformed(MeteoEvent event)
+							{
+							panelGrapheAltitude.getGraphe().addToDataset(event.getTime(), event.getValue());
+							panelGrapheAltitude.getGraphe().toAffichage();
+							panelGrapheAltitude.repaint();
+
+							try
+								{
+								afficheurService.printAltitude(event);
+								}
+							catch (RemoteException e)
+								{
+								// System.exit(-1);
+								}
+							}
+					});
+
+				try
+					{
+					meteoService.connect();
+					}
+				catch (MeteoServiceException e)
+					{
+					System.err.println("MeteoService error !");
+					}
+				meteoService.start(meteoServiceOptions);
+				startStop.setText("Stop");
+				isConnecting.setForeground(Color.GREEN);
+				isRunning.setForeground(Color.GREEN);
+				}
+			else
+				{
+				meteoService.start(meteoServiceOptions);
+				startStop.setText("Stop");
+				isConnecting.setForeground(Color.GREEN);
+				isRunning.setForeground(Color.GREEN);
+				}
 			}
-		meteoService.start(meteoServiceOptions);
-
-		/* Mettre à jour les JSlider sur le serveur. */
-		sliderTemperatureDT.addMouseListener(new MouseAdapter()
+		else
+			// Stop
 			{
-
-				@Override
-				public void mouseReleased(MouseEvent event)
-					{
-					meteoServiceOptions.setTemperatureDT(sliderTemperatureDT.getValue());
-					try
-						{
-						afficheurService.setMeteoServiceOptions(meteoServiceOptions);
-						}
-					catch (RemoteException e)
-						{
-						}
-					}
-			});
-
-		sliderPressionDT.addMouseListener(new MouseAdapter()
-			{
-
-				@Override
-				public void mouseReleased(MouseEvent event)
-					{
-					meteoServiceOptions.setPressionDT(sliderPressionDT.getValue());
-					try
-						{
-						afficheurService.setMeteoServiceOptions(meteoServiceOptions);
-						}
-					catch (RemoteException e)
-						{
-						}
-					}
-			});
-
-		sliderAltitudeDT.addMouseListener(new MouseAdapter()
-			{
-
-				@Override
-				public void mouseReleased(MouseEvent event)
-					{
-					meteoServiceOptions.setAltitudeDT(sliderAltitudeDT.getValue());
-					try
-						{
-						afficheurService.setMeteoServiceOptions(meteoServiceOptions);
-						}
-					catch (RemoteException e)
-						{
-						}
-					}
-			});
+			meteoService.stop();
+			startStop.setText("Start");
+			isConnecting.setForeground(Color.RED);
+			isRunning.setForeground(Color.RED);
+			}
 		}
 
 	private void geometrie()
@@ -297,15 +279,15 @@ public class JPanelStationMeteoLocal extends JPanel
 		// portCom = new JTextField("Port COM");
 		// portCom.setText("COM1");
 
-		String[] ports = {"COM1", "COM2", "COM3", "COM4", "COM7","COM8"};
+		String[] ports = { "COM1", "COM2", "COM3", "COM4", "COM7", "COM8" };
 		portsCom = new JComboBox<String>(ports);
 
 		startStop = new JButton("Start");
-		startStop.setPreferredSize(new Dimension(10,10));
+		startStop.setPreferredSize(new Dimension(10, 10));
 		isConnecting = new JLabel("Connecting");
-		isConnecting.setForeground(Color.GREEN);
+		isConnecting.setForeground(Color.RED);
 		isRunning = new JLabel("Running");
-		isRunning.setForeground(Color.GREEN);
+		isRunning.setForeground(Color.RED);
 
 		Box box = Box.createHorizontalBox();
 		box.add(startStop);
@@ -368,8 +350,6 @@ public class JPanelStationMeteoLocal extends JPanel
 
 	private void controle()
 		{
-		// setDefaultCloseOperation(EXIT_ON_CLOSE);
-
 		startStop.addActionListener(new ActionListener()
 			{
 
@@ -378,19 +358,83 @@ public class JPanelStationMeteoLocal extends JPanel
 					{
 					try
 						{
-						inetAddressServer = InetAddress.getByName(ipServer.getText());
-						// inetAddressLocal = InetAddress.getLocalHost();
+						// Seulement si initialisation.
+						if (meteoService == null)
+							{
+							inetAddressServer = InetAddress.getByName(ipServer.getText());
+							// inetAddressLocal = InetAddress.getLocalHost();
 
-						JDialogNetworkInterface dialogNetworkInterface = new JDialogNetworkInterface();
-						inetAddressLocal = dialogNetworkInterface.getInetAddressSelected();
-
-						JPanelStationMeteoLocal.this.connect();
+							JDialogNetworkInterface dialogNetworkInterface = new JDialogNetworkInterface();
+							inetAddressLocal = dialogNetworkInterface.getInetAddressSelected();
+							}
+						// Start or stop MeteoService
+						JPanelStationMeteoLocal.this.startStopMeteoServive();
 						}
 					catch (Exception e)
 						{
-						System.err.println("TEST");
 						System.err.println(e);
 						System.exit(-1);
+						}
+					}
+			});
+
+		/* Mettre à jour les JSlider sur le serveur. */
+		sliderTemperatureDT.addMouseListener(new MouseAdapter()
+			{
+
+				@Override
+				public void mouseReleased(MouseEvent event)
+					{
+					meteoServiceOptions.setTemperatureDT(sliderTemperatureDT.getValue());
+					try
+						{
+						afficheurService.setMeteoServiceOptions(meteoServiceOptions);
+
+						meteoService.stop();
+						meteoService.start(meteoServiceOptions);
+						}
+					catch (RemoteException e)
+						{
+						}
+					}
+			});
+
+		sliderPressionDT.addMouseListener(new MouseAdapter()
+			{
+
+				@Override
+				public void mouseReleased(MouseEvent event)
+					{
+					meteoServiceOptions.setPressionDT(sliderPressionDT.getValue());
+					try
+						{
+						afficheurService.setMeteoServiceOptions(meteoServiceOptions);
+
+						meteoService.stop();
+						meteoService.start(meteoServiceOptions);
+						}
+					catch (RemoteException e)
+						{
+						}
+					}
+			});
+
+		sliderAltitudeDT.addMouseListener(new MouseAdapter()
+			{
+
+				@Override
+				public void mouseReleased(MouseEvent event)
+					{
+					meteoServiceOptions.setAltitudeDT(sliderAltitudeDT.getValue());
+					try
+						{
+						afficheurService.setMeteoServiceOptions(meteoServiceOptions);
+
+						meteoService.stop();
+						meteoService.start(meteoServiceOptions);
+						}
+					catch (RemoteException e)
+						{
 						}
 					}
 			});
@@ -404,6 +448,7 @@ public class JPanelStationMeteoLocal extends JPanel
 	|*							Attributs Private						*|
 	\*------------------------------------------------------------------*/
 
+	private MeteoService_I meteoService;
 	private AfficheurServiceWrapper_I afficheurService;
 
 	private JFrameLocal frameLocal;
@@ -432,7 +477,5 @@ public class JPanelStationMeteoLocal extends JPanel
 	private MeteoServiceOptions meteoServiceOptions;
 	private AffichageOptions affichageOptions;
 
-
 	private static final String RMI_ID_AFFICHEUR_MANAGER = "AFFICHEUR_MANAGER";
 	}
-

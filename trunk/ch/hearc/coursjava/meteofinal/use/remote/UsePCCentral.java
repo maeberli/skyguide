@@ -21,7 +21,7 @@ public class UsePCCentral
 		{
 		try
 			{
-			UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
+			UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
 			}
 		catch (Exception e)
 			{

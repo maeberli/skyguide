@@ -18,4 +18,6 @@ public interface AfficheurService_I
 
 	public void removeTab();
 
+	public void majStartStop(String startStop);
+
 	}
