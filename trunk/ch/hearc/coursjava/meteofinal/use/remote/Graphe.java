@@ -28,7 +28,7 @@ public class Graphe
 
 	public void addToDataset(long x, float y)
 		{
-		SimpleTimeZone timeZone = new SimpleTimeZone(2, "GMT");
+		SimpleTimeZone timeZone = new SimpleTimeZone(60*60*1000*2, "CEST");
 		//		if (old == 0)
 //			{
 //			seriesMemoire.add(0, y);
