@@ -99,7 +99,7 @@ public class PanelStationMeteo extends JPanel
 		meteoServiceOptionsPanel.setLayout(new BorderLayout());
 
 
-		meteoServiceOptionsPanel.add(new JPanelTitle("Statistiques Meteo"), BorderLayout.NORTH);
+		meteoServiceOptionsPanel.add(new JPanelTitle("Meteo service options"), BorderLayout.NORTH);
 
 		JPanel sliders = new JPanel();
 		sliders.setLayout(new GridLayout(3, 2, 10, 10));
@@ -120,7 +120,7 @@ public class PanelStationMeteo extends JPanel
 		JPanel meteoAffichageOptionsPanel = new JPanel();
 		meteoAffichageOptionsPanel.setLayout(new BorderLayout());
 
-		meteoAffichageOptionsPanel.add(new JPanelTitle("Meteo affichage options"), BorderLayout.NORTH);
+		meteoAffichageOptionsPanel.add(new JPanelTitle("Statistiques"), BorderLayout.NORTH);
 
 		JPanel affichageOptions = new JPanel();
 		affichageOptions.setLayout(new GridLayout(6, 1));
