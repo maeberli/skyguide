@@ -389,15 +389,23 @@ public class JPanelStationMeteoLocal extends JPanel
 		add(mainPanel, BorderLayout.CENTER);
 		}
 
-	private void controle() {
-		openPortDetecButton.addActionListener(new ActionListener() {
+	private void controle()
+		{
+		openPortDetecButton.addActionListener(new ActionListener()
+			{
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				new JFramePortDetection(JPanelStationMeteoLocal.this);
-			}
-		});
-		startStop.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent arg0)
+					{
+					new JFramePortDetection(JPanelStationMeteoLocal.this);
+					if (portsCom.getItemCount() != 0)
+						{
+						startStop.setEnabled(true);
+						}
+					}
+			});
+		startStop.addActionListener(new ActionListener()
+			{
 
 				@Override
 				public void actionPerformed(ActionEvent event)
@@ -487,22 +495,25 @@ public class JPanelStationMeteoLocal extends JPanel
 		portsCom.addMouseListener(new MouseAdapter()
 			{
 
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				if (portsCom.getItemCount() == 0) {
-					new JFramePortDetection(JPanelStationMeteoLocal.this);
-
-					if (portsCom.getItemCount() != 0)
+				@Override
+				public void mouseClicked(MouseEvent arg0)
+					{
+					if (portsCom.getItemCount() == 0)
 						{
-						startStop.setEnabled(true);
-						}
-				}
-			}
-		});
-	}
+						new JFramePortDetection(JPanelStationMeteoLocal.this);
 
-	private void apparence() {
-	}
+						if (portsCom.getItemCount() != 0)
+							{
+							startStop.setEnabled(true);
+							}
+						}
+					}
+			});
+		}
+
+	private void apparence()
+		{
+		}
 
 	/*------------------------------------------------------------------*\
 	|*							Attributs Private						*|
