@@ -11,8 +11,6 @@ import java.rmi.RemoteException;
 
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import ch.hearc.coursjava.meteofinal.reseau.AfficheurServiceWrapper_I;
 
@@ -70,16 +68,16 @@ public class JFrameLocal extends JFrame
 		{
 		setLayout(new BorderLayout());
 		tabbedPane = new JTabbedPane();
-		tabbedPane.addChangeListener(new ChangeListener()
-			{
-
-				@Override
-				public void stateChanged(ChangeEvent e)
-					{
-					System.out.println("prout");
-
-					}
-			});
+//		tabbedPane.addChangeListener(new ChangeListener()
+//			{
+//
+//				@Override
+//				public void stateChanged(ChangeEvent e)
+//					{
+//					System.out.println("change");
+//
+//					}
+//			});
 
 		add(tabbedPane, BorderLayout.CENTER);
 
