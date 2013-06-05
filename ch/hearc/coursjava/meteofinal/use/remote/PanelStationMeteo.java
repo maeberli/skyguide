@@ -123,7 +123,7 @@ public class PanelStationMeteo extends JPanel
 		meteoAffichageOptionsPanel.add(new JPanelTitle("Meteo affichage options"), BorderLayout.NORTH);
 
 		JPanel affichageOptions = new JPanel();
-		affichageOptions.setLayout(new GridLayout(6, 2));
+		affichageOptions.setLayout(new GridLayout(6, 1));
 
 
 		labelMinT = new JLabel("temperature minimum");
@@ -133,18 +133,38 @@ public class PanelStationMeteo extends JPanel
 		labelMinA = new JLabel("altitude minimum");
 		labelMaxA = new JLabel("altitude maximum");
 
-		affichageOptions.add(new JLabel("Temperature minimum: "));
-		affichageOptions.add(labelMinT);
-		affichageOptions.add(new JLabel("Temperature maximum: "));
-		affichageOptions.add(labelMaxT);
-		affichageOptions.add(new JLabel("Pression minimum: "));
-		affichageOptions.add(labelMinP);
-		affichageOptions.add(new JLabel("Pression maximum: "));
-		affichageOptions.add(labelMaxP);
-		affichageOptions.add(new JLabel("Altitude minimum: "));
-		affichageOptions.add(labelMinA);
-		affichageOptions.add(new JLabel("Altitude maximum: "));
-		affichageOptions.add(labelMaxA);
+		Box tMinBox = Box.createHorizontalBox();
+		Box tMaxBox = Box.createHorizontalBox();
+		Box pMinBox = Box.createHorizontalBox();
+		Box pMaxBox = Box.createHorizontalBox();
+		Box aMinBox = Box.createHorizontalBox();
+		Box aMaxBox = Box.createHorizontalBox();
+		
+		tMinBox.add(new JLabel("Temperature minimum: "));
+		tMinBox.add(Box.createHorizontalGlue());
+		tMinBox.add(labelMinT);
+		tMaxBox.add(new JLabel("Temperature maximum: "));
+		tMaxBox.add(Box.createHorizontalGlue());
+		tMaxBox.add(labelMaxT);
+		pMinBox.add(new JLabel("Pression minimum: "));
+		pMinBox.add(Box.createHorizontalGlue());
+		pMinBox.add(labelMinP);
+		pMaxBox.add(new JLabel("Pression maximum: "));
+		pMaxBox.add(Box.createHorizontalGlue());
+		pMaxBox.add(labelMaxP);
+		aMinBox.add(new JLabel("Altitude minimum: "));
+		aMinBox.add(Box.createHorizontalGlue());
+		aMinBox.add(labelMinA);
+		aMaxBox.add(new JLabel("Altitude maximum: "));;
+		aMaxBox.add(Box.createHorizontalGlue());
+		aMaxBox.add(labelMaxA);
+		
+		affichageOptions.add(tMinBox);
+		affichageOptions.add(tMaxBox);
+		affichageOptions.add(pMinBox);
+		affichageOptions.add(pMaxBox);
+		affichageOptions.add(aMinBox);
+		affichageOptions.add(aMaxBox);
 
 		meteoAffichageOptionsPanel.add(affichageOptions);
 
