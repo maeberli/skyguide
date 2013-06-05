@@ -34,7 +34,22 @@ public class JFrameLocal extends JFrame
 
 	public void openNewTab()
 		{
-		tabbedPane.add("Station météo", new JPanelStationMeteoLocal(this));
+		tabbedPane.add("Nouvelle station météo", new JPanelStationMeteoLocal(this));
+		}
+
+	public void majTitle(JPanelStationMeteoLocal panelStationMeteoLocal, String title)
+		{
+		int counter = 0;
+		for (Component c:tabbedPane.getComponents())
+			{
+			JPanelStationMeteoLocal panelStationMeteoLocal2 = (JPanelStationMeteoLocal)c;
+			if (panelStationMeteoLocal == panelStationMeteoLocal2)
+				{
+				break;
+				}
+			counter++;
+			}
+		tabbedPane.setTitleAt(counter, title);
 		}
 
 	/*------------------------------*\

@@ -56,7 +56,8 @@ public class JPanelStationMeteoLocal extends JPanel
 		apparence();
 
 		meteoServiceOptions = new MeteoServiceOptions(1000, 1000, 1000);
-		affichageOptions = new AffichageOptions(100, "Ceci est un client");
+		// affichageOptions = new AffichageOptions(100, "Ceci est un client");
+		affichageOptions = null;
 		}
 
 	/*------------------------------------------------------------------*\
@@ -75,7 +76,7 @@ public class JPanelStationMeteoLocal extends JPanel
 		{
 		return portsCom;
 		}
-	
+
 	public DefaultComboBoxModel<String> getComboBoxModel()
 	{
 		return portsComModel;
@@ -168,6 +169,11 @@ public class JPanelStationMeteoLocal extends JPanel
 				RmiURL rmiUrlAfficheurManager = new RmiURL(RMI_ID_AFFICHEUR_MANAGER, inetAddressServer, RmiTools.PORT_RMI_DEFAUT);
 
 				AfficheurManager_I afficheurManager = (AfficheurManager_I)RmiTools.connectionRemoteObjectBloquant(rmiUrlAfficheurManager);
+
+				affichageOptions = new AffichageOptions((Integer)points.getValue(), inetAddressLocal.getHostAddress() + " - " + title.getText());
+				points.setEnabled(false);
+				title.setEnabled(false);
+				frameLocal.majTitle(this, affichageOptions.getTitre());
 
 				RmiURL rmiUrlAfficheurService = afficheurManager.createRemoteAfficheurService(affichageOptions, new RmiURL(name, inetAddressLocal, RmiTools.PORT_RMI_DEFAUT));
 
@@ -287,7 +293,7 @@ public class JPanelStationMeteoLocal extends JPanel
 
 		//String[] ports = { "COM1", "COM2", "COM3", "COM4", "COM7", "COM8" };
 		portsComModel = new DefaultComboBoxModel<String>();
-		
+
 		portsCom = new JComboBox<String>(portsComModel);
 
 		startStop = new JButton("Start");
@@ -338,6 +344,7 @@ public class JPanelStationMeteoLocal extends JPanel
 
 		title = new JTextField("Station météo");
 		points = new JSpinner();
+		points.setValue(1000);
 
 		affichageOptions.add(new JLabel("Titre:"));
 		affichageOptions.add(title);
@@ -479,10 +486,10 @@ public class JPanelStationMeteoLocal extends JPanel
 	private JButton startStop;
 	private JTextField ipServer;
 	// private JTextField portCom;
-	
+
 	private JComboBox<String> portsCom;
 	private DefaultComboBoxModel<String> portsComModel;
-	
+
 	private JLabel isConnecting;
 	private JLabel isRunning;
 

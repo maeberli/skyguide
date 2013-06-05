@@ -21,7 +21,7 @@ public class AfficheurService implements AfficheurService_I
 		this.affichageOptions = affichageOptions;
 		this.meteoServiceRemote = meteoServiceRemote;
 
-		this.panelStationMeteo = PCCentral.frameGraphe.openNewTab(meteoServiceRemote);
+		this.panelStationMeteo = PCCentral.frameGraphe.openNewTab(meteoServiceRemote, affichageOptions);
 		}
 
 	/*------------------------------------------------------------------*\

@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import ch.hearc.coursjava.meteofinal.afficheur.AffichageOptions;
 import ch.hearc.coursjava.meteofinal.reseau.MeteoServiceWrapper_I;
 
 public class JFrameCentrale extends JFrame
@@ -79,7 +80,7 @@ public class JFrameCentrale extends JFrame
 		}
 
 
-	public PanelStationMeteo openNewTab(MeteoServiceWrapper_I meteoServiceRemote)
+	public PanelStationMeteo openNewTab(MeteoServiceWrapper_I meteoServiceRemote, AffichageOptions affichageOptions)
 		{
 		if (tabbedPane.getComponentAt(0) instanceof JLabel)
 			{
@@ -87,7 +88,7 @@ public class JFrameCentrale extends JFrame
 			}
 
 		PanelStationMeteo stationMeteo = new PanelStationMeteo(meteoServiceRemote);
-		tabbedPane.add("Station Météo", stationMeteo);
+		tabbedPane.add(affichageOptions.getTitre(), stationMeteo);
 
 		graphList.add(stationMeteo);
 

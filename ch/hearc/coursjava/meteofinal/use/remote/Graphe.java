@@ -42,8 +42,8 @@ public class Graphe
 //			Date date = new Date(x);
 //			System.out.println(date);
 //			}
-		seriesMemoire.add(RegularTimePeriod.createInstance(Millisecond.class, new Date(x), timeZone ), y);
-		series.add(RegularTimePeriod.createInstance(Millisecond.class, new Date(x), timeZone ), y);
+		seriesMemoire.addOrUpdate(RegularTimePeriod.createInstance(Millisecond.class, new Date(x), timeZone ), y);
+		series.addOrUpdate(RegularTimePeriod.createInstance(Millisecond.class, new Date(x), timeZone ), y);
 		}
 
 	@SuppressWarnings("unchecked")
