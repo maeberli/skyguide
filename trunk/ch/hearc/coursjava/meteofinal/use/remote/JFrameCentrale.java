@@ -107,7 +107,7 @@ public class JFrameCentrale extends JFrame
 
 	private void apparence()
 		{
-		setTitle("JFramePCCentrale");
+		setTitle("Station météo centrale");
 		setSize(800, 600);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation((int)((dim.getWidth() - getWidth()) / 2), (int)((dim.getHeight() - getHeight()) / 2));
