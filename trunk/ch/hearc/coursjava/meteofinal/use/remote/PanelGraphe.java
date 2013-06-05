@@ -94,6 +94,9 @@ public class PanelGraphe extends JPanel
 				false // Configure chart to generate URLs?
 				);
 
+
+
+
 		StandardChartTheme theme = (StandardChartTheme)org.jfree.chart.StandardChartTheme.createJFreeTheme();
 
 		theme.setTitlePaint(Color.WHITE);
