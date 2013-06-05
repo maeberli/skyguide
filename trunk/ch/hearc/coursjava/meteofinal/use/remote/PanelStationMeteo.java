@@ -134,22 +134,16 @@ public class PanelStationMeteo extends JPanel
 		labelMaxA = new JLabel("altitude maximum");
 
 		affichageOptions.add(new JLabel("temperature minimum"));
-		affichageOptions.add(Box.createHorizontalGlue());
 		affichageOptions.add(labelMinT);
 		affichageOptions.add(new JLabel("temperature maximum"));
-		affichageOptions.add(Box.createHorizontalGlue());
 		affichageOptions.add(labelMaxT);
 		affichageOptions.add(new JLabel("pression minimum"));
-		affichageOptions.add(Box.createHorizontalGlue());
 		affichageOptions.add(labelMinP);
 		affichageOptions.add(new JLabel("pression maximum"));
-		affichageOptions.add(Box.createHorizontalGlue());
 		affichageOptions.add(labelMaxP);
 		affichageOptions.add(new JLabel("altitude minimum"));
-		affichageOptions.add(Box.createHorizontalGlue());
 		affichageOptions.add(labelMinA);
 		affichageOptions.add(new JLabel("altitude maximum"));
-		affichageOptions.add(Box.createHorizontalGlue());
 		affichageOptions.add(labelMaxA);
 
 		meteoAffichageOptionsPanel.add(affichageOptions);
