@@ -99,7 +99,7 @@ public class PanelStationMeteo extends JPanel
 		meteoServiceOptionsPanel.setLayout(new BorderLayout());
 
 
-		meteoServiceOptionsPanel.add(new JPanelTitle("Meteo service options"), BorderLayout.NORTH);
+		meteoServiceOptionsPanel.add(new JPanelTitle("Statistiques Meteo"), BorderLayout.NORTH);
 
 		JPanel sliders = new JPanel();
 		sliders.setLayout(new GridLayout(3, 2, 10, 10));
@@ -133,17 +133,17 @@ public class PanelStationMeteo extends JPanel
 		labelMinA = new JLabel("altitude minimum");
 		labelMaxA = new JLabel("altitude maximum");
 
-		affichageOptions.add(new JLabel("temperature minimum"));
+		affichageOptions.add(new JLabel("Temperature minimum: "));
 		affichageOptions.add(labelMinT);
-		affichageOptions.add(new JLabel("temperature maximum"));
+		affichageOptions.add(new JLabel("Temperature maximum: "));
 		affichageOptions.add(labelMaxT);
-		affichageOptions.add(new JLabel("pression minimum"));
+		affichageOptions.add(new JLabel("Pression minimum: "));
 		affichageOptions.add(labelMinP);
-		affichageOptions.add(new JLabel("pression maximum"));
+		affichageOptions.add(new JLabel("Pression maximum: "));
 		affichageOptions.add(labelMaxP);
-		affichageOptions.add(new JLabel("altitude minimum"));
+		affichageOptions.add(new JLabel("Altitude minimum: "));
 		affichageOptions.add(labelMinA);
-		affichageOptions.add(new JLabel("altitude maximum"));
+		affichageOptions.add(new JLabel("Altitude maximum: "));
 		affichageOptions.add(labelMaxA);
 
 		meteoAffichageOptionsPanel.add(affichageOptions);
@@ -286,12 +286,12 @@ public class PanelStationMeteo extends JPanel
 		maxA = (float)panelGrapheAltitude.getGraphe().getSeriesMemoire().getMaxY();
 
 
-		labelMinT.setText(String.valueOf(df.format(minT)));
-		labelMaxT.setText(String.valueOf(df.format(maxT)));
-		labelMinP.setText(String.valueOf(df.format(minP)));
-		labelMaxP.setText(String.valueOf(df.format(maxP)));
-		labelMinA.setText(String.valueOf(df.format(minA)));
-		labelMaxA.setText(String.valueOf(df.format(maxA)));
+		labelMinT.setText(String.valueOf(df.format(minT) + "°C"));
+		labelMaxT.setText(String.valueOf(df.format(maxT) + "°C"));
+		labelMinP.setText(String.valueOf(df.format(minP) + "mB"));
+		labelMaxP.setText(String.valueOf(df.format(maxP) + "mB"));
+		labelMinA.setText(String.valueOf(df.format(minA) + "m"));
+		labelMaxA.setText(String.valueOf(df.format(maxA) + "m"));
 		}
 
 	/*------------------------------*\

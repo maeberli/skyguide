@@ -42,8 +42,16 @@ public class Graphe
 //			Date date = new Date(x);
 //			System.out.println(date);
 //			}
+
 		seriesMemoire.addOrUpdate(RegularTimePeriod.createInstance(Millisecond.class, new Date(x), timeZone ), y);
 		series.addOrUpdate(RegularTimePeriod.createInstance(Millisecond.class, new Date(x), timeZone ), y);
+
+		if(insertValue == false)
+			{
+			System.out.println("prout");
+			series.addOrUpdate(RegularTimePeriod.createInstance(Millisecond.class, new Date(x), timeZone ), 0.0);
+			insertValue = true;
+			}
 		}
 
 	@SuppressWarnings("unchecked")
@@ -92,6 +100,7 @@ public class Graphe
 	private long old = 0;
 	private long temp = 0;
 	private long firstValue;
+	private boolean insertValue = false;
 
 	private List<Object> listeSeries;
 	}
