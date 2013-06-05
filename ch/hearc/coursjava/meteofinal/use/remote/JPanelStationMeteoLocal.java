@@ -301,6 +301,7 @@ public class JPanelStationMeteoLocal extends JPanel {
 		portsCom = new JComboBox<String>(portsComModel);
 
 		startStop = new JButton("Start");
+		startStop.setEnabled(false);
 		startStop.setPreferredSize(new Dimension(10, 10));
 		isConnecting = new JLabel("Connecting");
 		isConnecting.setForeground(Color.RED);
@@ -449,6 +450,11 @@ public class JPanelStationMeteoLocal extends JPanel {
 			public void mouseClicked(MouseEvent arg0) {
 				if (portsCom.getItemCount() == 0) {
 					new JFramePortDetection(JPanelStationMeteoLocal.this);
+
+					if (portsCom.getItemCount() != 0)
+						{
+						startStop.setEnabled(true);
+						}
 				}
 			}
 		});

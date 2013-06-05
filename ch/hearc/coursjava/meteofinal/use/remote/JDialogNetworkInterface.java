@@ -84,6 +84,7 @@ public class JDialogNetworkInterface extends JDialog {
 		add(select);
 
 		ok = new JButton("Ok");
+		ok.setEnabled(false);
 		add(ok);
 	}
 
@@ -102,6 +103,7 @@ public class JDialogNetworkInterface extends JDialog {
 						information.setText(OK + inetAddressSelected.getHostAddress());
 						information.setForeground(Color.GREEN);
 
+						ok.setEnabled(true);
 						break;
 					}
 
