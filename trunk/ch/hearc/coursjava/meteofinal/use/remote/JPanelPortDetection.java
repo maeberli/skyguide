@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.spec.PSSParameterSpec;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,8 +65,16 @@ public class JPanelPortDetection extends JPanel {
 		jListAllPorts = new JList<String>();
 		jListAllPorts.setModel(allPortsListModel);
 		for (Object object : ports) {
-			allPortsListModel.addElement(object.toString());
-			portsList.add(object.toString());
+			if(panelStation.getPortInUseMap().get(object.toString()) != null && panelStation.getPortInUseMap().get(object.toString()))
+				{
+				excludedPortsListModel.addElement(object.toString() + " in use!");
+				excludedPortsList.add(object.toString());
+				}
+			else
+			{
+				allPortsListModel.addElement(object.toString());
+				portsList.add(object.toString());
+			}
 		}
 	}
 
@@ -90,8 +99,13 @@ public class JPanelPortDetection extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				for (Object object : jListExcludedPorts.getSelectedValuesList()) {
-					if (!allPortsListModel.contains(object)) {
+				for (String object : jListExcludedPorts.getSelectedValuesList()) {
+					boolean isInUse = false;
+					if (panelStation.getPortInUseMap().get((object.split(" ")[0])) != null)
+						{
+						isInUse = panelStation.getPortInUseMap().get((object.split(" ")[0]));
+						}
+					if (!allPortsListModel.contains(object) && !isInUse) {
 						excludedPortsListModel.removeElement(object);
 						allPortsListModel.addElement(object.toString());
 						excludedPortsList.remove(object.toString());
@@ -101,7 +115,7 @@ public class JPanelPortDetection extends JPanel {
 				}
 			}
 		});
-
+		
 		btnAutoDetect.addActionListener(new ActionListener() {
 
 			@Override
