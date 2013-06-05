@@ -300,6 +300,8 @@ public class JPanelStationMeteoLocal extends JPanel {
 
 		portsCom = new JComboBox<String>(portsComModel);
 
+		openPortDetecButton = new JButton("Détection ports");
+		
 		startStop = new JButton("Start");
 		startStop.setEnabled(false);
 		startStop.setPreferredSize(new Dimension(10, 10));
@@ -312,8 +314,10 @@ public class JPanelStationMeteoLocal extends JPanel {
 		box.add(startStop);
 		meteoServiceRemote.add(box);
 
-		meteoServiceRemote.add(ipServer);
+		meteoServiceRemote.add(new JLabel(" "));
+		meteoServiceRemote.add(openPortDetecButton);
 		meteoServiceRemote.add(portsCom);
+		meteoServiceRemote.add(ipServer);
 		meteoServiceRemote.add(startStop);
 		meteoServiceRemote.add(isConnecting);
 		meteoServiceRemote.add(isRunning);
@@ -371,6 +375,13 @@ public class JPanelStationMeteoLocal extends JPanel {
 	}
 
 	private void controle() {
+		openPortDetecButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				new JFramePortDetection(JPanelStationMeteoLocal.this);
+			}
+		});
 		startStop.addActionListener(new ActionListener() {
 
 			@Override
@@ -476,6 +487,7 @@ public class JPanelStationMeteoLocal extends JPanel {
 	private PanelGraphe panelGraphePression;
 	private PanelGraphe panelGrapheAltitude;
 
+	private JButton openPortDetecButton;
 	private JButton startStop;
 	private JTextField ipServer;
 	// private JTextField portCom;
