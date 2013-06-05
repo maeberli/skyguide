@@ -9,7 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.math.RoundingMode;
 import java.rmi.RemoteException;
+import java.text.DecimalFormat;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -132,16 +134,22 @@ public class PanelStationMeteo extends JPanel
 		labelMaxA = new JLabel("altitude maximum");
 
 		affichageOptions.add(new JLabel("temperature minimum"));
+		affichageOptions.add(Box.createHorizontalGlue());
 		affichageOptions.add(labelMinT);
 		affichageOptions.add(new JLabel("temperature maximum"));
+		affichageOptions.add(Box.createHorizontalGlue());
 		affichageOptions.add(labelMaxT);
 		affichageOptions.add(new JLabel("pression minimum"));
+		affichageOptions.add(Box.createHorizontalGlue());
 		affichageOptions.add(labelMinP);
 		affichageOptions.add(new JLabel("pression maximum"));
+		affichageOptions.add(Box.createHorizontalGlue());
 		affichageOptions.add(labelMaxP);
 		affichageOptions.add(new JLabel("altitude minimum"));
+		affichageOptions.add(Box.createHorizontalGlue());
 		affichageOptions.add(labelMinA);
 		affichageOptions.add(new JLabel("altitude maximum"));
+		affichageOptions.add(Box.createHorizontalGlue());
 		affichageOptions.add(labelMaxA);
 
 		meteoAffichageOptionsPanel.add(affichageOptions);
@@ -263,7 +271,8 @@ public class PanelStationMeteo extends JPanel
 
 	public void apparence()
 		{
-
+		df = new DecimalFormat("##.##");
+		df.setRoundingMode(RoundingMode.DOWN);
 		}
 
 	public void setMeteoServiceOptions(MeteoServiceOptions meteoServiceOptions)
@@ -282,12 +291,13 @@ public class PanelStationMeteo extends JPanel
 		minA = (float)panelGrapheAltitude.getGraphe().getSeriesMemoire().getMinY();
 		maxA = (float)panelGrapheAltitude.getGraphe().getSeriesMemoire().getMaxY();
 
-		labelMinT.setText(String.valueOf(minT));
-		labelMaxT.setText(String.valueOf(maxT));
-		labelMinP.setText(String.valueOf(minP));
-		labelMaxP.setText(String.valueOf(maxP));
-		labelMinA.setText(String.valueOf(minA));
-		labelMaxA.setText(String.valueOf(maxA));
+
+		labelMinT.setText(String.valueOf(df.format(minT)));
+		labelMaxT.setText(String.valueOf(df.format(maxT)));
+		labelMinP.setText(String.valueOf(df.format(minP)));
+		labelMaxP.setText(String.valueOf(df.format(maxP)));
+		labelMinA.setText(String.valueOf(df.format(minA)));
+		labelMaxA.setText(String.valueOf(df.format(maxA)));
 		}
 
 	/*------------------------------*\
@@ -327,6 +337,7 @@ public class PanelStationMeteo extends JPanel
 	\*------------------------------------------------------------------*/
 
 	private MeteoServiceWrapper_I meteoServiceRemote;
+	private DecimalFormat df;
 
 	private PanelGraphe panelGrapheTemperature;
 	private PanelGraphe panelGraphePression;
@@ -340,12 +351,12 @@ public class PanelStationMeteo extends JPanel
 	private JSlider sliderPressionDT;
 	private JSlider sliderAltitudeDT;
 
-	private float minT = 0;
-	private float maxT = 0;
-	private float minP = 0;
-	private float maxP = 0;
-	private float minA = 0;
-	private float maxA = 0;
+	private float minT = 1000;
+	private float maxT = 1000;
+	private float minP = 1000;
+	private float maxP = 1000;
+	private float minA = 1000;
+	private float maxA = 1000;
 
 	private JLabel labelMinT;
 	private JLabel labelMaxT;
