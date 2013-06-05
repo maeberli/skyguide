@@ -270,7 +270,7 @@ public class JPanelStationMeteoLocal extends JPanel
 			{
 			frameLocal.getPortInUseMap().put(portsCom.getItemAt(portsCom.getSelectedIndex()), false);
 			meteoService.stop();
-			meteoService.disconnect();
+			// meteoService.disconnect();
 			startStop.setText("Start");
 			isConnecting.setForeground(Color.RED);
 			isRunning.setForeground(Color.RED);
