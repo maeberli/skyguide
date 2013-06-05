@@ -117,7 +117,7 @@ public class JFrameLocal extends JFrame
 
 	private void apparence()
 		{
-		setTitle("Stations météo locales");
+		setTitle("Stations météto locales");
 		setSize(800, 400);
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setLocation((int)((dim.getWidth() - getWidth()) / 2), (int)((dim.getHeight() - getHeight()) / 2));
