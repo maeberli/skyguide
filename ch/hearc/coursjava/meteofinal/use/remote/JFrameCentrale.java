@@ -114,6 +114,8 @@ public class JFrameCentrale extends JFrame
 		setResizable(true);
 
 		setVisible(true);
+
+		setIconImage(ImageTools.loadJar("ressources/icon.png", true));
 		}
 
 	/*------------------------------------------------------------------*\

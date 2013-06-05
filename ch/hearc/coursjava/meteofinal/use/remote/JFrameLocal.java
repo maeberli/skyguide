@@ -79,16 +79,7 @@ public class JFrameLocal extends JFrame {
 	private void geometrie() {
 		setLayout(new BorderLayout());
 		tabbedPane = new JTabbedPane();
-		// tabbedPane.addChangeListener(new ChangeListener()
-		// {
-		//
-		// @Override
-		// public void stateChanged(ChangeEvent e)
-		// {
-		// System.out.println("change");
-		//
-		// }
-		// });
+		setMinimumSize(new Dimension(1100,600));
 
 		add(tabbedPane, BorderLayout.CENTER);
 
@@ -127,6 +118,7 @@ public class JFrameLocal extends JFrame {
 				(int) ((dim.getHeight() - getHeight()) / 2));
 
 		setVisible(true);
+		setIconImage(ImageTools.loadJar("ressources/icon.png", true));
 	}
 
 	/*------------------------------------------------------------------*\

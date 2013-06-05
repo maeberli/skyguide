@@ -5,7 +5,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-import ch.hearc.coursjava.gui.tools.ImageTools;
+import ch.hearc.coursjava.meteofinal.use.remote.ImageTools;
 
 public class ImageShop
 	{
